@@ -1,0 +1,535 @@
+//@version=6
+indicator("REALF v4.2 FINAL - Adaptive Price / Flow", shorttitle="REALF v4.2", overlay=false, precision=1, max_bars_back=3000, max_labels_count=1, dynamic_requests=true)
+
+// REALF: 50 = balance; below 50 = flow ahead; above 50 = price ahead.
+// Fixed weights: Impact 45%, CVD Memory 25%, Momentum 20%, Confirmation 10%.
+// This is a relative model score, NOT a probability or a trading strategy.
+// The entire engine runs on standard OHLCV, including on Heikin Ashi charts.
+// Use standard time bars or Heikin Ashi. Unmatched source/chart timestamps
+// hide the line and disable alarms; no custom runtime.error is thrown.
+
+const int LEN = 300
+const int FAST = 20
+const int SLOPE = 5
+const int REQUEST_BARS = 3000
+const string MODEL = "Model / veri"
+const string VIEW = "Gorunum"
+const string SUPPLY = "BTC Supply - bagimsiz, manuel"
+const string ALERTS = "Alarmlar"
+
+string sourceOverride = input.symbol("", "Islem verisi sembolu (bos = otomatik)", group=MODEL, tooltip="Fiyat ve hacim AYNI islem sembolunden alinir. Mark Price _MPRICE eki otomatik kaldirilir. Gerekirse ornegin BINANCE:AKEUSDT.P secin. Farkli bir sembol secerseniz REALF o sembolu olcer.")
+float impactK = input.float(2.0, "Impact ATR olcegi", minval=0.5, maxval=10.0, step=0.25, group=MODEL)
+string deltaMode = input.string("AUTO", "Delta kaynagi", options=["AUTO", "AUTO_SECONDS", "PROXY"], group=MODEL, tooltip="AUTO: mevcut TF icinde alt mum hacim deltasi tahmini. Veri yoksa CLV proxy. Gercek bid/ask islemleri degildir. 1m ve daha kucuk TF'lerde proxy kullanilir. AUTO_SECONDS: 1m icin 10S veri ister, hesabinizin saniye verisi yetkisi gerekir. Alt veri kapsami yeniden yuklemede degisirse eski AUTO skorlari da degisebilir; sabit kaynak icin PROXY secin.")
+string volumeMode = input.string("AUTO", "Hacim birimi", options=["AUTO", "BASE", "QUOTE"], group=MODEL, tooltip="AUTO syminfo.volumetype kullanir. n/a veya tick turunde hesap durur; saglayicidan dogruladiginiz BASE/QUOTE birimini secin. Notional, kotasyon para birimindedir; her sembolde USD degildir.")
+float memoryHalfLife = input.float(30.0, "Fiyatlanmamis flow yari omru (bar)", minval=10.0, maxval=150.0, group=MODEL)
+bool debugValues = input.bool(false, "Inceleme: Veri Penceresinde bilesenler", group=MODEL)
+bool showWhale = input.bool(true, "WHALE* proxy durumu", group=VIEW)
+bool supplyEntered = input.bool(false, "Guncel Supply yuzdesini girdim", group=SUPPLY)
+bool whaleAlerts = input.bool(false, "Whale proxy alert() olaylari", group=ALERTS)
+bool debugSource = input.bool(false, "Etikette veri kaynagini goster", group=MODEL)
+bool showPanel = input.bool(true, "TF / REALF tablosu", group=VIEW)
+string mtfMode = input.string("CONFIRMED", "MTF modu", options=["CONFIRMED", "LIVE"], group=VIEW, tooltip="Yalniz tabloyu etkiler. CONFIRMED: ust TF'de onceki kapanmis mum. LIVE: acik mum degisebilir. Ana REALF cizgisi her zaman guncel mumdur.")
+bool showInner = input.bool(true, "42 / 58 referanslari", group=VIEW)
+bool showZones = input.bool(true, "Hafif renk bolgeleri", group=VIEW)
+int labelOffset = input.int(3, "Sari etiket sag bosluk (bar)", minval=0, maxval=30, group=VIEW)
+bool showSupply = input.bool(true, "BTC SUPPLY EDGE goster", group=SUPPLY)
+float supplyProfitPct = input.float(50.0, "BTC Supply in Profit %", minval=0.0, maxval=100.0, step=0.1, group=SUPPLY, tooltip="Manuel degerdir; canli onchain veri degildir. Varsayilan 50 piyasa gozlemi degildir. CoreCharts/Glassnode'dan okudugunuz yuzdeyi girin.")
+bool dynamicAlerts = input.bool(false, "Toplu REALF alert() mesajlari", group=ALERTS, tooltip="Alarm olustururken Any alert() function call secin. Alternatif: ayri REALF kosullari. Ikisini birlikte kurarsaniz bildirimler tekrarlanabilir.")
+
+f_clamp(float x, float lo, float hi) =>
+    math.max(lo, math.min(hi, x))
+
+f_tanh(float x) =>
+    float result = na
+    if not na(x)
+        float e = math.exp(2.0 * f_clamp(x, -20.0, 20.0))
+        result := (e - 1.0) / (e + 1.0)
+    result
+
+f_div(float numerator, float denominator) =>
+    float result = na
+    if not na(numerator) and not na(denominator) and denominator > 0.0
+        result := numerator / denominator
+    result
+
+// Zero is a legitimate flat-series value; missing observations stay na.
+f_standard(float difference, float deviation) =>
+    float result = na
+    if not na(difference) and not na(deviation)
+        result := 0.0
+        if deviation > 1e-12
+            result := difference / deviation
+    result
+
+// Origin-preserving normalization: persistent positive pressure stays positive.
+// Centering net flow around its own mean would erase sustained accumulation.
+f_normalize(float value, float historicalRms, float floorValue) =>
+    f_tanh(f_div(value, math.max(historicalRms, floorValue)))
+
+f_color(float value) =>
+    color result = #90A4AE
+    if not na(value)
+        if value < 30.0
+            result := #00C853
+        else if value < 42.0
+            result := #81C784
+        else if value <= 58.0
+            result := #90A4AE
+        else if value <= 70.0
+            result := #FFB300
+        else
+            result := #F44336
+    result
+
+// Intrabar up/down classification, including doji tick direction.
+f_intrabar_delta() =>
+    var float direction = 0.0
+    if close > open
+        direction := 1.0
+    else if close < open
+        direction := -1.0
+    else if close > close[1]
+        direction := 1.0
+    else if close < close[1]
+        direction := -1.0
+    direction * volume
+
+// Adapter returns signed volume plus a diagnostic source flag.
+// CLV fallback allocates volume by closing position in the candle range,
+// instead of assigning the entire parent bar's volume to its candle color.
+f_delta() =>
+    float pressure = 0.0
+    if high > low
+        pressure := f_clamp((2.0 * close - high - low) / (high - low), -1.0, 1.0)
+    float signedVol = pressure * volume
+    bool usedIntrabars = false
+    float contextSeconds = timeframe.in_seconds()
+    string lowerTf = "1"
+    if contextSeconds >= 86400
+        lowerTf := "60"
+    else if contextSeconds >= 14400
+        lowerTf := "15"
+    else if contextSeconds >= 3600
+        lowerTf := "5"
+    else if contextSeconds == 60 and deltaMode == "AUTO_SECONDS"
+        lowerTf := "10S"
+    // The comparison is evaluated INSIDE each requested TF's own context.
+    // No seconds-feed subscription is required. No nested main_period grouping.
+    if deltaMode != "PROXY" and (contextSeconds > 60 or (contextSeconds == 60 and deltaMode == "AUTO_SECONDS"))
+        [deltas, volumes] = request.security_lower_tf("", lowerTf, [f_intrabar_delta(), volume], ignore_invalid_symbol=true, ignore_invalid_timeframe=true, calc_bars_count=60000)
+        if array.size(deltas) > 0
+            float intrabarVolume = array.sum(volumes)
+            float intrabarDelta = array.sum(deltas)
+            float coverage = f_div(intrabarVolume, volume)
+            // Reject incomplete/mismatched coverage; never treat missing data as zero.
+            if not na(intrabarDelta) and not na(coverage) and coverage >= 0.95 and coverage <= 1.05
+                signedVol := f_clamp(intrabarDelta, -volume, volume)
+                usedIntrabars := true
+    [signedVol, usedIntrabars]
+
+// Recent 100 observations plus ALL older observations at reduced weight.
+// This is a moment-preserving block summary, not point subsampling.
+// Old weights sum to 200; weighted mass 300 is NOT statistical effective N.
+// Deeper windows cross-fade over 100 additional valid observations.
+f_mr(float x) =>
+    float recent = math.sum(x, 100)
+    float old200 = math.sum(x[100], 200)
+    float old400 = math.sum(x[100], 400)
+    float old900 = math.sum(x[100], 900)
+    float old2000 = math.sum(x[100], 2000)
+    float observations = ta.cum(not na(x) ? 1.0 : 0.0)
+    float result = (recent + old200) / 300.0
+    float c500 = (recent + old400 * 0.5) / 300.0
+    float c1000 = (recent + old900 * (200.0 / 900.0)) / 300.0
+    float c2100 = (recent + old2000 * 0.1) / 300.0
+    if not na(c500)
+        result += f_clamp((observations - 500.0) / 100.0, 0.0, 1.0) * (c500 - result)
+    if not na(c1000)
+        result += f_clamp((observations - 1000.0) / 100.0, 0.0, 1.0) * (c1000 - result)
+    if not na(c2100)
+        result += f_clamp((observations - 2100.0) / 100.0, 0.0, 1.0) * (c2100 - result)
+    result
+
+// Source adapter -> engine. Supply and whale never enter the score formula.
+f_engine(float signedVol, bool intrabarFlag) =>
+    bool quoteUnits = volumeMode == "QUOTE" or (volumeMode == "AUTO" and syminfo.volumetype == "quote")
+    bool unitsOk = volumeMode != "AUTO" or syminfo.volumetype == "base" or syminfo.volumetype == "quote"
+    float notional = na
+    float signedNotional = na
+    if unitsOk
+        notional := quoteUnits ? volume : volume * hlc3
+        signedNotional := quoteUnits ? signedVol : signedVol * hlc3
+    bool barOk = unitsOk and not na(volume) and volume >= 0.0 and not na(signedVol) and close > 0.0
+    float validCount = math.sum(barOk ? 1.0 : 0.0, LEN)
+    float baseline = f_mr(notional)
+    float seedBaseline = ta.sma(notional, 20)
+    float volumeBase = nz(baseline[1], seedBaseline[1])
+    float rvol = f_div(notional, volumeBase)
+    float pressure = volume > 0.0 ? f_clamp(signedVol / volume, -1.0, 1.0) : 0.0
+    // Log activity + cap limits single anomalous volume bars.
+    float flow = pressure * math.min(math.log(1.0 + rvol), 3.0)
+    float ret = close > 0.0 and close[1] > 0.0 ? math.log(close / close[1]) : na
+    // All regression moments use exactly the same valid observations/weights.
+    float fitReturn = not na(flow) ? ret : na
+    float meanR = f_mr(fitReturn)
+    float meanF = f_mr(flow)
+    float meanRF = f_mr(fitReturn * flow)
+    float meanF2 = f_mr(flow * flow)
+    float meanR2 = f_mr(fitReturn * fitReturn)
+    float varianceF = math.max(meanF2 - meanF * meanF, 0.0)
+    float varianceR = math.max(meanR2 - meanR * meanR, 0.0)
+    float covariance = meanRF - meanR * meanF
+    float betaRaw = na
+    float fitR2 = na
+    if not na(meanRF)
+        betaRaw := varianceF > 1e-12 ? covariance / varianceF : 0.0
+        fitR2 := varianceF > 1e-12 and varianceR > 1e-16 ? f_clamp(covariance * covariance / (varianceF * varianceR), 0.0, 1.0) : 0.0
+    // Negative relation is diagnostic, not positive evidence of causal impact.
+    float fitTrust = betaRaw[1] > 0.0 ? math.sqrt(nz(fitR2[1], 0.0)) : 0.0
+    float expectedStep = betaRaw[1] * flow
+    // Genuine historical beta_i * flow_i in EVERY horizon.
+    float expected5 = math.sum(expectedStep, 5)
+    float expected20 = math.sum(expectedStep, 20)
+    float expected100 = math.sum(expectedStep, 100)
+    float expected300 = math.sum(expectedStep, 300)
+    float actual5 = math.sum(ret, 5)
+    float actual20 = math.sum(ret, 20)
+    float actual100 = math.sum(ret, 100)
+    float atr = ta.atr(14)
+    float priceScale = math.max(math.sqrt(meanR2[1]), math.max(0.15 * atr[1] / close[1], 1e-6))
+    float flowScale = math.max(math.sqrt(meanF2[1]), 0.35)
+    // Regularize the lagged coefficient, not the sign of the final score.
+    // Gating the entire score by R2 can rank a strongly supported pump ABOVE
+    // a weakly supported pump just because the former creates correlation.
+    float fallbackBeta = priceScale / flowScale
+    float calibration = fitTrust * math.max(nz(betaRaw[1], 0.0), 0.0) + (1.0 - fitTrust) * fallbackBeta
+    float potentialStep = calibration * flow
+    float potential5 = math.sum(potentialStep, 5)
+    float potential20 = math.sum(potentialStep, 20)
+    float potential100 = math.sum(potentialStep, 100)
+    float gap5 = f_div(actual5 - potential5, priceScale * math.sqrt(5.0) * impactK)
+    float gap20 = f_div(actual20 - potential20, priceScale * math.sqrt(20.0) * impactK)
+    float gap100 = f_div(actual100 - potential100, priceScale * 10.0 * impactK)
+    float impactGap = ta.ema(0.45 * f_tanh(gap5) + 0.35 * f_tanh(gap20) + 0.20 * f_tanh(gap100), 3)
+    float impactScore = 50.0 + 49.0 * impactGap
+
+    // Weak regression uses an explicitly heuristic volatility/flow scale.
+    // This is NOT a fitted fair-price forecast or market-cap estimate.
+    float decay = math.exp(math.log(0.5) / memoryHalfLife)
+    var float inventory = na
+    var int inventoryBars = 0
+    if barOk and not na(potentialStep) and not na(ret)
+        inventory := decay * nz(inventory[1], 0.0) + potentialStep - ret
+        inventoryBars := nz(inventoryBars[1], 0) + 1
+    else
+        inventory := na
+        inventoryBars := 0
+    // Inventory is in log-return units. Repricing consumes the same state;
+    // falling price adds unpriced buy pressure / consumes sell pressure.
+    float memoryGap = -f_div(inventory, priceScale * math.sqrt(1.0 / (1.0 - decay)) * impactK)
+    float net20 = math.sum(signedNotional, 20)
+    float positiveCount = math.sum(signedNotional > 0.0 ? 1.0 : 0.0, 20)
+    float negativeCount = math.sum(signedNotional < 0.0 ? 1.0 : 0.0, 20)
+    float persistence = net20 > 0.0 ? positiveCount / 20.0 : (net20 < 0.0 ? negativeCount / 20.0 : 0.0)
+    float persistFactor = 0.35 + 0.65 * persistence
+    float memoryScore = 50.0 + 49.0 * f_tanh(memoryGap) * persistFactor
+
+    // Matched units; magnitude retained. No independent direction-only z score.
+    float fastPrice = actual5 / (priceScale * math.sqrt(5.0))
+    float fastFlow = potential5 / (priceScale * math.sqrt(5.0))
+    float fastGap = (actual5 - potential5) / (priceScale * math.sqrt(5.0) * impactK)
+    float mediumGap = (actual20 - potential20) / (priceScale * math.sqrt(20.0) * impactK)
+    float momentumGap = ta.ema(0.65 * f_tanh(fastGap) + 0.35 * f_tanh(mediumGap), 3)
+    float momentumScore = 50.0 + 49.0 * momentumGap * persistFactor
+
+    float percentile = ta.percentrank(notional, LEN)
+    float activityConfidence = math.sqrt(f_clamp(rvol / 2.0, 0.0, 1.0) * f_clamp(percentile / 100.0, 0.0, 1.0))
+    float core = (0.45 * impactScore + 0.25 * memoryScore + 0.20 * momentumScore) / 0.90
+    float activityScore = 50.0 + (core - 50.0) * activityConfidence
+    float score = na
+    bool ready = validCount == LEN and inventoryBars >= 100 and not na(expected100) and not na(activityScore)
+    if ready
+        score := f_clamp(0.45 * impactScore + 0.25 * memoryScore + 0.20 * momentumScore + 0.10 * activityScore, 0.0, 100.0)
+    float intrabarShare = ta.sma(intrabarFlag ? 1.0 : 0.0, LEN)
+    float totalDeviation = 0.45 * math.abs(impactScore - 50.0) + 0.25 * math.abs(memoryScore - 50.0) + 0.20 * math.abs(momentumScore - 50.0)
+    float agreement = totalDeviation > 1e-6 ? f_clamp(math.abs(0.9 * (core - 50.0)) / totalDeviation, 0.0, 1.0) : 1.0
+
+    // Independent unusual-flow event, NOT identification of a whale trader.
+    // Threshold distributions exclude the current observation.
+    float p90 = ta.percentile_nearest_rank(notional, LEN, 90)[1]
+    float p97 = ta.percentile_nearest_rank(notional, LEN, 97)[1]
+    float p993 = ta.percentile_nearest_rank(notional, LEN, 99.3)[1]
+    float pressure3 = f_div(math.sum(signedNotional, 3), math.sum(notional, 3))
+    float move3 = math.sum(ret, 3)
+    float response = f_div(move3, priceScale * math.sqrt(3.0))
+    bool directionalFlow = math.abs(pressure3) >= 0.25 and pressure * pressure3 > 0.0
+    bool absorption = math.abs(response) <= 0.75
+    bool alignedResponse = response * pressure3 > 0.0
+    int whaleLevel = 0
+    if ready and directionalFlow and (absorption or alignedResponse)
+        if notional >= p90 and rvol >= 1.5
+            whaleLevel := 1
+        if notional >= p97 and rvol >= 2.5
+            whaleLevel := 2
+        if notional >= p993 and rvol >= 4.0
+            whaleLevel := 3
+    int whaleDirection = whaleLevel > 0 ? (pressure3 > 0.0 ? 1 : -1) : 0
+    [score, impactScore, memoryScore, momentumScore, activityScore, persistence, fastPrice, fastFlow, inventory, betaRaw, rvol, percentile, notional, whaleLevel, whaleDirection, absorption, fitR2, intrabarShare, agreement, unitsOk, expected300]
+
+// Scalar transport: real scores are 0..100; negative codes are diagnostics ONLY.
+// Each status is evaluated inside that timeframe, never inferred from chart bars.
+f_readout(float score) =>
+    float volumeSeen = ta.cum(nz(volume, 0.0))
+    float validVolumeBars = math.sum(not na(volume) and volume >= 0.0 ? 1.0 : 0.0, LEN)
+    float windowVolume = math.sum(nz(volume, 0.0), LEN)
+    float result = score
+    if na(score)
+        if na(volume) or volumeSeen <= 0.0
+            result := -1.0
+        else if bar_index + 1 < 420
+            result := -1000.0 - float(bar_index + 1)
+        else if validVolumeBars < LEN or windowVolume <= 0.0
+            result := -2.0
+        else
+            result := -3.0
+    result
+
+f_realf() =>
+    [deltaValue, intrabarFlag] = f_delta()
+    [score, impact, memory, momentum, activity, persistence, fastPrice, fastFlow, inventory, beta, rvol, percentile, notional, whaleLevel, whaleDirection, absorption, fitR2, intrabarShare, agreement, unitsOk, expected300] = f_engine(deltaValue, intrabarFlag)
+    unitsOk ? f_readout(score) : -4.0
+
+// Request the WHOLE engine in standard-bar context. Fetching only OHLC first
+// and then applying history on Renko/HA would use the wrong bar sequence.
+f_chart_values() =>
+    [deltaValue, intrabarFlag] = f_delta()
+    [score, impact, memory, momentum, activity, persistence, fastPrice, fastFlow, inventory, beta, rvol, percentile, notional, whaleLevel, whaleDirection, absorption, fitR2, intrabarShare, agreement, unitsOk, expected300] = f_engine(deltaValue, intrabarFlag)
+    float readout = unitsOk ? f_readout(score) : -4.0
+    [score, readout, readout[1], intrabarFlag, time, time_close, impact, memory, momentum, activity, persistence, fastPrice, fastFlow, inventory, beta, rvol, percentile, notional, whaleLevel, whaleDirection, absorption, fitR2, intrabarShare, agreement, expected300]
+
+// ticker.standard removes chart modifiers, but a literal _MPRICE ticker suffix
+// still names a mark-price feed. Resolve that suffix to the traded contract.
+string chartSymbol = ticker.standard(syminfo.tickerid)
+string selectedSymbol = chartSymbol
+if str.length(sourceOverride) > 0
+    selectedSymbol := ticker.standard(sourceOverride)
+string modelSymbol = selectedSymbol
+if str.endswith(selectedSymbol, "_MPRICE")
+    modelSymbol := str.substring(selectedSymbol, 0, str.length(selectedSymbol) - 7)
+// Current source bar, no [1] plot shift and no lookahead into future bars.
+// Leave chart history unrestricted by the smaller table REQUEST_BARS budget.
+[rawRealf, chartReadout, previousSourceReadout, chartIntrabars, sourceOpenTime, sourceCloseTime, impact, memory, momentum, activity, persistence, fastPrice, fastFlow, inventory, beta, rvol, percentile, notional, whaleLevel, whaleDirection, absorption, fitR2, intrabarShare, agreement, expected300] = request.security(modelSymbol, timeframe.period, f_chart_values(), gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_off, ignore_invalid_symbol=true)
+bool matchingBar = sourceOpenTime == time and sourceCloseTime == time_close
+float realf = matchingBar ? rawRealf : na
+bool confirmedMode = mtfMode == "CONFIRMED"
+float chartSeconds = timeframe.in_seconds()
+bool timeAlignedChart = chart.is_standard or chart.is_heikinashi
+
+// Deliberate safe LTF policy: lower rows are disabled, never sampled with
+// ordinary request.security(). Open a 1m chart to calculate all seven rows.
+// HTF calls return ONE scalar and evaluate the whole engine in the target TF.
+f_mtf(string tf) =>
+    float result = na
+    float targetSeconds = timeframe.in_seconds(tf)
+    if showPanel
+        if targetSeconds == chartSeconds
+            result := matchingBar ? chartReadout : na
+            if matchingBar and confirmedMode and (not barstate.isconfirmed or not timeAlignedChart)
+                result := previousSourceReadout
+        else if targetSeconds > chartSeconds
+            if confirmedMode
+                result := request.security(modelSymbol, tf, f_realf()[1], gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_on, ignore_invalid_symbol=true, calc_bars_count=REQUEST_BARS)
+            else
+                result := request.security(modelSymbol, tf, f_realf(), gaps=barmerge.gaps_off, lookahead=barmerge.lookahead_off, ignore_invalid_symbol=true, calc_bars_count=REQUEST_BARS)
+    result
+
+float r1 = f_mtf("1")
+float r3 = f_mtf("3")
+float r5 = f_mtf("5")
+float r15 = f_mtf("15")
+float r60 = f_mtf("60")
+float r240 = f_mtf("240")
+float rD = f_mtf("1D")
+
+// ONE historical signal plot, including status line and price scale.
+plot(realf, "REALF", color=f_color(realf), linewidth=3, style=plot.style_linebr, display=display.all)
+h0 = hline(0, "0", color=color.new(color.gray, 100))
+h30 = hline(30, "30", color=color.new(#00C853, 45), linestyle=hline.style_dashed)
+h42 = hline(42, "42", color=color.new(color.gray, showInner ? 65 : 100), linestyle=hline.style_dotted)
+h50 = hline(50, "50 - Denge", color=color.new(#90A4AE, 15), linewidth=2)
+h58 = hline(58, "58", color=color.new(color.gray, showInner ? 65 : 100), linestyle=hline.style_dotted)
+h70 = hline(70, "70", color=color.new(#F44336, 45), linestyle=hline.style_dashed)
+h100 = hline(100, "100", color=color.new(color.gray, 100))
+fill(h0, h30, color=color.new(#00C853, showZones ? 92 : 100))
+fill(h30, h42, color=color.new(#81C784, showZones ? 94 : 100))
+fill(h42, h58, color=color.new(#90A4AE, showZones ? 96 : 100))
+fill(h58, h70, color=color.new(#FFB300, showZones ? 94 : 100))
+fill(h70, h100, color=color.new(#F44336, showZones ? 92 : 100))
+
+// One persistent label, updated on every last-bar execution/tick.
+var label liveLabel = label.new(na, na, "", xloc=xloc.bar_index, yloc=yloc.price, style=label.style_label_left, color=color.new(color.yellow, 100), textcolor=color.new(color.black, 100), size=size.normal)
+if barstate.islast
+    if na(realf)
+        label.set_xy(liveLabel, int(na), float(na))
+        label.set_text(liveLabel, "")
+        label.set_color(liveLabel, color.new(color.yellow, 100))
+        label.set_textcolor(liveLabel, color.new(color.black, 100))
+    else
+        string labelText = "REALF " + str.tostring(realf, "0.0")
+        if debugSource
+            labelText += chartIntrabars ? " | INTRABAR EST." : " | CLV PROXY"
+        label.set_xy(liveLabel, bar_index + labelOffset, realf)
+        label.set_text(liveLabel, labelText)
+        label.set_color(liveLabel, color.yellow)
+        label.set_textcolor(liveLabel, color.black)
+
+// DISPLAY-ONLY ONCHAIN CONTEXT — DOES NOT MODIFY REALF
+float supplyEdge = supplyEntered ? f_clamp(50.0 - supplyProfitPct, -50.0, 50.0) : na
+string edgeText = str.tostring(supplyEdge, "0.0")
+if supplyEdge > 0.0
+    edgeText := "+" + edgeText
+
+f_value_text(float value) =>
+    string result = "KAYNAK YOK"
+    if not na(value)
+        if value >= 0.0
+            result := str.tostring(value, "0.0")
+        else if value <= -1000.0
+            result := "WARMUP " + str.tostring(int(-value - 1000.0)) + "/420"
+        else if value == -1.0
+            result := "HACIM YOK"
+        else if value == -4.0
+            result := "HACIM BIRIMI?"
+        else if value == -2.0
+            result := "HACIM EKSIK"
+        else
+            result := "MODEL / VERI"
+    result
+
+// Exactly two auto-sized columns. A single fixed-width text gauge avoids
+// merged 14-column sizing spreading the panel over half the chart.
+var table panel = table.new(position.top_right, 2, 15, border_width=0, frame_width=1, frame_color=color.new(color.gray, 70))
+if barstate.isfirst
+    for row = 8 to 14
+        table.merge_cells(panel, 0, row, 1, row)
+
+f_row(int row, string tfLabel, string tf, float value) =>
+    string valueText = f_value_text(value)
+    if timeframe.in_seconds(tf) < chartSeconds
+        valueText := "LTF: 1m ac"
+    color cellColor = #90A4AE
+    if not na(value) and value >= 0.0
+        cellColor := f_color(value)
+    table.cell(panel, 0, row, tfLabel, text_color=color.white, bgcolor=color.new(#131722, 5), text_size=size.small)
+    table.cell(panel, 1, row, valueText, text_color=color.black, bgcolor=cellColor, text_size=size.small)
+
+if barstate.islast
+    table.clear(panel, 0, 0, 1, 14)
+    if showPanel
+        table.cell(panel, 0, 0, "TF", text_color=color.white, bgcolor=#263238, text_size=size.small)
+        table.cell(panel, 1, 0, "REALF", text_color=color.white, bgcolor=#263238, text_size=size.small)
+        f_row(1, "1m", "1", r1)
+        f_row(2, "3m", "3", r3)
+        f_row(3, "5m", "5", r5)
+        f_row(4, "15m", "15", r15)
+        f_row(5, "1h", "60", r60)
+        f_row(6, "4h", "240", r240)
+        f_row(7, "1D", "1D", rD)
+        string stateText = mtfMode
+        if not timeAlignedChart
+            stateText += "\nAlarm: zaman grafigi"
+        if chartSeconds > 60
+            stateText += "\nTum TF'ler: 1m grafik"
+        stateText += chartIntrabars ? " | DELTA TAHMIN" : " | PROXY"
+        if fitR2 < 0.05
+            stateText += "\nImpact uyumu zayif"
+        if agreement < 0.35
+            stateText += "\nBilesenler karisik"
+        if not matchingBar
+            stateText += "\nKaynak bar eslesmiyor"
+        table.cell(panel, 0, 8, stateText, text_color=#B0BEC5, bgcolor=color.new(#131722, 5), text_size=size.tiny)
+    else if na(realf)
+        table.cell(panel, 0, 8, "REALF " + f_value_text(chartReadout), text_color=color.yellow, bgcolor=#131722, text_size=size.small)
+    if showPanel or na(realf)
+        table.cell(panel, 0, 9, "Kaynak: " + modelSymbol, text_color=#B0BEC5, bgcolor=#131722, text_size=size.tiny)
+    if showWhale
+        string whaleText = "WHALE* YOK"
+        if not matchingBar or na(realf)
+            whaleText := "WHALE* VERI YOK"
+        else if whaleLevel > 0
+            whaleText := "WHALE* " + (whaleDirection > 0 ? "BUY L" : "SELL L") + str.tostring(whaleLevel) + (absorption ? " | ABS*" : "")
+        table.cell(panel, 0, 14, whaleText, text_color=color.yellow, bgcolor=#131722, text_size=size.small)
+    if showSupply and not supplyEntered
+        table.cell(panel, 0, 10, "BTC SUPPLY EDGE: VERI GIRILMEDI", text_color=#B0BEC5, bgcolor=#263238, text_size=size.tiny)
+    if showSupply and supplyEntered
+        table.cell(panel, 0, 10, "BTC SUPPLY EDGE " + edgeText + "\nMANUEL", text_color=color.white, bgcolor=#263238, text_size=size.small)
+        // 21 equally spaced text positions. Zero is exactly index 10.
+        int marker = int(math.round((supplyEdge + 50.0) / 5.0))
+        string gauge = ""
+        for col = 0 to 20
+            gauge += col == marker ? "|" : "-"
+        table.cell(panel, 0, 11, gauge, text_color=color.yellow, bgcolor=#131722, text_size=size.small, text_font_family=font.family_monospace)
+        table.cell(panel, 0, 12, "-50       0       +50", text_color=#B0BEC5, bgcolor=#131722, text_size=size.small, text_font_family=font.family_monospace)
+        table.cell(panel, 0, 13, "Profit " + str.tostring(supplyProfitPct, "0.0") + "% / Loss " + str.tostring(100.0 - supplyProfitPct, "0.0") + "%", text_color=#B0BEC5, bgcolor=#131722, text_size=size.tiny)
+
+// LIVE plot / confirmed-close alerts. Cross functions execute every bar.
+bool down30 = ta.crossunder(realf, 30.0)
+bool up30 = ta.crossover(realf, 30.0)
+bool down50 = ta.crossunder(realf, 50.0)
+bool up50 = ta.crossover(realf, 50.0)
+bool down70 = ta.crossunder(realf, 70.0)
+bool up70 = ta.crossover(realf, 70.0)
+bool low20 = not na(realf) and realf < 20.0
+bool high80 = not na(realf) and realf > 80.0
+bool confirmedReady = matchingBar and timeAlignedChart and barstate.isconfirmed and not na(realf) and not na(sourceCloseTime) and sourceCloseTime <= timenow
+alertcondition(confirmedReady and down30, "REALF 30 asagi", 'CHART={{exchange}}:{{ticker}} (model kaynagini panelden kontrol edin) | TF={{interval}} | REALF={{plot("REALF")}} | 30 DOWN | bar UTC={{time}} | trigger UTC={{timenow}}')
+alertcondition(confirmedReady and up30, "REALF 30 yukari", 'CHART={{exchange}}:{{ticker}} (model kaynagini panelden kontrol edin) | TF={{interval}} | REALF={{plot("REALF")}} | 30 UP | bar UTC={{time}} | trigger UTC={{timenow}}')
+alertcondition(confirmedReady and down50, "REALF 50 asagi", 'CHART={{exchange}}:{{ticker}} (model kaynagini panelden kontrol edin) | TF={{interval}} | REALF={{plot("REALF")}} | 50 DOWN | bar UTC={{time}} | trigger UTC={{timenow}}')
+alertcondition(confirmedReady and up50, "REALF 50 yukari", 'CHART={{exchange}}:{{ticker}} (model kaynagini panelden kontrol edin) | TF={{interval}} | REALF={{plot("REALF")}} | 50 UP | bar UTC={{time}} | trigger UTC={{timenow}}')
+alertcondition(confirmedReady and down70, "REALF 70 asagi", 'CHART={{exchange}}:{{ticker}} (model kaynagini panelden kontrol edin) | TF={{interval}} | REALF={{plot("REALF")}} | 70 DOWN | bar UTC={{time}} | trigger UTC={{timenow}}')
+alertcondition(confirmedReady and up70, "REALF 70 yukari", 'CHART={{exchange}}:{{ticker}} (model kaynagini panelden kontrol edin) | TF={{interval}} | REALF={{plot("REALF")}} | 70 UP | bar UTC={{time}} | trigger UTC={{timenow}}')
+alertcondition(confirmedReady and low20, "REALF <20 kapanis", 'CHART={{exchange}}:{{ticker}} (model kaynagini panelden kontrol edin) | TF={{interval}} | REALF={{plot("REALF")}} | BELOW 20 | bar UTC={{time}} | trigger UTC={{timenow}}')
+alertcondition(confirmedReady and high80, "REALF >80 kapanis", 'CHART={{exchange}}:{{ticker}} (model kaynagini panelden kontrol edin) | TF={{interval}} | REALF={{plot("REALF")}} | ABOVE 80 | bar UTC={{time}} | trigger UTC={{timenow}}')
+
+if (dynamicAlerts or whaleAlerts) and confirmedReady
+    string events = ""
+    if dynamicAlerts and down30
+        events += "30 DOWN; "
+    if dynamicAlerts and up30
+        events += "30 UP; "
+    if dynamicAlerts and down50
+        events += "50 DOWN; "
+    if dynamicAlerts and up50
+        events += "50 UP; "
+    if dynamicAlerts and down70
+        events += "70 DOWN; "
+    if dynamicAlerts and up70
+        events += "70 UP; "
+    if dynamicAlerts and low20
+        events += "BELOW 20; "
+    if dynamicAlerts and high80
+        events += "ABOVE 80; "
+    if whaleAlerts and whaleLevel > 0 and (whaleLevel != whaleLevel[1] or whaleDirection != whaleDirection[1])
+        events += "WHALE PROXY " + (whaleDirection > 0 ? "BUY L" : "SELL L") + str.tostring(whaleLevel) + "; "
+    if str.length(events) > 0
+        string stamp = str.format_time(sourceCloseTime, "yyyy-MM-dd HH:mm:ss", "UTC")
+        alert(modelSymbol + " | TF=" + timeframe.period + " | REALF=" + str.tostring(realf, "0.0") + " | " + events + " | close UTC=" + stamp, alert.freq_once_per_bar_close)
+
+// Optional diagnostics: Data Window only; no additional pane lines.
+plot(debugValues ? impact : na, "ImpactScore", display=display.data_window)
+plot(debugValues ? memory : na, "MemoryScore", display=display.data_window)
+plot(debugValues ? momentum : na, "MomentumScore", display=display.data_window)
+plot(debugValues ? activity : na, "ActivityScore", display=display.data_window)
+plot(debugValues ? persistence : na, "Persistence", display=display.data_window)
+plot(debugValues ? fastPrice : na, "FastPriceImpulse", display=display.data_window)
+plot(debugValues ? fastFlow : na, "FastFlowImpulse", display=display.data_window)
+plot(debugValues ? inventory : na, "RemainingUnpricedFlow log units", display=display.data_window)
+plot(debugValues ? beta : na, "Beta raw", display=display.data_window)
+plot(debugValues ? rvol : na, "RVOL notional", display=display.data_window)
+plot(debugValues ? percentile : na, "Volume percentile", display=display.data_window)
+plot(debugValues ? notional : na, "Notional QUOTE units", display=display.data_window)
+plot(debugValues ? whaleLevel : na, "WhaleLevel proxy", display=display.data_window)
+plot(debugValues ? fitR2 : na, "Beta R squared", display=display.data_window)
+plot(debugValues ? intrabarShare : na, "Intrabar coverage 300", display=display.data_window)
+plot(debugValues ? agreement : na, "Component agreement", display=display.data_window)
+plot(debugValues ? expected300 : na, "Historical beta x flow sum300", display=display.data_window)

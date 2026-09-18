@@ -1,0 +1,623 @@
+//@version=6
+// ============================================================================
+// ZP TDIALT + FATIGUE MTF v1.4
+//
+// v1.3 -> v1.4 degisiklikleri:
+//   - MTF tablo SADELESTI: TF | FAT | STATE | WINDOW
+//     (CONF / STR / EVENT / PL / SL / BAND / REGIME / RISK kolonlari kaldirildi)
+//   - MTF security cagrilari artik SADECE fatigue motorunu tasiyor.
+//     8 cagri x 2 alan = 16 tuple elemani (onceki: 64). Yuk yariya indi.
+//   - TDI motoru yalnizca aktif grafik icin calisir: cizgiler, isaretler ve
+//     alarmlar aynen durur.
+//   - max_bars_back 500 -> 1000. Her TF context'ine daha derin warmup verir,
+//     boylece 300 barlik rank penceresi daha cok satirda dolar.
+//   - WINDOW kolonu: her TF icin validRun / rankWindow. Bir satir 300'e
+//     ulasmadiysa skor "-" olur; uydurma deger gosterilmez.
+//   - Panel varsayilani Middle Right (TradingView durum cubugu ust sol
+//     kosede tabloyu ortuyordu).
+//
+// NEDEN TF DEGISINCE SKORLAR OYNUYOR:
+//   request.security bir ust zaman dilimini cekerken o context'e verilen
+//   gecmis bar sayisi, grafigin yukledigi aralik + max_bars_back ile sinirli.
+//   Grafik TF'i degisince yuklenen aralik degisir, context'teki bar sayisi
+//   degisir, 300 barlik pencere kimi satirda dolar kimi satirda dolmaz.
+//   WINDOW kolonu bunu acikca gosterir. En stabil kullanim: grafigi
+//   listedeki EN KUCUK timeframe'de (normalde 1m) tutmak.
+//
+// Motorlar degismedi:
+//   TDIALT : RSI 13 | band 34 x 1.6185 | PL 2 | SL 7 | PAC 5 | 22/78
+//   FATIGUE: RSI14 + StochRSI + BB%B -> Absolute -> Rank -> Adaptive -> EWMA
+//            30/72/83 | 0.35/0.20/0.45 | 0.70/0.30 | alpha 0.30 | rank 300
+// ============================================================================
+
+indicator("ZP TDIALT + FATIGUE MTF v1.4", shorttitle="ZPTDIFAT", overlay=false, max_bars_back=1000, precision=2)
+
+// ============================================================================
+// 0) PERFORMANCE
+// ============================================================================
+gPerf = "0 - Performance"
+limitCalc = input.bool(true, "Limit heavy loops", group=gPerf)
+calcBars = input.int(1500, "Son N bar", minval=200, maxval=5000, step=100, group=gPerf, tooltip="Calculation timeout alirsan dusur. MTF artik sadece fatigue tasidigi icin bu deger yukseltilebilir.")
+
+// ============================================================================
+// 1) TDI SETTINGS (aktif grafik cizgileri + alarmlar)
+// ============================================================================
+gTdi = "1 - TDI / TDIALT"
+rsiLength = input.int(13, "RSI Length", minval=2, maxval=100, group=gTdi)
+bandLength = input.int(34, "Volatility Band Length", minval=2, maxval=200, group=gTdi)
+priceLineLength = input.int(2, "Price Line Length", minval=1, maxval=50, group=gTdi)
+signalLineLength = input.int(7, "Signal Line Length", minval=1, maxval=100, group=gTdi)
+pacLength = input.int(5, "PAC Length", minval=1, maxval=100, group=gTdi)
+oversold = input.float(22.0, "Oversold", minval=1.0, maxval=49.0, step=1.0, group=gTdi)
+overbought = input.float(78.0, "Overbought", minval=51.0, maxval=99.0, step=1.0, group=gTdi)
+strengthLevel = input.int(2, "Max accepted strength", minval=1, maxval=3, group=gTdi)
+useHeikinAshi = input.bool(false, "Use Heikin Ashi source", group=gTdi)
+
+// ============================================================================
+// 2) OPTIONAL MACD FILTER
+// ============================================================================
+gMacd = "2 - MACD Filter"
+useMacdFilter = input.bool(false, "Use MACD filter", group=gMacd)
+macdFast = input.int(8, "MACD Fast", minval=1, maxval=100, group=gMacd)
+macdSlow = input.int(16, "MACD Slow", minval=2, maxval=200, group=gMacd)
+macdSignal = input.int(1, "MACD Signal (repo setting / not used by filter)", minval=1, maxval=100, group=gMacd)
+
+// ============================================================================
+// 3) FATIGUE SETTINGS
+// ============================================================================
+gFat = "3 - Fatigue (ZP v2.4 parity)"
+fatRsiLen = input.int(14, "RSI Length", minval=1, group=gFat)
+fatSrsiRsiLen = input.int(14, "StochRSI - RSI Length", minval=1, group=gFat)
+fatSrsiStochLen = input.int(14, "StochRSI - Stoch Length", minval=1, group=gFat)
+fatSrsiKLen = input.int(3, "StochRSI - %K", minval=1, group=gFat)
+fatBbLen = input.int(20, "Bollinger Length", minval=1, group=gFat)
+fatBbMult = input.float(2.0, "Bollinger StdDev", minval=0.1, step=0.1, group=gFat)
+fatRankWin = input.int(300, "Relative Rank Window", minval=10, maxval=400, group=gFat)
+fatAlpha = input.float(0.30, "EWMA Alpha", minval=0.01, maxval=1.0, step=0.01, group=gFat)
+fatStrict = input.bool(true, "Require full window", group=gFat, tooltip="Kapatirsan 300 bar dolmadan da skor uretir, ama rank daha az veriye dayanir.")
+fatGapCheck = input.bool(true, "Timestamp continuity check", group=gFat)
+fatWRsi = input.float(0.35, "Weight RSI14", minval=0.0, maxval=1.0, step=0.01, group=gFat)
+fatWSrsi = input.float(0.20, "Weight StochRSI K", minval=0.0, maxval=1.0, step=0.01, group=gFat)
+fatWBb = input.float(0.45, "Weight Bollinger %B", minval=0.0, maxval=1.0, step=0.01, group=gFat)
+fatWAbs = input.float(0.70, "Adaptive - Absolute share", minval=0.0, maxval=1.0, step=0.01, group=gFat)
+fatWRank = input.float(0.30, "Adaptive - Rank share", minval=0.0, maxval=1.0, step=0.01, group=gFat)
+fatThNormal = input.float(30.0, "NORMAL >=", step=0.5, group=gFat)
+fatThTired = input.float(72.0, "YORGUN >=", step=0.5, group=gFat)
+fatThExtreme = input.float(83.0, "ASIRI >=", step=0.5, group=gFat)
+
+// ============================================================================
+// 4) DISPLAY
+// ============================================================================
+gDisp = "4 - Display"
+showPriceLine = input.bool(true, "Price Line", group=gDisp)
+showSignalLine = input.bool(true, "Signal Line", group=gDisp)
+showMbl = input.bool(true, "Market Base Line", group=gDisp)
+showBands = input.bool(true, "Volatility Bands", group=gDisp)
+showRsi = input.bool(false, "Raw RSI", group=gDisp)
+showFatLine = input.bool(false, "Fatigue line (ayni panelde, 0-100)", group=gDisp)
+showMarkers = input.bool(true, "LONG / SHORT markers", group=gDisp)
+
+// ============================================================================
+// 5) MTF PANEL
+// ============================================================================
+gMtf = "5 - MTF Fatigue Panel"
+showMtfPanel = input.bool(true, "Show MTF panel", group=gMtf)
+showWindowCol = input.bool(true, "Show WINDOW column", group=gMtf, tooltip="Her TF icin kac gecerli bar birikti. 300 altindaysa skor uretilmez.")
+mtfMode = input.string("LIVE", "MTF Mode", options=["LIVE", "CONFIRMED"], group=gMtf, tooltip="LIVE: acik mum dahil, degisebilir. CONFIRMED: son kapanmis mum ([1] + lookahead_on).")
+mtfPos = input.string("Middle Right", "MTF Panel Position", options=["Top Right", "Top Left", "Bottom Right", "Bottom Left", "Middle Right"], group=gMtf)
+mtfSize = input.string("Small", "MTF text size", options=["Tiny", "Small", "Normal"], group=gMtf)
+tf1 = input.timeframe("1", "TF 1", group=gMtf)
+tf2 = input.timeframe("3", "TF 2", group=gMtf)
+tf3 = input.timeframe("5", "TF 3", group=gMtf)
+tf4 = input.timeframe("15", "TF 4", group=gMtf)
+tf5 = input.timeframe("60", "TF 5", group=gMtf)
+tf6 = input.timeframe("240", "TF 6", group=gMtf)
+tf7 = input.timeframe("D", "TF 7", group=gMtf)
+tf8 = input.timeframe("W", "TF 8", group=gMtf)
+
+// ============================================================================
+// CONSTANTS
+// ============================================================================
+float BAND_MULTIPLIER = 1.6185
+int ATR_LENGTH = 14
+int REGIME_WINDOW = 100
+
+// ============================================================================
+// HELPERS - COMMON
+// ============================================================================
+f_pos(_p) =>
+    string out = position.middle_right
+    if _p == "Top Right"
+        out := position.top_right
+    else if _p == "Top Left"
+        out := position.top_left
+    else if _p == "Bottom Right"
+        out := position.bottom_right
+    else if _p == "Bottom Left"
+        out := position.bottom_left
+    out
+
+f_size(_s) =>
+    string out = size.small
+    if _s == "Tiny"
+        out := size.tiny
+    else if _s == "Normal"
+        out := size.normal
+    out
+
+f_tfLabel(_tf) =>
+    string out = _tf
+    if _tf == "1"
+        out := "1m"
+    else if _tf == "3"
+        out := "3m"
+    else if _tf == "5"
+        out := "5m"
+    else if _tf == "15"
+        out := "15m"
+    else if _tf == "30"
+        out := "30m"
+    else if _tf == "60"
+        out := "1h"
+    else if _tf == "120"
+        out := "2h"
+    else if _tf == "240"
+        out := "4h"
+    else if _tf == "D"
+        out := "1D"
+    else if _tf == "W"
+        out := "1W"
+    out
+
+f_num(_v, _fmt) =>
+    string out = "-"
+    if not na(_v)
+        out := str.tostring(_v, _fmt)
+    out
+
+f_jnum(_v, _fmt) =>
+    string out = "null"
+    if not na(_v)
+        out := str.tostring(_v, _fmt)
+    out
+
+// ============================================================================
+// HELPERS - TDI (aktif grafik)
+// ============================================================================
+f_regimeText(_code) =>
+    string out = "UNKNOWN"
+    if _code == 1
+        out := "SQUEEZE"
+    else if _code == 2
+        out := "NORMAL"
+    else if _code == 3
+        out := "EXPANDED"
+    out
+
+f_riskText(_risk) =>
+    string out = "-"
+    if _risk == 1
+        out := "CHASE"
+    else if _risk == 2
+        out := "WIDE"
+    else if _risk == 3
+        out := "CHASE+WIDE"
+    else if _risk == 4
+        out := "EXPANDED"
+    else if _risk == 5
+        out := "CHASE+EXP"
+    else if _risk == 6
+        out := "WIDE+EXP"
+    else if _risk == 7
+        out := "C+W+EXP"
+    else if _risk == 8
+        out := "SQUEEZE"
+    else if _risk == 9
+        out := "CHASE+SQ"
+    else if _risk == 10
+        out := "WIDE+SQ"
+    else if _risk == 11
+        out := "C+W+SQ"
+    out
+
+f_rankLong(_priceLine, _signalLine, _mbl) =>
+    int out = 0
+    if _signalLine > _mbl
+        out := 1
+    else if _priceLine > _mbl and _signalLine < _mbl
+        out := 2
+    else if _priceLine < _mbl and _signalLine < _mbl
+        out := 3
+    out
+
+f_rankShort(_priceLine, _signalLine, _mbl) =>
+    int out = 0
+    if _signalLine < _mbl
+        out := 1
+    else if _priceLine < _mbl and _signalLine > _mbl
+        out := 2
+    else if _priceLine > _mbl and _signalLine > _mbl
+        out := 3
+    out
+
+f_emaSeed(_src, _length) =>
+    float alpha = 2.0 / (_length + 1.0)
+    float seed = ta.sma(_src, _length)
+    var float out = na
+    if bar_index < _length - 1
+        out := na
+    else if bar_index == _length - 1
+        out := seed
+    else
+        out := _src * alpha + nz(out[1], seed) * (1.0 - alpha)
+    out
+
+f_rollingPercentile(_src, _length) =>
+    float current = _src
+    int valid = 0
+    int belowOrEqual = 0
+    if not na(current)
+        for i = 0 to _length - 1
+            float v = _src[i]
+            if not na(v)
+                valid += 1
+                if v <= current
+                    belowOrEqual += 1
+    float out = na
+    if valid >= math.min(20, _length)
+        out := float(belowOrEqual) / float(valid)
+    out
+
+// ============================================================================
+// HELPERS - FATIGUE
+// ============================================================================
+f_rankOf(_src, _count) =>
+    float x = _src
+    int less = 0
+    int eq = 0
+    if not na(x) and _count > 0
+        for i = 0 to _count - 1
+            float v = _src[i]
+            if not na(v)
+                if v < x
+                    less += 1
+                else if v == x
+                    eq += 1
+    float result = na
+    if not na(x) and _count > 0
+        result := (less + (eq + 1) / 2.0) / _count * 100.0
+    result
+
+f_fatText(_s) =>
+    string out = "DINLENMIS"
+    if na(_s)
+        out := "-"
+    else if _s >= fatThExtreme
+        out := "ASIRI"
+    else if _s >= fatThTired
+        out := "YORGUN"
+    else if _s >= fatThNormal
+        out := "NORMAL"
+    out
+
+f_fatColor(_s) =>
+    color out = color.new(#1e88e5, 0)
+    if na(_s)
+        out := color.new(color.gray, 40)
+    else if _s >= fatThExtreme
+        out := color.new(#e53935, 0)
+    else if _s >= fatThTired
+        out := color.new(#fb8c00, 0)
+    else if _s >= fatThNormal
+        out := color.new(#43a047, 0)
+    out
+
+// ============================================================================
+// ENGINE A - TDIALT   (yalnizca aktif grafik)
+// ============================================================================
+f_core() =>
+    float haClose = (open + high + low + close) / 4.0
+    var float haOpen = na
+    if na(haOpen[1])
+        haOpen := (open + close) / 2.0
+    else
+        haOpen := (haOpen[1] + haClose[1]) / 2.0
+    float haHigh = math.max(high, math.max(haOpen, haClose))
+    float haLow = math.min(low, math.min(haOpen, haClose))
+
+    float srcOpen = useHeikinAshi ? haOpen : open
+    float srcHigh = useHeikinAshi ? haHigh : high
+    float srcLow = useHeikinAshi ? haLow : low
+    float srcClose = useHeikinAshi ? haClose : close
+
+    float rsi = ta.rsi(srcClose, rsiLength)
+
+    float marketBaseLine = ta.sma(rsi, bandLength)
+    float deviation = ta.stdev(rsi, bandLength, true)
+    float upperBand = not na(marketBaseLine) and not na(deviation) ? marketBaseLine + BAND_MULTIPLIER * deviation : na
+    float lowerBand = not na(marketBaseLine) and not na(deviation) ? marketBaseLine - BAND_MULTIPLIER * deviation : na
+    float priceLine = ta.sma(rsi, priceLineLength)
+    float signalLine = ta.sma(rsi, signalLineLength)
+
+    float pacUpper = ta.rma(srcHigh, pacLength)
+    float pacLower = ta.rma(srcLow, pacLength)
+
+    float prevClose = srcClose[1]
+    float trueRange = na(prevClose) ? srcHigh - srcLow : math.max(srcHigh - srcLow, math.max(math.abs(srcHigh - prevClose), math.abs(srcLow - prevClose)))
+    float atrValue = ta.rma(trueRange, ATR_LENGTH)
+
+    int effectiveFast = math.min(macdFast, macdSlow - 1)
+    float emaFast = f_emaSeed(srcClose, effectiveFast)
+    float emaSlow = f_emaSeed(srcClose, macdSlow)
+    float macdLine = not na(emaFast) and not na(emaSlow) ? emaFast - emaSlow : na
+    bool macdLongPass = false
+    if not na(macdLine) and not na(macdLine[1])
+        bool rising = macdLine > macdLine[1]
+        bool falling = macdLine < macdLine[1]
+        macdLongPass := macdLine > 0.0 ? rising : not falling
+
+    float bandWidthPct = not na(marketBaseLine) and not na(deviation) ? (2.0 * BAND_MULTIPLIER * deviation) / math.max(math.abs(marketBaseLine), 0.000000001) : na
+    bool inCalc = not limitCalc or bar_index >= last_bar_index - calcBars
+    float bandWidthPercentile = na
+    if inCalc
+        bandWidthPercentile := f_rollingPercentile(bandWidthPct, REGIME_WINDOW)
+    int regimeCode = 0
+    if not na(bandWidthPercentile)
+        if bandWidthPercentile <= 0.20
+            regimeCode := 1
+        else if bandWidthPercentile >= 0.90
+            regimeCode := 3
+        else
+            regimeCode := 2
+
+    bool coreReady = not na(priceLine) and not na(signalLine) and not na(marketBaseLine) and not na(pacUpper) and not na(pacLower)
+    bool macdLongReady = not useMacdFilter or macdLongPass
+    bool macdShortReady = not useMacdFilter or (not na(macdLine) and bar_index > 0 and not macdLongPass)
+
+    bool longCommon = coreReady and macdLongReady and priceLine > signalLine and priceLine > oversold and priceLine < overbought and srcHigh > pacUpper and srcClose > srcOpen
+    bool shortCommon = coreReady and macdShortReady and priceLine < signalLine and priceLine > oversold and priceLine < overbought and srcLow < pacLower and srcClose < srcOpen
+
+    int longStrength = longCommon ? f_rankLong(priceLine, signalLine, marketBaseLine) : 0
+    int shortStrength = shortCommon ? f_rankShort(priceLine, signalLine, marketBaseLine) : 0
+
+    bool eligibleLong = longStrength > 0 and longStrength <= strengthLevel
+    bool eligibleShort = shortStrength > 0 and shortStrength <= strengthLevel
+
+    int confirmationSignedStrength = eligibleLong ? longStrength : eligibleShort ? -shortStrength : 0
+
+    var int previousLong = 0
+    var int previousShort = 0
+    int alertSignedStrength = 0
+    if eligibleLong and longStrength != previousLong
+        alertSignedStrength := longStrength
+    else if eligibleShort and shortStrength != previousShort
+        alertSignedStrength := -shortStrength
+    previousLong := longStrength
+    previousShort := shortStrength
+
+    float pacMid = not na(pacUpper) and not na(pacLower) ? (pacUpper + pacLower) / 2.0 : na
+    float pacDistanceAtr = not na(pacMid) and not na(atrValue) and atrValue > 0.0 ? math.abs(srcClose - pacMid) / atrValue : na
+    float pacWidthAtr = not na(pacUpper) and not na(pacLower) and not na(atrValue) and atrValue > 0.0 ? (pacUpper - pacLower) / atrValue : na
+
+    bool chaseRisk = alertSignedStrength != 0 and not na(pacDistanceAtr) and pacDistanceAtr > 1.5
+    bool widePacRisk = not na(pacWidthAtr) and pacWidthAtr > 1.4
+    int riskCode = 0
+    if chaseRisk
+        riskCode += 1
+    if widePacRisk
+        riskCode += 2
+    if regimeCode == 3
+        riskCode += 4
+    if regimeCode == 1
+        riskCode += 8
+
+    float bandPosition = not na(priceLine) and not na(lowerBand) and not na(upperBand) and upperBand > lowerBand ? (priceLine - lowerBand) / (upperBand - lowerBand) : na
+
+    bool priceSignalCrossUp = not na(priceLine[1]) and not na(signalLine[1]) and priceLine[1] <= signalLine[1] and priceLine > signalLine
+    bool priceSignalCrossDown = not na(priceLine[1]) and not na(signalLine[1]) and priceLine[1] >= signalLine[1] and priceLine < signalLine
+
+    [rsi, upperBand, lowerBand, marketBaseLine, priceLine, signalLine, pacUpper, pacLower, atrValue, macdLine, confirmationSignedStrength, alertSignedStrength, bandPosition, pacDistanceAtr, pacWidthAtr, bandWidthPct, bandWidthPercentile, regimeCode, riskCode, priceSignalCrossUp, priceSignalCrossDown]
+
+// ============================================================================
+// ENGINE B - FATIGUE   (aktif grafik + 8 MTF context)
+// ============================================================================
+f_fatigue(_tfSec) =>
+    float _rsi = ta.rsi(close, fatRsiLen)
+    float _rsiC = na(_rsi) ? na : math.max(0.0, math.min(100.0, _rsi))
+
+    float _rsiS = ta.rsi(close, fatSrsiRsiLen)
+    float _stRaw = ta.stoch(_rsiS, _rsiS, _rsiS, fatSrsiStochLen)
+    float _k = ta.sma(_stRaw, fatSrsiKLen)
+    float _kC = na(_k) ? na : math.max(0.0, math.min(100.0, _k))
+
+    float _basis = ta.sma(close, fatBbLen)
+    float _sd = ta.stdev(close, fatBbLen)
+    float _up = _basis + fatBbMult * _sd
+    float _lo = _basis - fatBbMult * _sd
+    float _rng = _up - _lo
+    float _pbRaw = na(_rng) or _rng <= 0 ? na : (close - _lo) / _rng
+    float _pbSc = na(_pbRaw) ? na : math.max(-25.0, math.min(125.0, 100.0 * _pbRaw))
+
+    bool _ok = not na(_rsiC) and not na(_kC) and not na(_pbSc)
+    float _absRaw = _ok ? fatWRsi * _rsiC + fatWSrsi * _kC + fatWBb * _pbSc : na
+    float _abs = na(_absRaw) ? na : math.max(0.0, math.min(100.0, _absRaw))
+
+    int _expMs = int(_tfSec * 1000.0)
+    int _delta = time - time[1]
+    bool _gap = fatGapCheck and _expMs > 0 and not na(_delta) and _delta != _expMs
+
+    var int _run = 0
+    if na(_abs)
+        _run := 0
+    else if _gap
+        _run := 1
+    else
+        _run := nz(_run[1]) + 1
+
+    bool _ready = fatStrict ? _run >= fatRankWin : _run >= 1
+    int _scan = fatStrict ? (_run >= fatRankWin ? fatRankWin : 0) : math.min(_run, fatRankWin)
+
+    bool _inCalc = not limitCalc or bar_index >= last_bar_index - calcBars
+    float _rankRaw = na
+    if _inCalc
+        _rankRaw := f_rankOf(_abs, _scan)
+    float _rank = _ready ? _rankRaw : na
+
+    float _ada = na(_abs) or na(_rank) ? na : fatWAbs * _abs + fatWRank * _rank
+
+    var float _fat = na
+    if na(_ada)
+        _fat := na
+    else if na(_fat[1])
+        _fat := _ada
+    else
+        _fat := fatAlpha * _ada + (1.0 - fatAlpha) * _fat[1]
+    float _fatPrev = _fat[1]
+
+    [_fat, _fatPrev, _abs, _rank, _ada, _run]
+
+// ============================================================================
+// MTF PACK - sadece fatigue: 2 alan x 8 TF = 16 tuple elemani
+// ============================================================================
+f_mtfFat(_tfSec) =>
+    [yFat, yFatPrev, yAbs, yRank, yAda, yRun] = f_fatigue(_tfSec)
+    float vFat = yFat
+    float vFatPrev = yFatPrev
+    int vRun = yRun
+    bool useConf = mtfMode == "CONFIRMED"
+    [useConf ? vFatPrev : vFat, useConf ? vRun[1] : vRun]
+
+// ============================================================================
+// ACTIVE CHART SERIES
+// ============================================================================
+float chartSec = nz(timeframe.in_seconds(timeframe.period), 0.0)
+
+[rsiNow, upperNow, lowerNow, mblNow, priceNow, signalNow, pacUpperNow, pacLowerNow, atrNow, macdNow, confNow, alertNow, bandPosNow, pacDistNow, pacWidthNow, bandWidthNow, bandPctNow, regimeNow, riskNow, crossUpNow, crossDownNow] = f_core()
+[fatNow, fatPrevNow, fatAbsNow, fatRankNow, fatAdaNow, fatRunNow] = f_fatigue(chartSec)
+
+float fatConfNow = barstate.isconfirmed ? fatNow : fatPrevNow
+
+// TDI oscillator plots
+plot(showBands ? upperNow : na, "Upper Volatility Band", color=color.new(color.blue, 25), linewidth=1)
+plot(showBands ? lowerNow : na, "Lower Volatility Band", color=color.new(color.blue, 25), linewidth=1)
+plot(showMbl ? mblNow : na, "Market Base Line", color=color.yellow, linewidth=2)
+plot(showPriceLine ? priceNow : na, "Price Line", color=color.lime, linewidth=2)
+plot(showSignalLine ? signalNow : na, "Signal Line", color=color.red, linewidth=2)
+plot(showRsi ? rsiNow : na, "RSI", color=color.new(color.gray, 30), linewidth=1)
+plot(showFatLine ? fatNow : na, "Fatigue", color=f_fatColor(fatNow), linewidth=2)
+
+hline(50.0, "50", color=color.new(color.gray, 70), linestyle=hline.style_dotted)
+hline(oversold, "Oversold", color=color.new(color.aqua, 40), linestyle=hline.style_dashed)
+hline(overbought, "Overbought", color=color.new(color.orange, 40), linestyle=hline.style_dashed)
+
+plotshape(showMarkers and alertNow > 0, title="TDIALT LONG", style=shape.triangleup, location=location.bottom, color=color.lime, size=size.tiny, text="L")
+plotshape(showMarkers and alertNow < 0, title="TDIALT SHORT", style=shape.triangledown, location=location.top, color=color.red, size=size.tiny, text="S")
+
+// Data Window / parity
+plot(confNow, "P_ConfirmationSignedStrength", display=display.data_window)
+plot(alertNow, "P_AlertSignedStrength", display=display.data_window)
+plot(bandPosNow, "P_BandPosition", display=display.data_window)
+plot(bandPctNow, "P_BandWidthPercentile", display=display.data_window)
+plot(fatAbsNow, "P_Fat_Absolute", display=display.data_window)
+plot(fatRankNow, "P_Fat_RelativeRank", display=display.data_window)
+plot(fatAdaNow, "P_Fat_Adaptive", display=display.data_window)
+plot(fatNow, "P_Fat_LIVE", display=display.data_window)
+plot(fatConfNow, "P_Fat_CONF", display=display.data_window)
+plot(fatRunNow, "P_Fat_ValidRun", display=display.data_window)
+
+// ============================================================================
+// MTF REQUESTS  (8 cagri x 2 alan = 16 tuple elemani)
+// ============================================================================
+lookMode = mtfMode == "CONFIRMED" ? barmerge.lookahead_on : barmerge.lookahead_off
+
+float sec1 = nz(timeframe.in_seconds(tf1), 0.0)
+float sec2 = nz(timeframe.in_seconds(tf2), 0.0)
+float sec3 = nz(timeframe.in_seconds(tf3), 0.0)
+float sec4 = nz(timeframe.in_seconds(tf4), 0.0)
+float sec5 = nz(timeframe.in_seconds(tf5), 0.0)
+float sec6 = nz(timeframe.in_seconds(tf6), 0.0)
+float sec7 = nz(timeframe.in_seconds(tf7), 0.0)
+float sec8 = nz(timeframe.in_seconds(tf8), 0.0)
+
+[y1, n1] = request.security(syminfo.tickerid, tf1, f_mtfFat(sec1), gaps=barmerge.gaps_off, lookahead=lookMode)
+[y2, n2] = request.security(syminfo.tickerid, tf2, f_mtfFat(sec2), gaps=barmerge.gaps_off, lookahead=lookMode)
+[y3, n3] = request.security(syminfo.tickerid, tf3, f_mtfFat(sec3), gaps=barmerge.gaps_off, lookahead=lookMode)
+[y4, n4] = request.security(syminfo.tickerid, tf4, f_mtfFat(sec4), gaps=barmerge.gaps_off, lookahead=lookMode)
+[y5, n5] = request.security(syminfo.tickerid, tf5, f_mtfFat(sec5), gaps=barmerge.gaps_off, lookahead=lookMode)
+[y6, n6] = request.security(syminfo.tickerid, tf6, f_mtfFat(sec6), gaps=barmerge.gaps_off, lookahead=lookMode)
+[y7, n7] = request.security(syminfo.tickerid, tf7, f_mtfFat(sec7), gaps=barmerge.gaps_off, lookahead=lookMode)
+[y8, n8] = request.security(syminfo.tickerid, tf8, f_mtfFat(sec8), gaps=barmerge.gaps_off, lookahead=lookMode)
+
+bool ltf1 = sec1 < chartSec
+bool ltf2 = sec2 < chartSec
+bool ltf3 = sec3 < chartSec
+bool ltf4 = sec4 < chartSec
+bool ltf5 = sec5 < chartSec
+bool ltf6 = sec6 < chartSec
+bool ltf7 = sec7 < chartSec
+bool ltf8 = sec8 < chartSec
+
+// ============================================================================
+// MTF TABLE  -  TF | FAT | STATE | WINDOW
+// ============================================================================
+f_fatRow(_t, _row, _tf, _isLtf, _fat, _run, _sz) =>
+    bool ok = not _isLtf and not na(_fat)
+    color fc = ok ? f_fatColor(_fat) : color.new(color.gray, 35)
+    string fatTxt = _isLtf ? "LTF" : ok ? f_num(_fat, "#.##") : "-"
+    string stateTxt = _isLtf ? "-" : ok ? f_fatText(_fat) : "WARMUP"
+    color stateCol = _isLtf ? color.orange : fc
+
+    bool hasRun = not _isLtf and not na(_run)
+    bool ready = hasRun and (fatStrict ? _run >= fatRankWin : _run >= 1)
+    string winTxt = _isLtf ? "-" : not hasRun ? "NO DATA" : str.tostring(_run, "#") + "/" + str.tostring(fatRankWin)
+    color winCol = _isLtf ? color.gray : not hasRun ? color.gray : ready ? color.new(#43a047, 0) : color.new(#fb8c00, 0)
+
+    table.cell(_t, 0, _row, f_tfLabel(_tf), text_color=color.white, text_size=_sz)
+    table.cell(_t, 1, _row, fatTxt, text_color=_isLtf ? color.orange : fc, text_size=_sz, text_halign=text.align_right)
+    table.cell(_t, 2, _row, stateTxt, text_color=stateCol, text_size=_sz)
+    if showWindowCol
+        table.cell(_t, 3, _row, winTxt, text_color=winCol, text_size=_sz)
+
+var table mtfTbl = table.new(f_pos(mtfPos), 4, 9, border_width=1, frame_width=1, frame_color=color.new(color.gray, 50), bgcolor=color.new(color.black, 15))
+
+if showMtfPanel and barstate.islast
+    string sz = f_size(mtfSize)
+    color hdr = color.new(color.gray, 55)
+    table.cell(mtfTbl, 0, 0, "TF", text_color=color.white, text_size=sz, bgcolor=hdr)
+    table.cell(mtfTbl, 1, 0, mtfMode == "LIVE" ? "FAT*" : "FAT", text_color=color.white, text_size=sz, bgcolor=hdr, text_halign=text.align_right)
+    table.cell(mtfTbl, 2, 0, "STATE", text_color=color.white, text_size=sz, bgcolor=hdr)
+    if showWindowCol
+        table.cell(mtfTbl, 3, 0, "WINDOW", text_color=color.white, text_size=sz, bgcolor=hdr)
+
+    f_fatRow(mtfTbl, 1, tf1, ltf1, y1, n1, sz)
+    f_fatRow(mtfTbl, 2, tf2, ltf2, y2, n2, sz)
+    f_fatRow(mtfTbl, 3, tf3, ltf3, y3, n3, sz)
+    f_fatRow(mtfTbl, 4, tf4, ltf4, y4, n4, sz)
+    f_fatRow(mtfTbl, 5, tf5, ltf5, y5, n5, sz)
+    f_fatRow(mtfTbl, 6, tf6, ltf6, y6, n6, sz)
+    f_fatRow(mtfTbl, 7, tf7, ltf7, y7, n7, sz)
+    f_fatRow(mtfTbl, 8, tf8, ltf8, y8, n8, sz)
+
+// ============================================================================
+// ALERTS - aktif grafik, kapanmis mum
+// ============================================================================
+bool confirmedLongEvent = barstate.isconfirmed and alertNow > 0
+bool confirmedShortEvent = barstate.isconfirmed and alertNow < 0
+
+alertcondition(confirmedLongEvent, "TDIALT LONG", "ZP TDIALT {{ticker}} {{interval}} - NEW LONG")
+alertcondition(confirmedShortEvent, "TDIALT SHORT", "ZP TDIALT {{ticker}} {{interval}} - NEW SHORT")
+alertcondition(barstate.isconfirmed and crossUpNow, "Price Line Cross UP", "ZP TDIALT {{ticker}} {{interval}} - Price Line crossed above Signal Line")
+alertcondition(barstate.isconfirmed and crossDownNow, "Price Line Cross DOWN", "ZP TDIALT {{ticker}} {{interval}} - Price Line crossed below Signal Line")
+
+alertcondition(ta.crossover(fatConfNow, fatThTired), "Fatigue UP 72", "ZP FATIGUE {{ticker}} {{interval}} - YORGUN UP 72")
+alertcondition(ta.crossunder(fatConfNow, fatThTired), "Fatigue DOWN 72", "ZP FATIGUE {{ticker}} {{interval}} - NORMAL DOWN 72")
+alertcondition(ta.crossover(fatConfNow, fatThExtreme), "Fatigue UP 83", "ZP FATIGUE {{ticker}} {{interval}} - ASIRI UP 83")
+alertcondition(ta.crossunder(fatConfNow, fatThExtreme), "Fatigue DOWN 83", "ZP FATIGUE {{ticker}} {{interval}} - YORGUN DOWN 83")
+
+f_json(_dir, _strength) =>
+    '{"indicator":"ZP_TDIALT","symbol":"' + syminfo.ticker + '","timeframe":"' + timeframe.period + '","direction":"' + _dir + '","strength":' + str.tostring(_strength) + ',"price_line":' + f_jnum(priceNow, "#.####") + ',"signal_line":' + f_jnum(signalNow, "#.####") + ',"band_position":' + f_jnum(bandPosNow, "#.####") + ',"regime":"' + f_regimeText(regimeNow) + '","risk":"' + f_riskText(riskNow) + '","fatigue":' + f_jnum(fatConfNow, "#.##") + ',"fatigue_state":"' + f_fatText(fatConfNow) + '","bar_time":' + str.tostring(time, "#") + '}'
+
+if confirmedLongEvent
+    alert(f_json("LONG", math.abs(alertNow)), alert.freq_once_per_bar_close)
+else if confirmedShortEvent
+    alert(f_json("SHORT", math.abs(alertNow)), alert.freq_once_per_bar_close)

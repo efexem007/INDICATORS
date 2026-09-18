@@ -1,0 +1,1511 @@
+
+==============================================================================
+  🔴 CANLI TAKİP: ZKCUSDT.P (Binance) | 2026-09-17 23:00:00 | [OUTSIDE100] #1142
+  SNAPSHOT: ZKC_20260917_230000_541 | sıra #812 | Bar 22:59 KAPANDI (60. sn)
+  FİYAT: 0.037890  |  1m DEĞİŞİM: +0.03%  |  RVOL: 0.02x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / ZKCUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: ZKCUSDT
+    • İZOLE HAVUZ       : 504 trade | Son fiyat: 0.037890 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 6.0 sn önce | ağırlık 34/2400
+    • 1 Dakikalık Akış  : Alış: $51.3 | Satış: $42.6 (10 İşlem)
+      Net CVD           : $+8.7 (UP 🟢) | Alıcı Oranı: %54.6
+      Project Z Skoru   : 68.0 / 100
+    • 5 Dakikalık Akış  : Net CVD: $+1,263.1 | Alıcı: %73.4 | CVD: UP 🟢
+    • 15 Dakikalık Akış : Net CVD: $-35,373.8 | Alıcı: %18.2
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:54 | 0.037880 |  +0.03% | $    923 | $    436 | $    +487 |  25.6 🟢 | DINLENMIS |  54.0
+    22:55 | 0.037900 |  +0.05% | $  1,464 | $     14 | $  +1,450 |  30.8 🟢 | NORMAL  |  59.5
+    22:56 | 0.037900 |  +0.00% | $    114 | $    176 | $     -62 |  34.8 🟢 | NORMAL  |  57.8
+    22:57 | 0.037870 |  -0.08% | $    229 | $    365 | $    -136 |  36.0 🟢 | NORMAL  |  55.0
+    22:58 | 0.037880 |  +0.03% | $    120 | $    119 | $      +2 |  38.4 🟢 | NORMAL  |  53.9
+    22:59 | 0.037890 |  +0.03% | $     44 | $     43 | $      +2 |  41.8 🟢 | NORMAL  |  51.7
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     41.8 | 🟢 NORMAL    ||      46.7 | 🟢 BULL    | BOS UP    | TR UP      | 73.5 | F✓ S✓ R✓
+     3m | 499 |     49.6 | 🟢 NORMAL    ||      81.7 | 🟢 BULL    | BOS UP    | TR UP      | 85.9 | F✓ S✓ R✓
+     5m | 499 |     65.3 | 🟢 NORMAL    ||      42.0 | 🟢 BULL    | BOS UP    | RANGE      | 83.1 | F✓ S✓ R✓
+    15m | 499 |     71.5 | 🟢 NORMAL    ||      74.4 | 🟢 BULL    | BOS UP    | SQZ        | 74.2 | F✓ S✓ R✓
+     1h | 499 |     54.4 | 🟢 NORMAL    ||      58.0 | 🔴 BEAR    | BOS DN    | RANGE      | 64.1 | F✓ S✓ R✓
+     4h | 499 |     29.3 | 🔵 DINLENMIS ||      14.9 | 🔴 BEAR    | BOS DN    | TR DN      | 87.8 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 51.7 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 51.1 | Memory: 52.6 | Momentum: 53.0 | Activity: 50.0
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00075 log units
+    • FAST IMPULSE    : FastPrice: +0.16 | FastFlow: -0.14
+    • REGRESYON MODEL : Beta: 0.00108 | Beta R²: 0.520
+    • HACİM & AKIŞ    : Dollar RVOL: 0.02x | Volume Percentile: %2.0 | Persistence: %50.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -32.4%)
+    • BİLEŞEN UYUMU   : Spread: 1.8 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.037861 (-0.07%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [22:55:01] BUY 🟢 $1,201 @ 0.037912 (ZKCUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 54.0 → 59.5 → 57.8 → 55.0 → 53.9 → 51.7 | Δ1 -2.2 · Δ3 -6.1 · Δ5 -2.3
+    • FATIGUE   : 25.6 → 30.8 → 34.8 → 36.0 → 38.4 → 41.8 | Δ1 +3.4 · Δ3 +7.0 · Δ5 +16.2 | abs 48.8 · rank 52.0
+    • UNPRICED  : -0.0003 → -0.0009 → -0.0008 → -0.0002 → -0.0005 → -0.0008 | Δ1 -0.00024 · Δ3 +0.00005 · Δ5 -0.00042
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $+7 · 5m $-478 · 15m $+4,199 | Alıcı% Δ 1m +4.3 · 5m +1.4
+    • CVD EĞİM  : 3dk $-37/dk (norm -0.121) · 5dk $+160/dk (norm +0.296) · önceki 3dk norm +0.679 → DÖNÜŞ: DOWN
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |     10 |    6.9 | $           94 |   60s %100 |   0 / $           0 |   0 / $            0 | 🔴   0.0
+         5m | TAM    |    133 |   10.4 | $        2,697 |  300s %100 |   1 / $       1,201 |   0 / $            0 | 🟡  36.3
+        15m | TAM    |   1048 |   22.8 | $       55,584 |  900s %100 |   9 / $       6,296 |  33 / $       39,530 | 🟡  56.1
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | MIX/LL   | MIX/HL   | BOS UP (30b/65)      | LOW 0.037680 (+4.70)    | 0.038060 (3.80/2×)   | — (0 bölge)          | LOW_SWEEP (57b)
+     3m | HH/HL    | MIX/LL   | BOS UP (16b/31)      | LOW 0.037570 (+4.24)    | — (0 bölge)          | 0.037490 (5.31/2×)   | HIGH_SWEEP (23b)
+     5m | LH/LL    | HH/HL    | BOS UP (10b/52)      | LOW 0.037570 (+3.24)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (12b)
+    15m | MIX/HL   | MIX/HL   | BOS UP (1b/30)       | LOW 0.037570 (+1.76)    | 0.049025 (61.10/2×)  | 0.037065 (4.53/2×)   | LOW_SWEEP (109b)
+     1h | MIX/HL   | MIX/HL   | BOS DN (42b/61)      | HIGH 0.047720 (+18.99)  | 0.038270 (0.73/2×)   | — (0 bölge)          | LOW_SWEEP (27b)
+     4h | LH/LL    | LH/MIX   | BOS DN (15b/74)      | HIGH 0.049040 (+8.22)   | — (0 bölge)          | 0.036075 (1.34/2×)   | HIGH_SWEEP (23b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:00.146 · yaş 0.4 sn): Spread 5.28 bps | Dengesizlik top5 -0.11 · top20 -0.06 | Microprice +1.24 bps | Derinlik ±52.8 bps | Alış $21,397 · Satış $24,171
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR: Piyasa sakin, nötr akış.
+==============================================================================
+
+  ⏱ TUR #41 bitti: 20 coin · 84 sn · hata 0 · ağırlık maks 823/2400 · toplam boşluk olayı 0 · snapshot 812 · sonuç 186
+
+==============================================================================
+  🔴 CANLI TAKİP: ETHUSDT.P (Binance) | 2026-09-17 23:00:09 | [TOP100] #2
+  SNAPSHOT: ETH_20260917_230009_144 | sıra #813 | Bar 23:00 CANLI (8. sn)
+  FİYAT: 2447.750000  |  1m DEĞİŞİM: -0.01%  |  RVOL: 0.09x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / ETHUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: ETHUSDT
+    • İZOLE HAVUZ       : 10511 trade | Son fiyat: 2447.840000 | Hata: 0
+    • SENKRON & KAPSAMA : 2 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem -0.2 sn önce | ağırlık 78/2400
+    • 1 Dakikalık Akış  : Alış: $2,500,436.6 | Satış: $6,210,652.0 (6105 İşlem)
+      Net CVD           : $-3,710,215.3 (DOWN 🔴) | Alıcı Oranı: %28.7
+      Project Z Skoru   : 6.8 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-3,356,393.6 | Alıcı: %40.0 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $-7,753,172.7 | Alıcı: %44.0
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.001 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 2449.210000 |  -0.02% | $2,223,249 | $1,261,027 | $+962,222 |  66.9 🟢 | NORMAL  |  59.5
+    22:56 | 2448.170000 |  -0.04% | $475,644 | $950,543 | $-474,899 |  62.6 🟢 | NORMAL  |  55.0
+    22:57 | 2447.830000 |  -0.01% | $996,618 | $1,301,436 | $-304,818 |  58.4 🟢 | NORMAL  |  56.2
+    22:58 | 2448.590000 |  +0.03% | $1,900,890 | $860,711 | $+1,040,179 |  57.2 🟢 | NORMAL  |  54.4
+    22:59 | 2447.950000 |  -0.03% | $2,616,540 | $5,990,714 | $-3,374,174 |  54.7 🟢 | NORMAL  |  59.1
+    23:00 | 2447.750000 |  -0.01% | $120,597 | $200,702 | $ -80,105 |  52.4 🟢 | NORMAL  |  56.4
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     52.4 | 🟢 NORMAL    ||      42.9 | 🔴 BEAR    | BOS DN    | RANGE      | 77.3 | F✓ S✓ R✓
+     3m | 499 |     40.6 | 🟢 NORMAL    ||      23.0 | 🔴 BEAR    | BOS DN    | RANGE      | 81.5 | F✓ S✓ R✓
+     5m | 499 |     33.5 | 🟢 NORMAL    ||      27.4 | 🟢 BULL    | BOS UP    | TR UP      | 82.8 | F✓ S✓ R✓
+    15m | 499 |     20.7 | 🔵 DINLENMIS ||      63.4 | 🟢 BULL    | BOS UP    | RANGE      | 76.7 | F✓ S✓ R✓
+     1h | 499 |     59.1 | 🟢 NORMAL    ||      72.5 | 🔴 BEAR    | BOS DN    | TR DN      | 82.5 | F✓ S✓ R✓
+     4h | 499 |     53.1 | 🟢 NORMAL    ||      51.2 | 🔴 TR-DN   | CHOCH DN  | TR-DN      | 70.6 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 56.4 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 58.2 | Memory: 55.7 | Momentum: 56.3 | Activity: 50.1
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00114 log units
+    • FAST IMPULSE    : FastPrice: -0.51 | FastFlow: -0.81
+    • REGRESYON MODEL : Beta: 0.00079 | Beta R²: 0.592
+    • HACİM & AKIŞ    : Dollar RVOL: 0.09x | Volume Percentile: %0.3 | Persistence: %55.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -16.1%)
+    • BİLEŞEN UYUMU   : Spread: 2.5 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 2444.96 (-0.11%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [23:00:05] SELL 🔴 $86,799 @ 2447.74 (ETHUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 59.5 → 55.0 → 56.2 → 54.4 → 59.1 → 56.4 | Δ1 -2.7 · Δ3 +0.2 · Δ5 -3.1
+    • FATIGUE   : 66.9 → 62.6 → 58.4 → 57.2 → 54.7 → 52.4 | Δ1 -2.4 · Δ3 -6.0 · Δ5 -14.5 | abs 45.6 · rank 49.7
+    • UNPRICED  : -0.0008 → -0.0007 → -0.0010 → -0.0011 → -0.0012 → -0.0011 | Δ1 +0.00006 · Δ3 -0.00017 · Δ5 -0.00029
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $-4,385,485 · 5m $+203,484 · 15m $-3,925,300 | Alıcı% Δ 1m -36.2 · 5m -0.5
+    • CVD EĞİM  : 3dk $-788,257/dk (norm -0.169) · 5dk $-433,582/dk (norm -0.129) · önceki 3dk norm -0.299 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |   6105 |   86.0 | $    8,711,089 |   60s %100 |   9 / $   1,267,111 |  24 / $    4,380,643 | 🟢  83.2
+         5m | TAM    |  13252 |  170.7 | $   16,774,982 |  300s %100 |  24 / $   3,411,805 |  33 / $    5,869,612 | 🟢  90.2
+        15m | TAM    |  45326 |  391.2 | $   64,372,481 |  900s %100 | 100 / $  14,849,317 | 119 / $   22,500,100 | 🟢  95.3
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/MIX   | HH/MIX   | BOS DN (14b/73)      | HIGH 2453.51 (+3.55)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (5b)
+     3m | LH/MIX   | LH/LL    | BOS DN (8b/64)       | HIGH 2453.78 (+1.79)    | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (6b)
+     5m | LH/LL    | LH/LL    | BOS UP (97b/77)      | LOW 2428.88 (+4.47)     | — (0 bölge)          | 2365.84 (19.39/2×)   | HIGH_SWEEP (70b)
+    15m | MIX/HL   | MIX/LL   | BOS UP (32b/66)      | LOW 2435.90 (+1.27)     | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (6b)
+     1h | HH/HL    | HH/HL    | BOS DN (55b/45)      | HIGH 2614.99 (+8.22)    | — (0 bölge)          | — (0 bölge)          | EQH_SWEEP (19b)
+     4h | MIX/HL   | HH/HL    | CHOCH DN (12b/33)    | HIGH 2614.99 (+4.13)    | — (0 bölge)          | 1862.65 (14.47/2×)   | HIGH_SWEEP (36b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:06.811 · yaş 2.3 sn): Spread 0.04 bps | Dengesizlik top5 +0.55 · top20 +0.54 | Microprice +0.01 bps | Derinlik ±0.8 bps | Alış $694,672 · Satış $207,798
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR:
+    🔴 [AGRESİF SATICI]: 1 dakikalık işlemlerde %70+ ezici Taker Satıcı baskısı!
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: BNBUSDT.P (Binance) | 2026-09-17 23:00:13 | [TOP100] #4
+  SNAPSHOT: BNB_20260917_230013_732 | sıra #814 | Bar 23:00 CANLI (14. sn)
+  FİYAT: 733.260000  |  1m DEĞİŞİM: +0.02%  |  RVOL: 0.19x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / BNBUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: BNBUSDT
+    • İZOLE HAVUZ       : 4639 trade | Son fiyat: 733.270000 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 0.2 sn önce | ağırlık 112/2400
+    • 1 Dakikalık Akış  : Alış: $165,405.6 | Satış: $329,960.3 (1266 İşlem)
+      Net CVD           : $-164,554.7 (DOWN 🔴) | Alıcı Oranı: %33.4
+      Project Z Skoru   : 9.2 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-614,371.6 | Alıcı: %31.3 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $-2,691,291.0 | Alıcı: %40.1
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 733.610000 |  -0.05% | $293,554 | $1,532,432 | $-1,238,878 |  88.3 🔴 | ASIRI   |  76.6
+    22:56 | 732.880000 |  -0.10% | $ 53,633 | $303,254 | $-249,621 |  82.4 🟠 | YORGUN  |  65.5
+    22:57 | 732.880000 |  +0.00% | $ 19,773 | $ 63,189 | $ -43,416 |  76.4 🟠 | YORGUN  |  61.1
+    22:58 | 733.150000 |  +0.04% | $196,448 | $ 91,910 | $+104,538 |  72.2 🟠 | YORGUN  |  59.2
+    22:59 | 733.090000 |  -0.01% | $ 78,834 | $290,718 | $-211,884 |  68.7 🟢 | NORMAL  |  55.1
+    23:00 | 733.260000 |  +0.02% | $112,299 | $ 55,584 | $ +56,715 |  66.9 🟢 | NORMAL  |  59.5
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     66.9 | 🟢 NORMAL    ||      87.5 | 🟢 BULL    | BOS UP    | EXP UP     | 93.8 | F✓ S✓ R✓
+     3m | 499 |     82.9 | 🟠 YORGUN    ||      70.0 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 74.7 | F✓ S✓ R✓
+     5m | 499 |     87.5 | 🔴 ASIRI     ||      43.6 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 88.4 | F✓ S✓ R✓
+    15m | 499 |     80.5 | 🟠 YORGUN    ||      92.0 | 🟢 BULL    | BOS UP    | RANGE      | 91.3 | F✓ S✓ R✓
+     1h | 499 |     82.0 | 🟠 YORGUN    ||      64.8 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 76.7 | F✓ S✓ R✓
+     4h | 499 |     78.0 | 🟠 YORGUN    ||      41.2 | 🟢 BULL    | BOS UP    | RANGE      | 86.1 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 59.5 / 100 (⚠️ PRICE AHEAD)
+    • 4 BİLEŞEN       : Impact: 61.1 | Memory: 62.0 | Momentum: 56.1 | Activity: 52.5
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00187 log units
+    • FAST IMPULSE    : FastPrice: -0.54 | FastFlow: -0.45
+    • REGRESYON MODEL : Beta: 0.00045 | Beta R²: 0.473
+    • HACİM & AKIŞ    : Dollar RVOL: 0.19x | Volume Percentile: %62.3 | Persistence: %55.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: +8.8%)
+    • BİLEŞEN UYUMU   : Spread: 5.8 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 731.8875 (-0.19%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [23:00:09] SELL 🔴 $26,031 @ 733.2600 (BNBUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 76.6 → 65.5 → 61.1 → 59.2 → 55.1 → 59.5 | Δ1 +4.4 · Δ3 -1.6 · Δ5 -17.1
+    • FATIGUE   : 88.3 → 82.4 → 76.4 → 72.2 → 68.7 → 66.9 | Δ1 -1.8 · Δ3 -9.5 · Δ5 -21.4 | abs 62.9 · rank 62.3
+    • UNPRICED  : -0.0022 → -0.0013 → -0.0013 → -0.0016 → -0.0017 → -0.0019 | Δ1 -0.00021 · Δ3 -0.00061 · Δ5 +0.00036
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $-157,333 · 5m $+2,088,193 · 15m $-214,642 | Alıcı% Δ 1m -14.3 · 5m +12.8
+    • CVD EĞİM  : 3dk $-25,313/dk (norm -0.086) · 5dk $-87,777/dk (norm -0.268) · önceki 3dk norm -0.675 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |   1266 |   30.4 | $      495,366 |   60s %100 |   1 / $      35,861 |   4 / $      201,011 | 🟢  66.2
+         5m | TAM    |   4259 |   88.2 | $    1,639,438 |  300s %100 |   3 / $     105,371 |  11 / $      499,722 | 🟢  83.5
+        15m | TAM    |  18612 |   70.8 | $   13,590,633 |  900s %100 |  43 / $   2,791,514 |  54 / $    6,019,738 | 🟢  80.8
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/HL    | HH/HL    | BOS UP (10b/43)      | LOW 730.1900 (+6.21)    | — (0 bölge)          | 727.4750 (11.69/2×)  | HIGH_SWEEP (13b)
+     3m | MIX/HL   | HH/HL    | CHOCH UP (12b/76)    | LOW 727.7400 (+6.57)    | — (0 bölge)          | 724.9950 (9.83/2×)   | HIGH_SWEEP (50b)
+     5m | LH/LL    | MIX/HL   | CHOCH UP (4b/80)     | LOW 727.7400 (+5.55)    | — (0 bölge)          | 718.6600 (14.68/2×)  | HIGH_SWEEP (232b)
+    15m | HH/HL    | LH/LL    | BOS UP (2b/62)       | LOW 727.7400 (+3.07)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (12b)
+     1h | HH/MIX   | HH/MIX   | CHOCH UP (25b/53)    | LOW 704.3400 (+6.92)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (8b)
+     4h | LH/LL    | HH/HL    | BOS UP (2b/31)       | LOW 704.3400 (+3.31)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (4b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:12.429 · yaş 1.3 sn): Spread 0.14 bps | Dengesizlik top5 +0.51 · top20 +0.22 | Microprice +0.05 bps | Derinlik ±2.8 bps | Alış $242,835 · Satış $156,254
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR:
+    🚨 [AŞIRI YORGUNLUK]: Üst periyotlarda FAT > 83 tepe/tükeniş alarmı!
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: XRPUSDT.P (Binance) | 2026-09-17 23:00:18 | [TOP100] #5
+  SNAPSHOT: XRP_20260917_230018_015 | sıra #815 | Bar 23:00 CANLI (18. sn)
+  FİYAT: 1.294700  |  1m DEĞİŞİM: -0.02%  |  RVOL: 0.3x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / XRPUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: XRPUSDT
+    • İZOLE HAVUZ       : 2462 trade | Son fiyat: 1.294600 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem -0.4 sn önce | ağırlık 146/2400
+    • 1 Dakikalık Akış  : Alış: $300,703.8 | Satış: $510,418.6 (1582 İşlem)
+      Net CVD           : $-209,714.8 (DOWN 🔴) | Alıcı Oranı: %37.1
+      Project Z Skoru   : 12.8 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-254,056.9 | Alıcı: %43.9 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $+478,982.3 | Alıcı: %53.2
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 1.295800 |  -0.06% | $139,629 | $140,942 | $  -1,313 |  76.5 🟠 | YORGUN  |  50.9
+    22:56 | 1.295600 |  -0.02% | $129,004 | $ 68,683 | $ +60,321 |  71.7 🟢 | NORMAL  |  51.8
+    22:57 | 1.295200 |  -0.03% | $ 91,693 | $ 63,390 | $ +28,303 |  66.0 🟢 | NORMAL  |  49.8
+    22:58 | 1.295400 |  +0.02% | $172,128 | $ 46,444 | $+125,684 |  62.6 🟢 | NORMAL  |  51.8
+    22:59 | 1.294900 |  -0.04% | $382,401 | $911,774 | $-529,373 |  57.6 🟢 | NORMAL  |  53.4
+    23:00 | 1.294700 |  -0.02% | $ 81,581 | $ 61,379 | $ +20,201 |  53.0 🟢 | NORMAL  |  52.5
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     53.0 | 🟢 NORMAL    ||      71.0 | 🟢 BULL    | BOS UP    | RANGE      | 71.4 | F✓ S✓ R✓
+     3m | 499 |     62.2 | 🟢 NORMAL    ||      76.8 | 🟢 BULL    | BOS UP    | RANGE      | 77.5 | F✓ S✓ R✓
+     5m | 499 |     51.1 | 🟢 NORMAL    ||      27.2 | 🟢 BULL    | BOS UP    | SQZ        | 83.4 | F✓ S✓ R✓
+    15m | 499 |     25.1 | 🔵 DINLENMIS ||      45.3 | 🔴 BEAR    | BOS DN    | RANGE      | 71.9 | F✓ S✓ R✓
+     1h | 499 |     37.1 | 🟢 NORMAL    ||      68.6 | 🔴 BEAR    | BOS DN    | RANGE      | 82.2 | F✓ S✓ R✓
+     4h | 499 |     36.9 | 🟢 NORMAL    ||      46.3 | 🔴 TR-DN   | CHOCH DN  | TR-DN      | 75.8 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 52.5 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 53.1 | Memory: 51.9 | Momentum: 53.0 | Activity: 50.2
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00038 log units
+    • FAST IMPULSE    : FastPrice: -0.72 | FastFlow: -1.00
+    • REGRESYON MODEL : Beta: 0.00083 | Beta R²: 0.597
+    • HACİM & AKIŞ    : Dollar RVOL: 0.30x | Volume Percentile: %5.3 | Persistence: %55.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -4.1%)
+    • BİLEŞEN UYUMU   : Spread: 1.2 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 1.2942 (-0.04%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [23:00:06] BUY 🟢 $26,998 @ 1.2947 (XRPUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 50.9 → 51.8 → 49.8 → 51.8 → 53.4 → 52.5 | Δ1 -0.9 · Δ3 +2.7 · Δ5 +1.6
+    • FATIGUE   : 76.5 → 71.7 → 66.0 → 62.6 → 57.6 → 53.0 | Δ1 -4.7 · Δ3 -13.1 · Δ5 -23.5 | abs 40.7 · rank 45.3
+    • UNPRICED  : -0.0001 → -0.0003 → -0.0002 → -0.0005 → -0.0006 → -0.0004 | Δ1 +0.00017 · Δ3 -0.00022 · Δ5 -0.00031
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $+26,870 · 5m $+312,283 · 15m $-252,358 | Alıcı% Δ 1m +2.6 · 5m +4.5
+    • CVD EĞİM  : 3dk $-144,984/dk (norm -0.251) · 5dk $-45,421/dk (norm -0.108) · önceki 3dk norm -0.177 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |   1582 |   24.2 | $      811,122 |   60s %100 |   5 / $     195,894 |   7 / $      383,136 | 🟢  63.5
+         5m | TAM    |   5349 |   80.5 | $    2,093,936 |  300s %100 |  10 / $     366,216 |  17 / $      831,519 | 🟢  82.4
+        15m | TAM    |  17000 |  224.4 | $    7,434,360 |  900s %100 |  33 / $   1,910,188 |  39 / $    2,068,131 | 🟢  92.3
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/MIX   | HH/MIX   | BOS UP (10b/43)      | LOW 1.2937 (+1.02)      | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (3b)
+     3m | MIX/HL   | HH/HL    | BOS UP (3b/77)       | LOW 1.2918 (+1.53)      | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (2b)
+     5m | LH/LL    | MIX/HL   | BOS UP (68b/54)      | LOW 1.2888 (+2.43)      | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (8b)
+    15m | MIX/HL   | LH/LL    | BOS DN (6b/36)       | HIGH 1.3086 (+2.63)     | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (22b)
+     1h | HH/HL    | HH/HL    | BOS DN (31b/35)      | HIGH 1.3120 (+1.32)     | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (8b)
+     4h | HH/MIX   | HH/MIX   | CHOCH DN (13b/73)    | HIGH 1.4916 (+6.01)     | 1.5507 (7.82/2×)     | 0.987750 (9.38/2×)   | EQH_SWEEP (55b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:16.780 · yaş 1.2 sn): Spread 0.77 bps | Dengesizlik top5 +0.06 · top20 +0.10 | Microprice +0.10 bps | Derinlik ±15.1 bps | Alış $1,343,594 · Satış $1,109,110
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR: Piyasa sakin, nötr akış.
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: DOGEUSDT.P (Binance) | 2026-09-17 23:00:22 | [TOP100] #12
+  SNAPSHOT: DOGE_20260917_230022_464 | sıra #816 | Bar 23:00 CANLI (22. sn)
+  FİYAT: 0.081650  |  1m DEĞİŞİM: -0.01%  |  RVOL: 0.5x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / DOGEUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: DOGEUSDT
+    • İZOLE HAVUZ       : 1178 trade | Son fiyat: 0.081640 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem -0.1 sn önce | ağırlık 180/2400
+    • 1 Dakikalık Akış  : Alış: $25,914.4 | Satış: $93,462.0 (509 İşlem)
+      Net CVD           : $-67,547.6 (DOWN 🔴) | Alıcı Oranı: %21.7
+      Project Z Skoru   : 5.5 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-243,249.3 | Alıcı: %29.2 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $-427,853.5 | Alıcı: %41.4
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 0.081690 |  -0.05% | $ 90,496 | $ 68,875 | $ +21,621 |  74.2 🟠 | YORGUN  |  73.9
+    22:56 | 0.081630 |  -0.07% | $ 18,382 | $ 52,580 | $ -34,198 |  67.9 🟢 | NORMAL  |  68.4
+    22:57 | 0.081620 |  -0.01% | $ 10,688 | $ 26,072 | $ -15,384 |  62.1 🟢 | NORMAL  |  66.8
+    22:58 | 0.081650 |  +0.04% | $ 68,961 | $ 14,227 | $ +54,734 |  59.3 🟢 | NORMAL  |  65.0
+    22:59 | 0.081660 |  +0.01% | $ 53,611 | $216,294 | $-162,683 |  58.0 🟢 | NORMAL  |  65.9
+    23:00 | 0.081650 |  -0.01% | $  7,622 | $ 69,036 | $ -61,414 |  56.3 🟢 | NORMAL  |  62.5
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     56.3 | 🟢 NORMAL    ||      72.4 | 🟢 BULL    | BOS UP    | TR UP      | 74.0 | F✓ S✓ R✓
+     3m | 499 |     67.5 | 🟢 NORMAL    ||      85.6 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 86.0 | F✓ S✓ R✓
+     5m | 499 |     67.2 | 🟢 NORMAL    ||      19.8 | 🔴 TR-DN   | CHOCH DN  | TR-DN      | 85.4 | F✓ S✓ R✓
+    15m | 499 |     40.8 | 🟢 NORMAL    ||      67.6 | 🟢 BULL    | BOS UP    | RANGE      | 77.8 | F✓ S✓ R✓
+     1h | 499 |     69.7 | 🟢 NORMAL    ||      85.3 | 🟢 BULL    | BOS UP    | RANGE      | 87.4 | F✓ S✓ R✓
+     4h | 499 |     56.2 | 🟢 NORMAL    ||      46.8 | 🔴 BEAR    | BOS DN    | TR DN      | 73.2 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 62.5 / 100 (⚠️ PRICE AHEAD)
+    • 4 BİLEŞEN       : Impact: 64.7 | Memory: 68.1 | Momentum: 55.2 | Activity: 53.4
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00481 log units
+    • FAST IMPULSE    : FastPrice: -0.37 | FastFlow: -0.33
+    • REGRESYON MODEL : Beta: 0.00087 | Beta R²: 0.588
+    • HACİM & AKIŞ    : Dollar RVOL: 0.50x | Volume Percentile: %24.7 | Persistence: %50.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -24.1%)
+    • BİLEŞEN UYUMU   : Spread: 12.9 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.081258 (-0.48%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [23:00:09] SELL 🔴 $16,672 @ 0.081640 (DOGEUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 73.9 → 68.4 → 66.8 → 65.0 → 65.9 → 62.5 | Δ1 -3.4 · Δ3 -4.3 · Δ5 -11.4
+    • FATIGUE   : 74.2 → 67.9 → 62.1 → 59.3 → 58.0 → 56.3 | Δ1 -1.7 · Δ3 -5.8 · Δ5 -18.0 | abs 51.3 · rank 54.7
+    • UNPRICED  : -0.0055 → -0.0050 → -0.0048 → -0.0052 → -0.0050 → -0.0048 | Δ1 +0.00024 · Δ3 -0.00001 · Δ5 +0.00065
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $+90,574 · 5m $+201,012 · 15m $-83,309 | Alıcı% Δ 1m +3.2 · 5m -1.9
+    • CVD EĞİM  : 3dk $-70,994/dk (norm -0.458) · 5dk $-43,858/dk (norm -0.375) · önceki 3dk norm -0.374 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    509 |    7.4 | $      119,376 |   60s %100 |   0 / $           0 |   3 / $       67,894 | 🟡  40.8
+         5m | TAM    |   2203 |   22.4 | $      585,287 |  300s %100 |   2 / $      33,060 |   9 / $      288,457 | 🟢  61.5
+        15m | TAM    |   7346 |  105.0 | $    2,475,443 |  900s %100 |  17 / $     510,449 |  31 / $      972,294 | 🟢  85.6
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/MIX   | HH/HL    | BOS UP (8b/39)       | LOW 0.081480 (+2.56)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (4b)
+     3m | HH/HL    | LH/LL    | CHOCH UP (3b/68)     | LOW 0.081390 (+2.08)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (2b)
+     5m | LH/LL    | HH/HL    | CHOCH DN (17b/70)    | HIGH 0.082260 (+3.85)   | — (0 bölge)          | 0.079860 (11.29/2×)  | HIGH_SWEEP (2b)
+    15m | MIX/HL   | HH/MIX   | BOS UP (24b/57)      | LOW 0.080540 (+3.34)    | — (0 bölge)          | 0.080555 (3.30/2×)   | HIGH_SWEEP (22b)
+     1h | HH/HL    | MIX/HL   | BOS UP (12b/49)      | LOW 0.078280 (+4.74)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (11b)
+     4h | HH/MIX   | HH/MIX   | BOS DN (14b/27)      | HIGH 0.086160 (+3.12)   | — (0 bölge)          | 0.078350 (2.28/2×)   | HIGH_SWEEP (18b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:22.124 · yaş 0.3 sn): Spread 1.23 bps | Dengesizlik top5 -0.14 · top20 +0.06 | Microprice +0.01 bps | Derinlik ±23.9 bps | Alış $915,604 · Satış $804,014
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR:
+    🔴 [AGRESİF SATICI]: 1 dakikalık işlemlerde %70+ ezici Taker Satıcı baskısı!
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: LINKUSDT.P (Binance) | 2026-09-17 23:00:26 | [TOP100] #17
+  SNAPSHOT: LINK_20260917_230026_202 | sıra #817 | Bar 23:00 CANLI (26. sn)
+  FİYAT: 11.312000  |  1m DEĞİŞİM: +0.00%  |  RVOL: 0.23x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / LINKUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: LINKUSDT
+    • İZOLE HAVUZ       : 956 trade | Son fiyat: 11.311000 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 0.0 sn önce | ağırlık 214/2400
+    • 1 Dakikalık Akış  : Alış: $22,196.8 | Satış: $28,749.8 (296 İşlem)
+      Net CVD           : $-6,553.0 (DOWN 🔴) | Alıcı Oranı: %43.6
+      Project Z Skoru   : 26.3 / 100
+    • 5 Dakikalık Akış  : Net CVD: $+17,372.7 | Alıcı: %53.6 | CVD: UP 🟢
+    • 15 Dakikalık Akış : Net CVD: $+105,320.6 | Alıcı: %54.5
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 11.330000 |  -0.09% | $ 69,424 | $ 33,946 | $ +35,478 |  77.0 🟠 | YORGUN  |  66.1
+    22:56 | 11.312000 |  -0.16% | $  4,692 | $ 19,199 | $ -14,507 |  71.0 🟢 | NORMAL  |  56.6
+    22:57 | 11.312000 |  +0.00% | $ 24,647 | $  9,489 | $ +15,158 |  65.5 🟢 | NORMAL  |  56.1
+    22:58 | 11.308000 |  -0.04% | $ 49,169 | $ 27,268 | $ +21,900 |  59.3 🟢 | NORMAL  |  55.8
+    22:59 | 11.312000 |  +0.04% | $ 38,924 | $ 37,357 | $  +1,567 |  56.1 🟢 | NORMAL  |  56.7
+    23:00 | 11.312000 |  +0.00% | $  6,946 | $  9,599 | $  -2,653 |  53.7 🟢 | NORMAL  |  55.5
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     53.7 | 🟢 NORMAL    ||      69.5 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 72.5 | F✓ S✓ R✓
+     3m | 499 |     51.8 | 🟢 NORMAL    ||      45.9 | 🟢 BULL    | BOS UP    | RANGE      | 92.0 | F✓ S✓ R✓
+     5m | 499 |     41.7 | 🟢 NORMAL    ||      18.3 | 🔴 TR-DN   | CHOCH DN  | TR-DN      | 84.1 | F✓ S✓ R✓
+    15m | 499 |     31.7 | 🟢 NORMAL    ||      68.4 | 🟢 BULL    | BOS UP    | RANGE      | 77.0 | F✓ S✓ R✓
+     1h | 499 |     75.0 | 🟠 YORGUN    ||      55.5 | 🔴 BEAR    | BOS DN    | TR DN      | 70.8 | F✓ S✓ R✓
+     4h | 499 |     60.2 | 🟢 NORMAL    ||      17.0 | 🔴 BEAR    | BOS DN    | RANGE      | 86.2 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 55.5 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 56.6 | Memory: 58.8 | Momentum: 51.7 | Activity: 50.4
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00280 log units
+    • FAST IMPULSE    : FastPrice: -0.92 | FastFlow: -0.74
+    • REGRESYON MODEL : Beta: 0.00122 | Beta R²: 0.594
+    • HACİM & AKIŞ    : Dollar RVOL: 0.23x | Volume Percentile: %3.7 | Persistence: %50.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -16.6%)
+    • BİLEŞEN UYUMU   : Spread: 7.1 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 11.2804 (-0.28%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [22:59:15] SELL 🔴 $11,587 @ 11.3089 (LINKUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 66.1 → 56.6 → 56.1 → 55.8 → 56.7 → 55.5 | Δ1 -1.2 · Δ3 -0.6 · Δ5 -10.6
+    • FATIGUE   : 77.0 → 71.0 → 65.5 → 59.3 → 56.1 → 53.7 | Δ1 -2.4 · Δ3 -11.7 · Δ5 -23.2 | abs 48.5 · rank 47.7
+    • UNPRICED  : -0.0033 → -0.0021 → -0.0021 → -0.0027 → -0.0027 → -0.0028 | Δ1 -0.00005 · Δ3 -0.00068 · Δ5 +0.00050
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $-3,339 · 5m $-4,222 · 15m $-1,010 | Alıcı% Δ 1m -3.4 · 5m +1.8
+    • CVD EĞİM  : 3dk $+5,148/dk (norm +0.087) · 5dk $+6,388/dk (norm +0.133) · önceki 3dk norm -0.014 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    296 |   22.6 | $       50,947 |   60s %100 |   0 / $           0 |   0 / $            0 | 🟡  55.8
+         5m | TAM    |   1244 |   73.8 | $      240,234 |  300s %100 |   1 / $      10,284 |   1 / $       11,587 | 🟢  77.3
+        15m | TAM    |   4772 |  263.7 | $    1,166,714 |  900s %100 |   9 / $     161,423 |   5 / $       78,882 | 🟢  93.3
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/MIX   | HH/MIX   | CHOCH UP (8b/62)     | LOW 11.2740 (+3.11)     | — (0 bölge)          | 11.1400 (14.10/2×)   | HIGH_SWEEP (4b)
+     3m | LH/LL    | LH/LL    | BOS UP (3b/70)       | LOW 11.2810 (+1.31)     | — (0 bölge)          | 11.1010 (8.90/2×)    | HIGH_SWEEP (2b)
+     5m | LH/LL    | LH/LL    | CHOCH DN (9b/56)     | HIGH 11.3790 (+2.09)    | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (3b)
+    15m | MIX/HL   | LH/MIX   | BOS UP (24b/61)      | LOW 11.0890 (+3.71)     | 11.4280 (1.93/2×)    | 11.0905 (3.69/2×)    | HIGH_SWEEP (22b)
+     1h | MIX/HL   | MIX/HL   | BOS DN (37b/43)      | HIGH 11.5010 (+1.58)    | 12.7855 (12.29/2×)   | — (0 bölge)          | LOW_SWEEP (27b)
+     4h | LH/LL    | HH/MIX   | BOS DN (13b/25)      | HIGH 11.9610 (+2.70)    | — (0 bölge)          | 8.0620 (13.50/2×)    | EQH_SWEEP (81b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:25.553 · yaş 0.6 sn): Spread 0.88 bps | Dengesizlik top5 -0.14 · top20 -0.03 | Microprice -0.08 bps | Derinlik ±17.2 bps | Alış $178,571 · Satış $190,052
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR: Piyasa sakin, nötr akış.
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: ADAUSDT.P (Binance) | 2026-09-17 23:00:30 | [TOP100] #19
+  SNAPSHOT: ADA_20260917_230030_300 | sıra #818 | Bar 23:00 CANLI (30. sn)
+  FİYAT: 0.201600  |  1m DEĞİŞİM: +0.00%  |  RVOL: 0.01x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / ADAUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: ADAUSDT
+    • İZOLE HAVUZ       : 598 trade | Son fiyat: 0.201600 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 2.1 sn önce | ağırlık 248/2400
+    • 1 Dakikalık Akış  : Alış: $20,644.4 | Satış: $17,415.4 (110 İşlem)
+      Net CVD           : $+3,229.0 (UP 🟢) | Alıcı Oranı: %54.2
+      Project Z Skoru   : 66.5 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-15,062.8 | Alıcı: %46.6 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $-41,432.5 | Alıcı: %47.9
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 0.201600 |  -0.10% | $  9,092 | $ 59,427 | $ -50,335 |  72.0 🟢 | NORMAL  |  53.4
+    22:56 | 0.201400 |  -0.10% | $  2,271 | $ 16,226 | $ -13,955 |  64.3 🟢 | NORMAL  |  47.4
+    22:57 | 0.201400 |  +0.00% | $ 23,396 | $ 17,608 | $  +5,788 |  58.1 🟢 | NORMAL  |  44.3
+    22:58 | 0.201600 |  +0.10% | $ 42,103 | $  3,670 | $ +38,433 |  58.0 🟢 | NORMAL  |  49.3
+    22:59 | 0.201600 |  +0.00% | $ 34,273 | $ 40,800 | $  -6,526 |  58.2 🟢 | NORMAL  |  46.1
+    23:00 | 0.201600 |  +0.00% | $    593 | $    249 | $    +344 |  58.7 🟢 | NORMAL  |  49.0
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     58.7 | 🟢 NORMAL    ||      50.1 | 🔴 BEAR    | BOS DN    | RANGE      | 73.5 | F✓ S✓ R✓
+     3m | 499 |     56.4 | 🟢 NORMAL    ||      40.7 | 🔴 BEAR    | BOS DN    | RANGE      | 74.5 | F✓ S✓ R✓
+     5m | 499 |     56.4 | 🟢 NORMAL    ||      30.4 | 🟢 BULL    | BOS UP    | SQZ        | 86.4 | F✓ S✓ R✓
+    15m | 499 |     36.8 | 🟢 NORMAL    ||      52.5 | 🟢 BULL    | BOS UP    | RANGE      | 75.7 | F✓ S✓ R✓
+     1h | 499 |     76.5 | 🟠 YORGUN    ||      67.3 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 72.5 | F✓ S✓ R✓
+     4h | 499 |     57.4 | 🟢 NORMAL    ||      16.9 | 🔴 BEAR    | BOS DN    | RANGE      | 83.9 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 49.0 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 48.7 | Memory: 49.7 | Momentum: 48.6 | Activity: 50.0
+    • UNPRICED FLOW   : RemainingUnpricedFlow: +0.00011 log units
+    • FAST IMPULSE    : FastPrice: +0.00 | FastFlow: +0.13
+    • REGRESYON MODEL : Beta: 0.00125 | Beta R²: 0.496
+    • HACİM & AKIŞ    : Dollar RVOL: 0.01x | Volume Percentile: %0.7 | Persistence: %45.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: +7.1%)
+    • BİLEŞEN UYUMU   : Spread: 1.1 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.201621 (+0.01%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [22:59:46] BUY 🟢 $11,498 @ 0.201600 (ADAUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 53.4 → 47.4 → 44.3 → 49.3 → 46.1 → 49.0 | Δ1 +2.9 · Δ3 +4.7 · Δ5 -4.4
+    • FATIGUE   : 72.0 → 64.3 → 58.1 → 58.0 → 58.2 → 58.7 | Δ1 +0.4 · Δ3 +0.6 · Δ5 -13.3 | abs 56.7 · rank 66.3
+    • UNPRICED  : -0.0001 → +0.0005 → +0.0005 → -0.0002 → +0.0001 → +0.0001 | Δ1 -0.00002 · Δ3 -0.00040 · Δ5 +0.00017
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $+15,330 · 5m $+111,082 · 15m $+5,007 | Alıcı% Δ 1m +19.1 · 5m +13.1
+    • CVD EĞİM  : 3dk $+11,443/dk (norm +0.217) · 5dk $+2,197/dk (norm +0.050) · önceki 3dk norm -0.624 → DÖNÜŞ: UP
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    110 |    4.5 | $       38,060 |   60s %100 |   1 / $      11,498 |   1 / $       10,221 | 🟡  32.1
+         5m | TAM    |    939 |   16.9 | $      220,914 |  300s %100 |   4 / $      61,641 |   4 / $       69,661 | 🟡  54.7
+        15m | TAM    |   3647 |   48.0 | $      997,770 |  900s %100 |  17 / $     368,649 |  20 / $      384,707 | 🟢  75.1
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/MIX   | HH/HL    | BOS DN (24b/67)      | HIGH 0.202000 (+1.58)   | 0.202000 (1.58/2×)   | — (0 bölge)          | EQH_SWEEP (6b)
+     3m | MIX/HL   | LH/LL    | BOS DN (5b/55)       | HIGH 0.202000 (+0.92)   | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (2b)
+     5m | LH/LL    | HH/MIX   | BOS UP (36b/65)      | LOW 0.200800 (+1.64)    | — (0 bölge)          | 0.190300 (20.77/2×)  | HIGH_SWEEP (34b)
+    15m | LH/MIX   | HH/MIX   | BOS UP (23b/79)      | LOW 0.197200 (+3.88)    | — (0 bölge)          | 0.200850 (0.66/2×)   | HIGH_SWEEP (21b)
+     1h | HH/MIX   | MIX/HL   | CHOCH UP (14b/62)    | LOW 0.190100 (+4.90)    | — (0 bölge)          | — (0 bölge)          | EQH_SWEEP (19b)
+     4h | LH/LL    | LH/LL    | BOS DN (13b/46)      | HIGH 0.215900 (+3.04)   | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (50b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:29.270 · yaş 1.0 sn): Spread 4.96 bps | Dengesizlik top5 -0.26 · top20 +0.09 | Microprice -0.16 bps | Derinlik ±96.7 bps | Alış $2,423,686 · Satış $2,029,464
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR: Piyasa sakin, nötr akış.
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: LTCUSDT.P (Binance) | 2026-09-17 23:00:34 | [TOP100] #25
+  SNAPSHOT: LTC_20260917_230034_644 | sıra #819 | Bar 23:00 CANLI (35. sn)
+  FİYAT: 53.860000  |  1m DEĞİŞİM: +0.06%  |  RVOL: 0.33x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / LTCUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: LTCUSDT
+    • İZOLE HAVUZ       : 618 trade | Son fiyat: 53.840000 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 1.4 sn önce | ağırlık 282/2400
+    • 1 Dakikalık Akış  : Alış: $7,876.3 | Satış: $28,598.9 (140 İşlem)
+      Net CVD           : $-20,722.6 (DOWN 🔴) | Alıcı Oranı: %21.6
+      Project Z Skoru   : 5.5 / 100
+    • 5 Dakikalık Akış  : Net CVD: $+27,930.0 | Alıcı: %55.0 | CVD: UP 🟢
+    • 15 Dakikalık Akış : Net CVD: $+1,259.0 | Alıcı: %50.1
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 53.830000 |  -0.15% | $ 17,733 | $ 42,762 | $ -25,029 |  57.2 🟢 | NORMAL  |  65.3
+    22:56 | 53.810000 |  -0.04% | $ 11,525 | $ 21,516 | $  -9,991 |  50.8 🟢 | NORMAL  |  61.9
+    22:57 | 53.780000 |  -0.06% | $  6,176 | $ 21,483 | $ -15,307 |  43.2 🟢 | NORMAL  |  60.1
+    22:58 | 53.850000 |  +0.13% | $114,647 | $ 14,700 | $ +99,947 |  43.1 🟢 | NORMAL  |  57.1
+    22:59 | 53.830000 |  -0.04% | $  3,715 | $ 17,268 | $ -13,553 |  41.7 🟢 | NORMAL  |  56.0
+    23:00 | 53.860000 |  +0.06% | $  7,650 | $ 16,714 | $  -9,064 |  44.1 🟢 | NORMAL  |  62.9
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     44.1 | 🟢 NORMAL    ||      67.2 | 🟢 BULL    | BOS UP    | TR UP      | 74.9 | F✓ S✓ R✓
+     3m | 499 |     72.4 | 🟠 YORGUN    ||      86.1 | 🟢 BULL    | BOS UP    | TR UP      | 86.3 | F✓ S✓ R✓
+     5m | 499 |     74.9 | 🟠 YORGUN    ||      73.9 | 🟢 BULL    | BOS UP    | EXP UP     | 75.7 | F✓ S✓ R✓
+    15m | 499 |     63.8 | 🟢 NORMAL    ||      68.0 | 🟢 BULL    | BOS UP    | TR UP      | 78.7 | F✓ S✓ R✓
+     1h | 499 |     82.4 | 🟠 YORGUN    ||      65.5 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 63.2 | F✓ S✓ R✓
+     4h | 499 |     71.5 | 🟢 NORMAL    ||      51.0 | 🔴 TR-DN   | CHOCH DN  | TR-DN      | 72.3 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 62.9 / 100 (⚠️ PRICE AHEAD)
+    • 4 BİLEŞEN       : Impact: 65.5 | Memory: 64.6 | Momentum: 59.7 | Activity: 53.2
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00370 log units
+    • FAST IMPULSE    : FastPrice: +0.36 | FastFlow: +0.18
+    • REGRESYON MODEL : Beta: 0.00091 | Beta R²: 0.417
+    • HACİM & AKIŞ    : Dollar RVOL: 0.33x | Volume Percentile: %32.0 | Persistence: %65.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -40.1%)
+    • BİLEŞEN UYUMU   : Spread: 5.8 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 53.6611 (-0.37%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [23:00:22] SELL 🔴 $12,252 @ 53.8500 (LTCUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 65.3 → 61.9 → 60.1 → 57.1 → 56.0 → 62.9 | Δ1 +6.9 · Δ3 +2.8 · Δ5 -2.4
+    • FATIGUE   : 57.2 → 50.8 → 43.2 → 43.1 → 41.7 → 44.1 | Δ1 +2.5 · Δ3 +1.0 · Δ5 -13.1 | abs 50.7 · rank 48.0
+    • UNPRICED  : -0.0038 → -0.0037 → -0.0033 → -0.0037 → -0.0036 → -0.0037 | Δ1 -0.00015 · Δ3 -0.00042 · Δ5 +0.00012
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $-19,229 · 5m $+8,615 · 15m $+7,086 | Alıcı% Δ 1m -24.9 · 5m +1.7
+    • CVD EĞİM  : 3dk $+17,960/dk (norm +0.281) · 5dk $+12,733/dk (norm +0.228) · önceki 3dk norm -0.470 → DÖNÜŞ: UP
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    140 |    6.3 | $       36,475 |   60s %100 |   0 / $           0 |   1 / $       12,252 | 🟡  36.4
+         5m | TAM    |    839 |   16.0 | $      279,740 |  300s %100 |   2 / $      94,515 |   3 / $       42,070 | 🟡  54.3
+        15m | TAM    |   2901 |   73.9 | $      748,506 |  900s %100 |   6 / $     135,231 |   6 / $       84,515 | 🟢  80.5
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | MIX/HL   | MIX/HL   | BOS UP (23b/61)      | LOW 53.4500 (+6.32)     | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (65b)
+     3m | HH/HL    | HH/HL    | BOS UP (12b/72)      | LOW 53.3900 (+4.34)     | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (60b)
+     5m | MIX/HL   | HH/HL    | BOS UP (4b/26)       | LOW 53.3900 (+3.45)     | — (0 bölge)          | 50.2100 (27.30/2×)   | HIGH_SWEEP (3b)
+    15m | HH/MIX   | HH/HL    | BOS UP (23b/43)      | LOW 52.5100 (+5.84)     | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (22b)
+     1h | MIX/HL   | HH/MIX   | CHOCH UP (9b/41)     | LOW 50.1300 (+7.95)     | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (11b)
+     4h | HH/MIX   | LH/LL    | CHOCH DN (12b/38)    | HIGH 55.2400 (+1.59)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (28b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:33.397 · yaş 1.2 sn): Spread 1.86 bps | Dengesizlik top5 +0.02 · top20 -0.05 | Microprice -0.47 bps | Derinlik ±36.2 bps | Alış $797,716 · Satış $888,254
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR:
+    🔴 [AGRESİF SATICI]: 1 dakikalık işlemlerde %70+ ezici Taker Satıcı baskısı!
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: AVAXUSDT.P (Binance) | 2026-09-17 23:00:40 | [TOP100] #31
+  SNAPSHOT: AVAX_20260917_230040_542 | sıra #820 | Bar 23:00 CANLI (40. sn)
+  FİYAT: 7.582000  |  1m DEĞİŞİM: -0.04%  |  RVOL: 0.27x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / AVAXUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: AVAXUSDT
+    • İZOLE HAVUZ       : 615 trade | Son fiyat: 7.579000 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 1.6 sn önce | ağırlık 316/2400
+    • 1 Dakikalık Akış  : Alış: $13,189.6 | Satış: $18,523.7 (254 İşlem)
+      Net CVD           : $-5,334.1 (DOWN 🔴) | Alıcı Oranı: %41.6
+      Project Z Skoru   : 21.0 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-96,798.5 | Alıcı: %22.2 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $-146,883.5 | Alıcı: %38.1
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 7.584000 |  -0.07% | $ 15,768 | $ 15,722 | $     +47 |  66.7 🟢 | NORMAL  |  59.6
+    22:56 | 7.578000 |  -0.08% | $  1,539 | $  8,483 | $  -6,944 |  60.0 🟢 | NORMAL  |  54.0
+    22:57 | 7.577000 |  -0.01% | $  7,456 | $ 69,619 | $ -62,163 |  53.8 🟢 | NORMAL  |  49.3
+    22:58 | 7.581000 |  +0.05% | $ 10,361 | $ 16,610 | $  -6,249 |  52.6 🟢 | NORMAL  |  51.9
+    22:59 | 7.585000 |  +0.05% | $ 17,920 | $ 23,428 | $  -5,508 |  55.4 🟢 | NORMAL  |  52.5
+    23:00 | 7.582000 |  -0.04% | $  1,320 | $  9,820 | $  -8,500 |  55.4 🟢 | NORMAL  |  50.5
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     55.4 | 🟢 NORMAL    ||      43.8 | 🔴 BEAR    | BOS DN    | RANGE      | 74.5 | F✓ S✓ R✓
+     3m | 499 |     39.7 | 🟢 NORMAL    ||      37.5 | 🔴 BEAR    | BOS DN    | SQZ        | 79.0 | F✓ S✓ R✓
+     5m | 499 |     35.4 | 🟢 NORMAL    ||      41.1 | 🔴 BEAR    | BOS DN    | SQZ        | 71.6 | F✓ S✓ R✓
+    15m | 499 |     33.1 | 🟢 NORMAL    ||      63.8 | 🟢 BULL    | BOS UP    | SQZ        | 73.7 | F✓ S✓ R✓
+     1h | 499 |     60.5 | 🟢 NORMAL    ||      72.6 | 🔴 BEAR    | BOS DN    | TR DN      | 81.7 | F✓ S✓ R✓
+     4h | 499 |     73.2 | 🟠 YORGUN    ||      46.8 | 🔴 TR-DN   | CHOCH DN  | TR-DN      | 73.8 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 50.5 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 49.6 | Memory: 52.5 | Momentum: 50.2 | Activity: 50.1
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00063 log units
+    • FAST IMPULSE    : FastPrice: -0.19 | FastFlow: +0.04
+    • REGRESYON MODEL : Beta: 0.00095 | Beta R²: 0.623
+    • HACİM & AKIŞ    : Dollar RVOL: 0.27x | Volume Percentile: %7.0 | Persistence: %50.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -10.0%)
+    • BİLEŞEN UYUMU   : Spread: 2.9 | Agreement: 0.56 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 7.5773 (-0.06%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [22:59:55] BUY 🟢 $5,453 @ 7.5838 (AVAXUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 59.6 → 54.0 → 49.3 → 51.9 → 52.5 → 50.5 | Δ1 -2.0 · Δ3 +1.2 · Δ5 -9.1
+    • FATIGUE   : 66.7 → 60.0 → 53.8 → 52.6 → 55.4 → 55.4 | Δ1 -0.1 · Δ3 +1.6 · Δ5 -11.3 | abs 53.2 · rank 60.0
+    • UNPRICED  : -0.0009 → -0.0004 → -0.0001 → -0.0006 → -0.0008 → -0.0006 | Δ1 +0.00016 · Δ3 -0.00053 · Δ5 +0.00032
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $+8,526 · 5m $-8,687 · 15m $-57,414 | Alıcı% Δ 1m +18.1 · 5m -2.5
+    • CVD EĞİM  : 3dk $-10,024/dk (norm -0.314) · 5dk $-21,049/dk (norm -0.605) · önceki 3dk norm -0.557 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    254 |   15.2 | $       31,713 |   60s %100 |   1 / $       5,453 |   0 / $            0 | 🟡  48.4
+         5m | TAM    |    993 |   25.3 | $      174,048 |  300s %100 |   1 / $       5,453 |   4 / $       70,312 | 🟢  60.6
+        15m | TAM    |   3350 |   90.7 | $      614,838 |  900s %100 |  10 / $     104,620 |  16 / $      228,504 | 🟢  82.5
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/MIX   | HH/HL    | BOS DN (14b/73)      | HIGH 7.6040 (+3.58)     | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (5b)
+     3m | MIX/HL   | HH/MIX   | BOS DN (5b/74)       | HIGH 7.6040 (+2.07)     | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (7b)
+     5m | MIX/HL   | LH/LL    | BOS DN (3b/45)       | HIGH 7.6180 (+2.50)     | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (4b)
+    15m | MIX/HL   | LH/MIX   | BOS UP (30b/15)      | LOW 7.5140 (+2.20)      | 7.6480 (2.26/2×)     | — (0 bölge)          | LOW_SWEEP (19b)
+     1h | HH/HL    | MIX/HL   | BOS DN (54b/47)      | HIGH 7.8000 (+3.24)     | 8.1920 (9.07/3×)     | 7.1860 (5.89/2×)     | EQL_SWEEP (27b)
+     4h | HH/MIX   | LH/MIX   | CHOCH DN (8b/50)     | HIGH 7.8000 (+1.59)     | — (0 bölge)          | 7.1735 (2.93/2×)     | LOW_SWEEP (13b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:37.594 · yaş 2.9 sn): Spread 1.32 bps | Dengesizlik top5 -0.04 · top20 +0.15 | Microprice +0.51 bps | Derinlik ±25.7 bps | Alış $367,636 · Satış $272,182
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR: Piyasa sakin, nötr akış.
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: SUIUSDT.P (Binance) | 2026-09-17 23:00:47 | [TOP100] #35
+  SNAPSHOT: SUI_20260917_230047_925 | sıra #821 | Bar 23:00 CANLI (44. sn)
+  FİYAT: 0.731800  |  1m DEĞİŞİM: -0.03%  |  RVOL: 0.52x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / SUIUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: SUIUSDT
+    • İZOLE HAVUZ       : 1063 trade | Son fiyat: 0.731700 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 1.5 sn önce | ağırlık 350/2400
+    • 1 Dakikalık Akış  : Alış: $18,268.4 | Satış: $46,921.1 (473 İşlem)
+      Net CVD           : $-28,652.6 (DOWN 🔴) | Alıcı Oranı: %28.0
+      Project Z Skoru   : 6.6 / 100
+    • 5 Dakikalık Akış  : Net CVD: $+1,959.9 | Alıcı: %50.3 | CVD: FLAT ⚪
+    • 15 Dakikalık Akış : Net CVD: $-204,964.4 | Alıcı: %41.7
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 0.732200 |  -0.11% | $ 23,056 | $ 30,370 | $  -7,315 |  71.7 🟢 | NORMAL  |  66.8
+    22:56 | 0.731600 |  -0.08% | $ 28,743 | $ 42,095 | $ -13,352 |  64.9 🟢 | NORMAL  |  64.8
+    22:57 | 0.731400 |  -0.03% | $ 18,651 | $ 10,497 | $  +8,155 |  58.2 🟢 | NORMAL  |  63.0
+    22:58 | 0.731800 |  +0.05% | $ 53,095 | $ 15,011 | $ +38,084 |  55.3 🟢 | NORMAL  |  60.9
+    22:59 | 0.732000 |  +0.03% | $ 63,456 | $ 55,678 | $  +7,778 |  54.2 🟢 | NORMAL  |  56.8
+    23:00 | 0.731800 |  -0.03% | $  6,742 | $ 34,813 | $ -28,071 |  52.6 🟢 | NORMAL  |  58.4
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     52.6 | 🟢 NORMAL    ||      67.1 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 71.0 | F✓ S✓ R✓
+     3m | 499 |     62.6 | 🟢 NORMAL    ||      76.0 | 🟢 BULL    | BOS UP    | RANGE      | 77.6 | F✓ S✓ R✓
+     5m | 499 |     56.2 | 🟢 NORMAL    ||      61.1 | 🟢 BULL    | BOS UP    | RANGE      | 72.6 | F✓ S✓ R✓
+    15m | 499 |     43.0 | 🟢 NORMAL    ||      74.4 | 🟢 BULL    | BOS UP    | RANGE      | 80.3 | F✓ S✓ R✓
+     1h | 499 |     79.9 | 🟠 YORGUN    ||      72.6 | 🔴 BEAR    | BOS DN    | TR DN      | 82.7 | F✓ S✓ R✓
+     4h | 499 |     75.2 | 🟠 YORGUN    ||      59.7 | 🔴 BEAR    | BOS DN    | TR DN      | 78.3 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 58.4 / 100 (⚠️ PRICE AHEAD)
+    • 4 BİLEŞEN       : Impact: 60.2 | Memory: 60.4 | Momentum: 54.7 | Activity: 52.2
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00359 log units
+    • FAST IMPULSE    : FastPrice: -0.29 | FastFlow: -0.24
+    • REGRESYON MODEL : Beta: 0.00127 | Beta R²: 0.630
+    • HACİM & AKIŞ    : Dollar RVOL: 0.52x | Volume Percentile: %22.7 | Persistence: %50.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -23.6%)
+    • BİLEŞEN UYUMU   : Spread: 5.7 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.729176 (-0.36%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [23:00:39] SELL 🔴 $18,026 @ 0.731774 (SUIUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 66.8 → 64.8 → 63.0 → 60.9 → 56.8 → 58.4 | Δ1 +1.6 · Δ3 -4.6 · Δ5 -8.4
+    • FATIGUE   : 71.7 → 64.9 → 58.2 → 55.3 → 54.2 → 52.6 | Δ1 -1.6 · Δ3 -5.5 · Δ5 -19.1 | abs 48.1 · rank 51.0
+    • UNPRICED  : -0.0041 → -0.0038 → -0.0039 → -0.0044 → -0.0036 → -0.0036 | Δ1 -0.00001 · Δ3 +0.00030 · Δ5 +0.00049
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $-55,590 · 5m $-21,500 · 15m $-12,604 | Alıcı% Δ 1m -32.5 · 5m -3.3
+    • CVD EĞİM  : 3dk $+6,539/dk (norm +0.084) · 5dk $+4,849/dk (norm +0.071) · önceki 3dk norm -0.136 → DÖNÜŞ: UP
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    473 |   17.6 | $       65,189 |   60s %100 |   0 / $           0 |   2 / $       23,835 | 🟡  52.4
+         5m | TAM    |   2249 |   69.5 | $      339,491 |  300s %100 |   8 / $      93,553 |   8 / $       68,261 | 🟢  77.5
+        15m | TAM    |   7406 |  189.8 | $    1,235,798 |  900s %100 |  23 / $     260,065 |  34 / $      392,505 | 🟢  91.1
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/MIX   | HH/MIX   | CHOCH UP (8b/42)     | LOW 0.729700 (+2.46)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (5b)
+     3m | MIX/HL   | LH/LL    | BOS UP (3b/72)       | LOW 0.729500 (+1.67)    | — (0 bölge)          | 0.729200 (1.86/2×)   | HIGH_SWEEP (2b)
+     5m | MIX/HL   | LH/MIX   | BOS UP (35b/31)      | LOW 0.729100 (+1.39)    | — (0 bölge)          | 0.715750 (8.02/2×)   | HIGH_SWEEP (34b)
+    15m | HH/MIX   | MIX/HL   | BOS UP (11b/55)      | LOW 0.722300 (+2.55)    | — (0 bölge)          | 0.728900 (0.83/2×)   | HIGH_SWEEP (16b)
+     1h | HH/HL    | HH/HL    | BOS DN (54b/50)      | HIGH 0.747900 (+1.92)   | 0.833600 (12.32/2×)  | — (0 bölge)          | LOW_SWEEP (27b)
+     4h | HH/HL    | MIX/HL   | BOS DN (12b/26)      | HIGH 0.747900 (+0.96)   | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (14b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:43.533 · yaş 4.4 sn): Spread 1.37 bps | Dengesizlik top5 -0.23 · top20 +0.10 | Microprice -0.26 bps | Derinlik ±26.6 bps | Alış $438,500 · Satış $357,531
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR:
+    🔴 [AGRESİF SATICI]: 1 dakikalık işlemlerde %70+ ezici Taker Satıcı baskısı!
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: AKEUSDT.P (Binance) | 2026-09-17 23:00:52 | [TOP100] #94
+  SNAPSHOT: AKE_20260917_230052_150 | sıra #822 | Bar 23:00 CANLI (51. sn)
+  FİYAT: 0.020947  |  1m DEĞİŞİM: +0.00%  |  RVOL: 1.17x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / AKEUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: AKEUSDT
+    • İZOLE HAVUZ       : 3276 trade | Son fiyat: 0.020943 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 0.3 sn önce | ağırlık 384/2400
+    • 1 Dakikalık Akış  : Alış: $7,924.5 | Satış: $8,991.8 (491 İşlem)
+      Net CVD           : $-1,067.3 (DOWN 🔴) | Alıcı Oranı: %46.9
+      Project Z Skoru   : 37.4 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-7,069.0 | Alıcı: %43.9 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $-16,876.5 | Alıcı: %45.4
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 0.020944 |  +0.05% | $  2,639 | $  2,191 | $    +449 |  58.6 🟢 | NORMAL  |  39.7
+    22:56 | 0.020917 |  -0.13% | $  4,607 | $  5,144 | $    -536 |  50.8 🟢 | NORMAL  |  37.8
+    22:57 | 0.020890 |  -0.13% | $  4,799 | $ 13,958 | $  -9,159 |  42.5 🟢 | NORMAL  |  37.2
+    22:58 | 0.020952 |  +0.30% | $  6,138 | $  2,649 | $  +3,489 |  43.6 🟢 | NORMAL  |  40.6
+    22:59 | 0.020946 |  -0.03% | $  2,577 | $  4,533 | $  -1,956 |  44.1 🟢 | NORMAL  |  44.9
+    23:00 | 0.020947 |  +0.00% | $  7,403 | $  6,054 | $  +1,349 |  45.1 🟢 | NORMAL  |  49.4
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     45.1 | 🟢 NORMAL    ||      68.2 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 73.5 | F✓ S✓ R✓
+     3m | 499 |     56.3 | 🟢 NORMAL    ||      77.2 | 🟢 BULL    | BOS UP    | SQZ        | 74.1 | F✓ S✓ R✓
+     5m | 499 |     64.0 | 🟢 NORMAL    ||      47.6 | 🔴 BEAR    | BOS DN    | SQZ        | 64.2 | F✓ S✓ R✓
+    15m | 499 |     33.6 | 🟢 NORMAL    ||      58.9 | 🔴 BEAR    | BOS DN    | SQZ        | 68.8 | F✓ S✓ R✓
+     1h | 499 |     47.1 | 🟢 NORMAL    ||      56.6 | 🟢 BULL    | BOS UP    | RANGE      | 70.2 | F✓ S✓ R✓
+     4h | 499 |     40.2 | 🟢 NORMAL    ||      85.8 | 🟢 BULL    | BOS UP    | TR UP      | 90.5 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 49.4 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 50.2 | Memory: 44.6 | Momentum: 53.4 | Activity: 49.7
+    • UNPRICED FLOW   : RemainingUnpricedFlow: +0.00340 log units
+    • FAST IMPULSE    : FastPrice: +0.04 | FastFlow: -0.53
+    • REGRESYON MODEL : Beta: 0.00302 | Beta R²: 0.523
+    • HACİM & AKIŞ    : Dollar RVOL: 1.17x | Volume Percentile: %30.0 | Persistence: %50.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: +10.8%)
+    • BİLEŞEN UYUMU   : Spread: 8.8 | Agreement: 0.27 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.021018 (+0.34%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [23:00:39] BUY 🟢 $4,770 @ 0.020964 (AKEUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 39.7 → 37.8 → 37.2 → 40.6 → 44.9 → 49.4 | Δ1 +4.5 · Δ3 +12.2 · Δ5 +9.7
+    • FATIGUE   : 58.6 → 50.8 → 42.5 → 43.6 → 44.1 → 45.1 | Δ1 +1.0 · Δ3 +2.6 · Δ5 -13.6 | abs 45.2 · rank 53.0
+    • UNPRICED  : +0.0063 → +0.0074 → +0.0078 → +0.0069 → +0.0055 → +0.0034 | Δ1 -0.00209 · Δ3 -0.00437 · Δ5 -0.00287
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $-2,344 · 5m $-1,773 · 15m $+526 | Alıcı% Δ 1m -15.1 · 5m -0.3
+    • CVD EĞİM  : 3dk $+16/dk (norm +0.001) · 5dk $-1,477/dk (norm -0.127) · önceki 3dk norm -0.201 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    491 |   33.4 | $       16,916 |   60s %100 |   1 / $       4,770 |   2 / $        4,657 | 🟡  58.2
+         5m | TAM    |   1919 |  148.5 | $       58,118 |  300s %100 |   2 / $       7,160 |   4 / $       13,991 | 🟢  79.7
+        15m | TAM    |   6551 |  395.5 | $      184,465 |  900s %100 |   4 / $      12,457 |   6 / $       21,113 | 🟢  89.7
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/MIX   | HH/MIX   | CHOCH UP (11b/51)    | LOW 0.020858 (+2.00)    | 0.021141 (4.36/2×)   | — (0 bölge)          | LOW_SWEEP (20b)
+     3m | MIX/HL   | HH/HL    | BOS UP (4b/72)       | LOW 0.020721 (+2.48)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (3b)
+     5m | MIX/HL   | MIX/HL   | BOS DN (14b/30)      | HIGH 0.021142 (+1.51)   | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (2b)
+    15m | HH/MIX   | LH/LL    | BOS DN (111b/97)     | HIGH 0.028247 (+23.68)  | 0.029421 (27.49/2×)  | 0.020765 (0.59/2×)   | EQL_SWEEP (14b)
+     1h | MIX/HL   | EQ/RANGE | BOS UP (64b/56)      | LOW 0.014658 (+5.45)    | 0.029844 (7.71/2×)   | 0.012501 (7.32/3×)   | HIGH_SWEEP (65b)
+     4h | HH/HL    | MIX/HL   | BOS UP (16b/81)      | LOW 0.013069 (+2.81)    | — (0 bölge)          | 0.012873 (2.88/2×)   | EQL_SWEEP (65b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:50.923 · yaş 1.2 sn): Spread 0.48 bps | Dengesizlik top5 -0.31 · top20 -0.22 | Microprice -0.18 bps | Derinlik ±9.3 bps | Alış $2,096 · Satış $3,308
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR: Piyasa sakin, nötr akış.
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: PONSUSDT.P (Binance) | 2026-09-17 23:00:57 | [OUTSIDE100] #112
+  SNAPSHOT: PONS_20260917_230057_172 | sıra #823 | Bar 23:00 CANLI (57. sn)
+  FİYAT: 0.639300  |  1m DEĞİŞİM: +0.05%  |  RVOL: 0.4x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / PONSUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: PONSUSDT
+    • İZOLE HAVUZ       : 1678 trade | Son fiyat: 0.639500 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 0.7 sn önce | ağırlık 418/2400
+    • 1 Dakikalık Akış  : Alış: $5,546.3 | Satış: $7,503.8 (177 İşlem)
+      Net CVD           : $-1,957.5 (DOWN 🔴) | Alıcı Oranı: %42.5
+      Project Z Skoru   : 23.3 / 100
+    • 5 Dakikalık Akış  : Net CVD: $+12,163.1 | Alıcı: %55.8 | CVD: UP 🟢
+    • 15 Dakikalık Akış : Net CVD: $-2,324.7 | Alıcı: %49.8
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 0.642000 |  -0.02% | $  6,969 | $  3,995 | $  +2,974 |  51.6 🟢 | NORMAL  |  49.1
+    22:56 | 0.640000 |  -0.31% | $ 11,749 | $ 12,303 | $    -554 |  45.4 🟢 | NORMAL  |  45.7
+    22:57 | 0.639200 |  -0.13% | $  9,795 | $  3,213 | $  +6,582 |  38.4 🟢 | NORMAL  |  44.5
+    22:58 | 0.638900 |  -0.05% | $ 17,528 | $ 10,869 | $  +6,659 |  32.3 🟢 | NORMAL  |  47.6
+    22:59 | 0.639000 |  +0.02% | $ 13,656 | $ 11,378 | $  +2,279 |  28.9 🟢 | DINLENMIS |  50.9
+    23:00 | 0.639300 |  +0.05% | $  4,724 | $  5,906 | $  -1,182 |  28.2 🟢 | DINLENMIS |  51.2
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     28.2 | 🔵 DINLENMIS ||      63.9 | 🟢 BULL    | BOS UP    | RANGE      | 78.1 | F✓ S✓ R✓
+     3m | 499 |     49.0 | 🟢 NORMAL    ||      48.0 | 🔴 BEAR    | BOS DN    | SQZ        | 77.4 | F✓ S✓ R✓
+     5m | 499 |     46.0 | 🟢 NORMAL    ||      14.6 | 🔴 BEAR    | BOS DN    | SQZ        | 93.7 | F✓ S✓ R✓
+    15m | 499 |     32.0 | 🟢 NORMAL    ||      69.5 | 🟢 BULL    | BOS UP    | RANGE      | 73.2 | F✓ S✓ R✓
+     1h | 279 |     53.1 | 🟢 NORMAL    ||      78.5 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 85.3 | F✗ S✓ R✓
+     4h |  71 |     69.2 | 🟢 NORMAL    ||      45.3 | 🔴 BEAR    | BOS DN    | RANGE      | 70.9 | F✗ S✓ R✗
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 51.2 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 51.8 | Memory: 46.0 | Momentum: 56.8 | Activity: 50.1
+    • UNPRICED FLOW   : RemainingUnpricedFlow: +0.00287 log units
+    • FAST IMPULSE    : FastPrice: -0.95 | FastFlow: -1.47
+    • REGRESYON MODEL : Beta: 0.00298 | Beta R²: 0.489
+    • HACİM & AKIŞ    : Dollar RVOL: 0.40x | Volume Percentile: %5.3 | Persistence: %60.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -15.8%)
+    • BİLEŞEN UYUMU   : Spread: 10.7 | Agreement: 0.38 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.641139 (+0.29%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [22:58:56] BUY 🟢 $3,800 @ 0.639154 (PONSUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 49.1 → 45.7 → 44.5 → 47.6 → 50.9 → 51.2 | Δ1 +0.3 · Δ3 +6.7 · Δ5 +2.1
+    • FATIGUE   : 51.6 → 45.4 → 38.4 → 32.3 → 28.9 → 28.2 | Δ1 -0.7 · Δ3 -10.2 · Δ5 -23.4 | abs 26.4 · rank 26.7
+    • UNPRICED  : +0.0061 → +0.0075 → +0.0071 → +0.0052 → +0.0034 → +0.0029 | Δ1 -0.00051 · Δ3 -0.00426 · Δ5 -0.00320
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $-4,132 · 5m $-5,632 · 15m $-6,886 | Alıcı% Δ 1m -11.9 · 5m -2.9
+    • CVD EĞİM  : 3dk $+2,300/dk (norm +0.104) · 5dk $+3,305/dk (norm +0.158) · önceki 3dk norm +0.152 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    177 |   14.1 | $       13,050 |   60s %100 |   0 / $           0 |   0 / $            0 | 🟡  45.1
+         5m | TAM    |   1564 |  115.2 | $      104,663 |  300s %100 |   5 / $      16,888 |   1 / $        2,174 | 🟢  79.5
+        15m | TAM    |   5424 |  141.7 | $      462,446 |  900s %100 |  20 / $      77,585 |  20 / $      110,016 | 🟢  86.3
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | MIX/HL   | HH/MIX   | BOS UP (32b/61)      | LOW 0.635400 (+2.24)    | 0.645800 (3.74/2×)   | — (0 bölge)          | HIGH_SWEEP (33b)
+     3m | MIX/HL   | HH/HL    | BOS DN (21b/34)      | HIGH 0.651100 (+3.55)   | 0.665700 (7.95/2×)   | — (0 bölge)          | LOW_SWEEP (19b)
+     5m | LH/LL    | MIX/HL   | BOS DN (17b/62)      | HIGH 0.658400 (+3.90)   | 0.665700 (5.40/2×)   | — (0 bölge)          | LOW_SWEEP (26b)
+    15m | HH/MIX   | LH/LL    | BOS UP (17b/67)      | LOW 0.609900 (+2.70)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (13b)
+     1h | HH/HL    | HH/HL    | CHOCH UP (19b/48)    | LOW 0.556300 (+3.45)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (4b)
+     4h | HH/MIX   | HH/MIX   | BOS DN (8b/30)       | HIGH 0.699200 (+1.25)   | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (10b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:00:55.245 · yaş 1.9 sn): Spread 3.13 bps | Dengesizlik top5 +0.14 · top20 -0.05 | Microprice -1.07 bps | Derinlik ±31.3 bps | Alış $29,994 · Satış $33,312
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR:
+    💡 [1m DİNLENMİŞ]: 1 dakikalık yorgunluk tamamen sıfırlandı.
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: SKRUSDT.P (Binance) | 2026-09-17 23:01:00 | [OUTSIDE100] #227
+  SNAPSHOT: SKR_20260917_230100_834 | sıra #824 | Bar 23:00 KAPANDI (60. sn)
+  FİYAT: 0.018657  |  1m DEĞİŞİM: -0.19%  |  RVOL: 11.84x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / SKRUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: SKRUSDT
+    • İZOLE HAVUZ       : 387 trade | Son fiyat: 0.018657 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 1.1 sn önce | ağırlık 34/2400
+    • 1 Dakikalık Akış  : Alış: $3,895.9 | Satış: $9,729.1 (190 İşlem)
+      Net CVD           : $-5,833.2 (DOWN 🔴) | Alıcı Oranı: %28.6
+      Project Z Skoru   : 6.8 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-5,124.5 | Alıcı: %33.4 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $-3,880.0 | Alıcı: %41.0
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 0.018692 |  -0.02% | $    164 | $    161 | $      +3 |  85.0 🔴 | ASIRI   |  55.8
+    22:56 | 0.018690 |  -0.01% | $    184 | $    197 | $     -13 |  85.0 🔴 | ASIRI   |  57.3
+    22:57 | 0.018682 |  -0.04% | $    118 | $    119 | $      -1 |  82.8 🟠 | YORGUN  |  56.5
+    22:58 | 0.018684 |  +0.01% | $      7 | $     52 | $     -45 |  80.7 🟠 | YORGUN  |  55.2
+    22:59 | 0.018692 |  +0.04% | $    728 | $    187 | $    +540 |  79.9 🟠 | YORGUN  |  55.3
+    23:00 | 0.018657 |  -0.19% | $  4,124 | $  9,709 | $  -5,586 |  72.7 🟠 | YORGUN  |  53.2
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     72.7 | 🟠 YORGUN    ||      72.8 | 🔴 BEAR    | BOS DN    | RANGE      | 83.5 | F✓ S✓ R✓
+     3m | 499 |     66.9 | 🟢 NORMAL    ||      13.8 | 🔴 BEAR    | BOS DN    | SQZ        | 96.0 | F✓ S✓ R✓
+     5m | 499 |     48.4 | 🟢 NORMAL    ||      26.2 | 🟢 BULL    | BOS UP    | TR UP      | 86.4 | F✓ S✓ R✓
+    15m | 499 |     22.4 | 🔵 DINLENMIS ||      28.1 | 🟢 BULL    | BOS UP    | RANGE      | 80.8 | F✓ S✓ R✓
+     1h | 499 |     36.6 | 🟢 NORMAL    ||      88.5 | 🟢 BULL    | BOS UP    | TR UP      | 91.9 | F✓ S✓ R✓
+     4h | 499 |     73.3 | 🟠 YORGUN    ||      72.0 | 🟢 BULL    | BOS UP    | TR UP      | 80.9 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 53.2 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 54.1 | Memory: 50.2 | Momentum: 54.9 | Activity: 53.2
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00009 log units
+    • FAST IMPULSE    : FastPrice: -0.71 | FastFlow: -0.80
+    • REGRESYON MODEL : Beta: 0.00167 | Beta R²: 0.393
+    • HACİM & AKIŞ    : Dollar RVOL: 11.84x | Volume Percentile: %96.7 | Persistence: %50.0
+    • WHALE DURUMU    : WHALE SELL L1 (Son 20 Bar İmzalı Hacim Net: -15.8%)
+    • BİLEŞEN UYUMU   : Spread: 4.7 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.018655 (-0.01%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [23:00:23] SELL 🔴 $522 @ 0.018661 (SKRUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 55.8 → 57.3 → 56.5 → 55.2 → 55.3 → 53.2 | Δ1 -2.1 · Δ3 -3.3 · Δ5 -2.6
+    • FATIGUE   : 85.0 → 85.0 → 82.8 → 80.7 → 79.9 → 72.7 | Δ1 -7.2 · Δ3 -10.1 · Δ5 -12.3 | abs 53.4 · rank 61.3
+    • UNPRICED  : +0.0002 → -0.0003 → +0.0000 → -0.0002 → -0.0003 → -0.0001 | Δ1 +0.00022 · Δ3 -0.00013 · Δ5 -0.00027
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $-6,601 · 5m $-5,826 · 15m $-5,930 | Alıcı% Δ 1m -55.0 · 5m -33.0
+    • CVD EĞİM  : 3dk $-1,456/dk (norm -0.295) · 5dk $-671/dk (norm -0.217) · önceki 3dk norm -0.026 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    190 |   43.2 | $       13,625 |   60s %100 |   3 / $       2,264 |   4 / $        5,798 | 🟢  60.8
+         5m | TAM    |    265 |   53.6 | $       15,444 |  300s %100 |   3 / $       2,264 |   4 / $        5,798 | 🟢  64.1
+        15m | TAM    |    518 |   89.8 | $       21,651 |  900s %100 |   4 / $       2,867 |   4 / $        5,798 | 🟢  71.3
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/HL    | HH/HL    | BOS DN (49b/82)      | HIGH 0.018731 (+3.68)   | 0.018926 (13.38/2×)  | 0.018578 (3.95/2×)   | LOW_SWEEP (60b)
+     3m | LH/LL    | HH/HL    | BOS DN (17b/62)      | HIGH 0.018804 (+3.44)   | 0.019326 (15.66/2×)  | — (0 bölge)          | LOW_SWEEP (32b)
+     5m | LH/LL    | LH/LL    | BOS UP (115b/22)     | LOW 0.018378 (+4.19)    | 0.019326 (10.04/2×)  | — (0 bölge)          | LOW_SWEEP (25b)
+    15m | LH/LL    | MIX/LL   | BOS UP (47b/67)      | LOW 0.018378 (+1.83)    | — (0 bölge)          | 0.017547 (7.27/2×)   | HIGH_SWEEP (49b)
+     1h | HH/HL    | MIX/HL   | BOS UP (11b/73)      | LOW 0.017378 (+3.15)    | 0.025376 (16.54/2×)  | — (0 bölge)          | LOW_SWEEP (27b)
+     4h | HH/HL    | HH/HL    | BOS UP (112b/36)     | LOW 0.008858 (+11.24)   | — (0 bölge)          | 0.017043 (1.85/2×)   | HIGH_SWEEP (2b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:01:00.163 · yaş 0.7 sn): Spread 5.36 bps | Dengesizlik top5 -0.29 · top20 -0.03 | Microprice +0.03 bps | Derinlik ±17.7 bps | Alış $2,003 · Satış $2,145
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR:
+    🔴 [AGRESİF SATICI]: 1 dakikalık işlemlerde %70+ ezici Taker Satıcı baskısı!
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: PROMUSDT.P (Binance) | 2026-09-17 23:01:05 | [OUTSIDE100] #266
+  SNAPSHOT: PROM_20260917_230105_343 | sıra #825 | Bar 23:00 KAPANDI (64. sn)
+  FİYAT: 5.443000  |  1m DEĞİŞİM: -0.04%  |  RVOL: 4.46x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / PROMUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: PROMUSDT
+    • İZOLE HAVUZ       : 427 trade | Son fiyat: 5.441000 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 0.2 sn önce | ağırlık 68/2400
+    • 1 Dakikalık Akış  : Alış: $3,767.4 | Satış: $1,307.5 (98 İşlem)
+      Net CVD           : $+2,459.8 (UP 🟢) | Alıcı Oranı: %74.2
+      Project Z Skoru   : 93.9 / 100
+    • 5 Dakikalık Akış  : Net CVD: $+3,142.7 | Alıcı: %63.5 | CVD: UP 🟢
+    • 15 Dakikalık Akış : Net CVD: $+1,438.7 | Alıcı: %52.5
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:55 | 5.452000 |  +0.07% | $  2,250 | $  2,616 | $    -366 |  23.1 🟢 | DINLENMIS |  59.9
+    22:56 | 5.454000 |  +0.04% | $    357 | $    382 | $     -25 |  30.1 🟢 | NORMAL  |  60.0
+    22:57 | 5.453000 |  -0.02% | $    173 | $    297 | $    -123 |  36.2 🟢 | NORMAL  |  57.3
+    22:58 | 5.447000 |  -0.11% | $    856 | $  1,324 | $    -468 |  34.6 🟢 | NORMAL  |  57.3
+    22:59 | 5.445000 |  -0.04% | $    246 | $    485 | $    -239 |  30.9 🟢 | NORMAL  |  59.4
+    23:00 | 5.443000 |  -0.04% | $  5,624 | $  1,717 | $  +3,907 |  25.8 🟢 | DINLENMIS |  65.1
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     25.8 | 🔵 DINLENMIS ||      48.3 | 🔴 TR-DN   | CHOCH DN  | TR-DN      | 73.9 | F✓ S✓ R✓
+     3m | 499 |     27.7 | 🔵 DINLENMIS ||      42.3 | 🔴 BEAR    | BOS DN    | SQZ        | 70.5 | F✓ S✓ R✓
+     5m | 499 |     46.4 | 🟢 NORMAL    ||      63.0 | 🟢 BULL    | BOS UP    | SQZ        | 73.6 | F✓ S✓ R✓
+    15m | 499 |     55.0 | 🟢 NORMAL    ||      39.4 | 🔴 TR-DN   | CHOCH DN  | SQZ        | 75.5 | F✓ S✓ R✓
+     1h | 499 |     31.8 | 🟢 NORMAL    ||      55.2 | 🔴 BEAR    | BOS DN    | RANGE      | 75.6 | F✓ S✓ R✓
+     4h | 499 |     41.2 | 🟢 NORMAL    ||      27.1 | 🟢 BULL    | BOS UP    | SQZ        | 83.7 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 65.1 / 100 (⚠️ PRICE AHEAD)
+    • 4 BİLEŞEN       : Impact: 66.1 | Memory: 68.2 | Momentum: 59.2 | Activity: 64.2
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00588 log units
+    • FAST IMPULSE    : FastPrice: -0.83 | FastFlow: -1.01
+    • REGRESYON MODEL : Beta: 0.00134 | Beta R²: 0.460
+    • HACİM & AKIŞ    : Dollar RVOL: 4.46x | Volume Percentile: %87.7 | Persistence: %70.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -21.3%)
+    • BİLEŞEN UYUMU   : Spread: 9.0 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 5.4111 (-0.59%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [23:00:54] BUY 🟢 $2,339 @ 5.4390 (PROMUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 59.9 → 60.0 → 57.3 → 57.3 → 59.4 → 65.1 | Δ1 +5.7 · Δ3 +7.8 · Δ5 +5.2
+    • FATIGUE   : 23.1 → 30.1 → 36.2 → 34.6 → 30.9 → 25.8 | Δ1 -5.1 · Δ3 -10.4 · Δ5 +2.7 | abs 16.4 · rank 8.3
+    • UNPRICED  : -0.0063 → -0.0063 → -0.0059 → -0.0061 → -0.0058 → -0.0059 | Δ1 -0.00006 · Δ3 +0.00006 · Δ5 +0.00040
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $+1,319 · 5m $+826 · 15m $+2,301 | Alıcı% Δ 1m +5.5 · 5m +1.2
+    • CVD EĞİM  : 3dk $+1,072/dk (norm +0.312) · 5dk $+487/dk (norm +0.209) · önceki 3dk norm +0.344 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |     98 |    4.2 | $        5,075 |   60s %100 |   1 / $       2,339 |   0 / $            0 | 🔴  27.8
+         5m | TAM    |    280 |   16.8 | $       11,674 |  300s %100 |   2 / $       4,340 |   0 / $            0 | 🟡  47.3
+        15m | TAM    |    894 |   59.5 | $       28,940 |  900s %100 |   3 / $       5,567 |   1 / $        1,993 | 🟢  67.7
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/MIX   | HH/MIX   | CHOCH DN (13b/65)    | HIGH 5.4750 (+7.31)     | — (0 bölge)          | 5.4080 (8.00/2×)     | HIGH_SWEEP (60b)
+     3m | MIX/HL   | MIX/HL   | BOS DN (5b/55)       | HIGH 5.4750 (+3.16)     | — (0 bölge)          | 5.3935 (4.64/2×)     | HIGH_SWEEP (20b)
+     5m | MIX/HL   | MIX/HL   | BOS UP (23b/32)      | LOW 5.4080 (+2.28)      | — (0 bölge)          | 5.3920 (3.33/2×)     | HIGH_SWEEP (24b)
+    15m | LH/MIX   | MIX/HL   | CHOCH DN (36b/61)    | HIGH 5.6590 (+5.93)     | 5.7285 (7.83/2×)     | 5.4015 (1.14/2×)     | LOW_SWEEP (129b)
+     1h | MIX/HL   | LH/MIX   | BOS DN (36b/75)      | HIGH 5.7290 (+3.28)     | 5.8375 (4.53/3×)     | 4.9065 (6.16/2×)     | EQL_SWEEP (84b)
+     4h | LH/LL    | MIX/HL   | BOS UP (56b/12)      | LOW 4.9130 (+2.74)      | — (0 bölge)          | 4.4025 (5.37/2×)     | HIGH_SWEEP (55b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:01:04.065 · yaş 1.3 sn): Spread 1.84 bps | Dengesizlik top5 +0.28 · top20 +0.45 | Microprice -0.37 bps | Derinlik ±35.8 bps | Alış $40,166 · Satış $15,225
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR:
+    💡 [1m DİNLENMİŞ]: 1 dakikalık yorgunluk tamamen sıfırlandı.
+    🟢 [AGRESİF ALICI]: 1 dakikalık işlemlerde %70+ ezici Taker Alıcı baskısı!
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: UAIUSDT.P (Binance) | 2026-09-17 23:01:09 | [OUTSIDE100] #296
+  SNAPSHOT: UAI_20260917_230109_331 | sıra #826 | Bar 23:01 CANLI (9. sn)
+  FİYAT: 0.402100  |  1m DEĞİŞİM: +0.00%  |  RVOL: 0.0x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / UAIUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: UAIUSDT
+    • İZOLE HAVUZ       : 943 trade | Son fiyat: 0.402100 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem -0.1 sn önce | ağırlık 102/2400
+    • 1 Dakikalık Akış  : Alış: $2,032.2 | Satış: $4,059.0 (144 İşlem)
+      Net CVD           : $-2,026.8 (DOWN 🔴) | Alıcı Oranı: %33.4
+      Project Z Skoru   : 9.2 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-5,131.1 | Alıcı: %37.6 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $+5,490.4 | Alıcı: %52.3
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:56 | 0.401700 |  -0.02% | $  3,149 | $  3,132 | $     +17 |  45.6 🟢 | NORMAL  |  39.8
+    22:57 | 0.401500 |  -0.05% | $  2,803 | $  2,843 | $     -39 |  46.7 🟢 | NORMAL  |  45.9
+    22:58 | 0.401300 |  -0.05% | $  1,631 | $  4,124 | $  -2,493 |  43.9 🟢 | NORMAL  |  47.2
+    22:59 | 0.401300 |  +0.00% | $    127 | $    688 | $    -561 |  41.4 🟢 | NORMAL  |  47.7
+    23:00 | 0.402100 |  +0.20% | $  2,051 | $  4,049 | $  -1,998 |  49.9 🟢 | NORMAL  |  50.3
+    23:01 | 0.402100 |  +0.00% | $      1 | $      7 | $      -6 |  57.0 🟢 | NORMAL  |  54.1
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     57.0 | 🟢 NORMAL    ||      41.3 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 68.0 | F✓ S✓ R✓
+     3m | 499 |     44.8 | 🟢 NORMAL    ||      64.1 | 🟢 TR-UP   | CHOCH UP  | SQZ        | 69.9 | F✓ S✓ R✓
+     5m | 499 |     57.9 | 🟢 NORMAL    ||      74.2 | 🔴 TR-DN   | CHOCH DN  | SQZ        | 87.6 | F✓ S✓ R✓
+    15m | 499 |     75.5 | 🟠 YORGUN    ||      58.9 | 🟢 BULL    | BOS UP    | SQZ        | 66.0 | F✓ S✓ R✓
+     1h | 499 |     58.2 | 🟢 NORMAL    ||      69.2 | 🔴 BEAR    | BOS DN    | SQZ        | 81.1 | F✓ S✓ R✓
+     4h | 499 |     54.1 | 🟢 NORMAL    ||      17.5 | 🔴 BEAR    | BOS DN    | RANGE      | 87.8 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 54.1 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 55.9 | Memory: 50.6 | Momentum: 56.6 | Activity: 50.0
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00045 log units
+    • FAST IMPULSE    : FastPrice: +0.23 | FastFlow: -0.24
+    • REGRESYON MODEL : Beta: 0.00325 | Beta R²: 0.571
+    • HACİM & AKIŞ    : Dollar RVOL: 0.00x | Volume Percentile: %0.3 | Persistence: %60.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: +3.7%)
+    • BİLEŞEN UYUMU   : Spread: 6.0 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.401921 (-0.04%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [22:53:15] SELL 🔴 $4,966 @ 0.400781 (UAIUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 39.8 → 45.9 → 47.2 → 47.7 → 50.3 → 54.1 | Δ1 +3.8 · Δ3 +6.9 · Δ5 +14.3
+    • FATIGUE   : 45.6 → 46.7 → 43.9 → 41.4 → 49.9 → 57.0 | Δ1 +7.1 · Δ3 +13.1 · Δ5 +11.4 | abs 71.0 · rank 79.3
+    • UNPRICED  : +0.0018 → +0.0007 → +0.0014 → +0.0013 → -0.0005 → -0.0004 | Δ1 +0.00002 · Δ3 -0.00185 · Δ5 -0.00225
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $-1,828 · 5m $-3,343 · 15m $-3,526 | Alıcı% Δ 1m +7.3 · 5m -8.8
+    • CVD EĞİM  : 3dk $-1,196/dk (norm -0.342) · 5dk $-1,075/dk (norm -0.260) · önceki 3dk norm +0.009 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    144 |    9.5 | $        6,091 |   60s %100 |   0 / $           0 |   0 / $            0 | 🟡  37.7
+         5m | TAM    |    472 |   41.8 | $       20,692 |  300s %100 |   0 / $           0 |   0 / $            0 | 🟢  62.0
+        15m | TAM    |   2145 |  270.5 | $      120,416 |  900s %100 |   2 / $       8,631 |   3 / $       11,363 | 🟢  86.4
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | MIX/LL   | LH/LL    | CHOCH UP (59b/60)    | LOW 0.397400 (+4.23)    | 0.402850 (0.67/2×)   | 0.397350 (4.27/2×)   | LOW_SWEEP (73b)
+     3m | MIX/HL   | MIX/HL   | CHOCH UP (16b/33)    | LOW 0.397300 (+2.44)    | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (24b)
+     5m | HH/HL    | MIX/HL   | CHOCH DN (44b/63)    | HIGH 0.402600 (+0.19)   | — (0 bölge)          | 0.355900 (17.60/3×)  | HIGH_SWEEP (8b)
+    15m | MIX/HL   | HH/HL    | BOS UP (62b/72)      | LOW 0.370800 (+4.84)    | 0.535600 (20.71/2×)  | 0.383800 (2.82/2×)   | LOW_SWEEP (131b)
+     1h | HH/HL    | HH/MIX   | BOS DN (37b/45)      | HIGH 0.413200 (+0.62)   | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (15b)
+     4h | LH/LL    | HH/HL    | BOS DN (17b/42)      | HIGH 0.594300 (+4.07)   | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (18b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:01:08.408 · yaş 0.9 sn): Spread 2.49 bps | Dengesizlik top5 +0.05 · top20 +0.03 | Microprice +0.55 bps | Derinlik ±48.5 bps | Alış $19,138 · Satış $18,132
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR: Piyasa sakin, nötr akış.
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: BULLAUSDT.P (Binance) | 2026-09-17 23:01:13 | [OUTSIDE100] #339
+  SNAPSHOT: BULLA_20260917_230113_515 | sıra #827 | Bar 23:01 CANLI (14. sn)
+  FİYAT: 0.092260  |  1m DEĞİŞİM: -0.26%  |  RVOL: 0.36x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / BULLAUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: BULLAUSDT
+    • İZOLE HAVUZ       : 1850 trade | Son fiyat: 0.092270 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem -1.2 sn önce | ağırlık 136/2400
+    • 1 Dakikalık Akış  : Alış: $7,097.4 | Satış: $6,869.7 (446 İşlem)
+      Net CVD           : $+227.7 (FLAT ⚪) | Alıcı Oranı: %50.8
+      Project Z Skoru   : 53.3 / 100
+    • 5 Dakikalık Akış  : Net CVD: $+936.0 | Alıcı: %51.0 | CVD: FLAT ⚪
+    • 15 Dakikalık Akış : Net CVD: $+4,496.5 | Alıcı: %52.3
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:56 | 0.092350 |  +0.17% | $  6,184 | $  4,101 | $  +2,083 |  73.8 🟠 | YORGUN  |  55.9
+    22:57 | 0.092230 |  -0.13% | $  5,189 | $  6,463 | $  -1,274 |  76.5 🟠 | YORGUN  |  55.9
+    22:58 | 0.092490 |  +0.28% | $  2,988 | $  1,564 | $  +1,425 |  81.5 🟠 | YORGUN  |  56.6
+    22:59 | 0.092400 |  -0.10% | $  5,657 | $  3,622 | $  +2,035 |  82.4 🟠 | YORGUN  |  62.5
+    23:00 | 0.092500 |  +0.11% | $  7,449 | $  5,375 | $  +2,074 |  84.1 🔴 | ASIRI   |  67.3
+    23:01 | 0.092260 |  -0.26% | $     18 | $  1,983 | $  -1,965 |  79.8 🟠 | YORGUN  |  60.6
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     79.8 | 🟠 YORGUN    ||      73.9 | 🔴 BEAR    | BOS DN    | SQZ        | 86.8 | F✓ S✓ R✓
+     3m | 499 |     75.7 | 🟠 YORGUN    ||      59.0 | 🔴 BEAR    | BOS DN    | SQZ        | 66.9 | F✓ S✓ R✓
+     5m | 499 |     66.7 | 🟢 NORMAL    ||      54.2 | 🔴 BEAR    | BOS DN    | SQZ        | 76.4 | F✓ S✓ R✓
+    15m | 499 |     51.5 | 🟢 NORMAL    ||      20.6 | 🔴 BEAR    | BOS DN    | TR DN      | 85.7 | F✓ S✓ R✓
+     1h | 499 |     19.4 | 🔵 DINLENMIS ||      30.1 | 🟢 BULL    | BOS UP    | TR UP      | 82.3 | F✓ S✓ R✓
+     4h | 499 |     58.5 | 🟢 NORMAL    ||      76.3 | 🟢 BULL    | BOS UP    | EXP UP     | 78.0 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 60.6 / 100 (⚠️ PRICE AHEAD)
+    • 4 BİLEŞEN       : Impact: 63.5 | Memory: 58.8 | Momentum: 61.4 | Activity: 50.6
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00905 log units
+    • FAST IMPULSE    : FastPrice: -0.16 | FastFlow: -0.84
+    • REGRESYON MODEL : Beta: 0.00504 | Beta R²: 0.431
+    • HACİM & AKIŞ    : Dollar RVOL: 0.36x | Volume Percentile: %1.7 | Persistence: %55.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -7.3%)
+    • BİLEŞEN UYUMU   : Spread: 4.7 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.091429 (-0.90%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 55.9 → 55.9 → 56.6 → 62.5 → 67.3 → 60.6 | Δ1 -6.7 · Δ3 +4.0 · Δ5 +4.7
+    • FATIGUE   : 73.8 → 76.5 → 81.5 → 82.4 → 84.1 → 79.8 | Δ1 -4.3 · Δ3 -1.7 · Δ5 +6.0 | abs 66.1 · rank 78.0
+    • UNPRICED  : -0.0059 → -0.0065 → -0.0060 → -0.0078 → -0.0100 → -0.0091 | Δ1 +0.00098 · Δ3 -0.00301 · Δ5 -0.00315
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $-1,693 · 5m $-7,649 · 15m $-89 | Alıcı% Δ 1m -10.4 · 5m -8.4
+    • CVD EĞİM  : 3dk $+986/dk (norm +0.105) · 5dk $+323/dk (norm +0.035) · önceki 3dk norm +0.166 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    446 |   85.8 | $       13,967 |   60s %100 |   0 / $           0 |   0 / $            0 | 🟢  69.0
+         5m | TAM    |   1434 |  237.0 | $       46,173 |  300s %100 |   0 / $           0 |   0 / $            0 | 🟢  82.0
+        15m | TAM    |   3023 |  394.0 | $       97,732 |  900s %100 |   0 / $           0 |   0 / $            0 | 🟢  87.4
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/HL    | HH/HL    | BOS DN (52b/32)      | HIGH 0.092670 (+1.30)   | 0.102615 (32.84/3×)  | 0.089440 (8.94/2×)   | EQH_SWEEP (31b)
+     3m | MIX/HL   | LH/MIX   | BOS DN (58b/34)      | HIGH 0.098160 (+8.81)   | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (2b) +canlı?
+     5m | HH/MIX   | MIX/HL   | BOS DN (35b/64)      | HIGH 0.098160 (+5.76)   | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (10b)
+    15m | LH/LL    | MIX/HL   | BOS DN (22b/27)      | HIGH 0.109990 (+7.00)   | 0.109785 (6.92/2×)   | — (0 bölge)          | LOW_SWEEP (24b)
+     1h | LH/LL    | MIX/LL   | BOS UP (34b/42)      | LOW 0.060024 (+3.59)    | — (0 bölge)          | 0.060025 (3.59/2×)   | HIGH_SWEEP (35b)
+     4h | HH/MIX   | HH/MIX   | BOS UP (9b/97)       | LOW 0.067500 (+1.53)    | — (0 bölge)          | 0.015421 (4.73/2×)   | HIGH_SWEEP (50b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:01:12.308 · yaş 1.2 sn): Spread 6.50 bps | Dengesizlik top5 +0.12 · top20 +0.16 | Microprice +2.92 bps | Derinlik ±26.0 bps | Alış $4,802 · Satış $3,444
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR: Piyasa sakin, nötr akış.
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: OGUSDT.P (Binance) | 2026-09-17 23:01:24 | [OUTSIDE100] #523
+  SNAPSHOT: OG_20260917_230124_872 | sıra #828 | Bar 23:01 CANLI (19. sn)
+  FİYAT: 2.685000  |  1m DEĞİŞİM: +0.04%  |  RVOL: 0.1x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / OGUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: OGUSDT
+    • İZOLE HAVUZ       : 67 trade | Son fiyat: 2.685000 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 5.5 sn önce | ağırlık 170/2400
+    • 1 Dakikalık Akış  : Alış: $13.2 | Satış: $82.9 (12 İşlem)
+      Net CVD           : $-69.8 (DOWN 🔴) | Alıcı Oranı: %13.7
+      Project Z Skoru   : 5.1 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-504.3 | Alıcı: %13.2 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $-1,230.1 | Alıcı: %22.4
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:56 | 2.687000 |  +0.04% | $      5 | $     17 | $     -12 |  53.5 🟢 | NORMAL  |  64.5
+    22:57 | 2.685000 |  -0.07% | $      0 | $      1 | $      -1 |  53.9 🟢 | NORMAL  |  55.4
+    22:58 | 2.685000 |  +0.00% | $      0 | $     13 | $     -13 |  53.4 🟢 | NORMAL  |  50.0
+    22:59 | 2.685000 |  +0.00% | $      0 | $    498 | $    -498 |  51.9 🟢 | NORMAL  |  61.1
+    23:00 | 2.684000 |  -0.04% | $     72 | $     78 | $      -6 |  46.6 🟢 | NORMAL  |  60.9
+    23:01 | 2.685000 |  +0.04% | $      6 | $      5 | $      +1 |  47.9 🟢 | NORMAL  |  62.3
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     47.9 | 🟢 NORMAL    ||      46.0 | 🔴 BEAR    | BOS DN    | RANGE      | 73.9 | F✓ S✓ R✓
+     3m | 499 |     49.4 | 🟢 NORMAL    ||      84.6 | 🟢 BULL    | BOS UP    | SQZ        | 88.8 | F✓ S✓ R✓
+     5m | 499 |     61.6 | 🟢 NORMAL    ||      50.5 | 🔴 BEAR    | BOS DN    | SQZ        | 72.7 | F✓ S✓ R✓
+    15m | 499 |     51.7 | 🟢 NORMAL    ||      58.7 | 🔴 TR-DN   | CHOCH DN  | SQZ        | 68.1 | F✓ S✓ R✓
+     1h | 499 |     37.6 | 🟢 NORMAL    ||      60.7 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 72.6 | F✓ S✓ R✓
+     4h | 499 |     63.7 | 🟢 NORMAL    ||      62.9 | 🟢 BULL    | BOS UP    | RANGE      | 74.5 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 62.3 / 100 (⚠️ PRICE AHEAD)
+    • 4 BİLEŞEN       : Impact: 66.5 | Memory: 60.2 | Momentum: 61.0 | Activity: 51.0
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00167 log units
+    • FAST IMPULSE    : FastPrice: -0.94 | FastFlow: -1.65
+    • REGRESYON MODEL : Beta: 0.00033 | Beta R²: 0.213
+    • HACİM & AKIŞ    : Dollar RVOL: 0.10x | Volume Percentile: %11.7 | Persistence: %40.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -54.2%)
+    • BİLEŞEN UYUMU   : Spread: 6.3 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 2.6805 (-0.17%) | Kaynak: CLV_PROXY_1M · kalite 95/100
+    • SON BÜYÜK EMİR  : [22:49:49] SELL 🔴 $578 @ 2.6825 (OGUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 64.5 → 55.4 → 50.0 → 61.1 → 60.9 → 62.3 | Δ1 +1.4 · Δ3 +12.3 · Δ5 -2.2
+    • FATIGUE   : 53.5 → 53.9 → 53.4 → 51.9 → 46.6 → 47.9 | Δ1 +1.3 · Δ3 -5.5 · Δ5 -5.6 | abs 51.1 · rank 50.7
+    • UNPRICED  : -0.0013 → -0.0005 → -0.0005 → -0.0013 → -0.0013 → -0.0017 | Δ1 -0.00033 · Δ3 -0.00120 · Δ5 -0.00039
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $+356 · 5m $-53 · 15m $-70 | Alıcı% Δ 1m +1.1 · 5m +0.5
+    • CVD EĞİM  : 3dk $-195/dk (norm -0.863) · 5dk $-110/dk (norm -0.803) · önceki 3dk norm -0.441 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |     12 |    5.9 | $           96 |   60s %100 |   0 / $           0 |   0 / $            0 | 🔴   0.0
+         5m | TAM    |     35 |    4.0 | $          685 |  300s %100 |   0 / $           0 |   0 / $            0 | 🔴  22.1
+        15m | TAM    |    123 |   15.6 | $        2,231 |  900s %100 |   0 / $           0 |   1 / $          578 | 🟡  40.6
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/MIX   | HH/HL    | BOS DN (12b/53)      | HIGH 2.6890 (+3.78)     | 2.6960 (10.41/2×)    | 2.6790 (5.68/2×)     | EQL_SWEEP (114b)
+     3m | HH/HL    | HH/MIX   | BOS UP (18b/92)      | LOW 2.6770 (+3.71)      | 2.6920 (3.25/2×)     | 2.6770 (3.71/2×)     | EQH_SWEEP (50b)
+     5m | MIX/HL   | HH/HL    | BOS DN (25b/60)      | HIGH 2.6960 (+3.10)     | 2.6920 (1.97/2×)     | 2.6635 (6.06/2×)     | EQH_SWEEP (30b)
+    15m | MIX/HL   | HH/MIX   | CHOCH DN (45b/62)    | HIGH 2.7190 (+4.28)     | 2.6995 (1.82/2×)     | 2.6635 (2.70/2×)     | EQL_SWEEP (26b)
+     1h | MIX/HL   | LH/MIX   | CHOCH UP (34b/50)    | LOW 2.6100 (+3.61)      | 2.7195 (1.66/2×)     | 2.6000 (4.09/2×)     | HIGH_SWEEP (20b)
+     4h | MIX/HL   | HH/HL    | BOS UP (29b/65)      | LOW 2.5950 (+2.06)      | 2.9825 (6.80/3×)     | 2.5975 (2.00/2×)     | EQH_SWEEP (85b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:01:06.749 · 🚨 BAYAT (18.1 sn) — karar verisi değil): Spread 7.45 bps | Dengesizlik top5 +0.16 · top20 +0.11 | Microprice -1.94 bps | Derinlik ±74.5 bps | Alış $31,193 · Satış $24,918
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR: Piyasa sakin, nötr akış.
+==============================================================================
+
+  ⚠️ [ZORAUSDT] 15m mumları alınamadı (<urlopen error [WinError 10054] Varolan bir bağlantı uzaktaki bir ana bilgisayar tarafından zorla kapatıldı>) — 1m'den türetildi.
+
+==============================================================================
+  🔴 CANLI TAKİP: ZORAUSDT.P (Binance) | 2026-09-17 23:01:28 | [OUTSIDE100] #612
+  SNAPSHOT: ZORA_20260917_230128_604 | sıra #829 | Bar 23:01 CANLI (28. sn)
+  FİYAT: 0.007653  |  1m DEĞİŞİM: -0.01%  |  RVOL: 0.07x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / ZORAUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: ZORAUSDT
+    • İZOLE HAVUZ       : 211 trade | Son fiyat: 0.007653 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 6.4 sn önce | ağırlık 202/2400
+    • 1 Dakikalık Akış  : Alış: $7.0 | Satış: $66.5 (7 İşlem)
+      Net CVD           : $-59.5 (DOWN 🔴) | Alıcı Oranı: %9.5
+      Project Z Skoru   : 5.1 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-1,173.1 | Alıcı: %28.2 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $-3,927.7 | Alıcı: %37.8
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:56 | 0.007657 |  -0.07% | $      0 | $    895 | $    -895 |  55.4 🟢 | NORMAL  |  57.9
+    22:57 | 0.007651 |  -0.08% | $    171 | $    969 | $    -798 |  46.9 🟢 | NORMAL  |  60.3
+    22:58 | 0.007655 |  +0.05% | $    212 | $     41 | $    +171 |  44.4 🟢 | NORMAL  |  63.0
+    22:59 | 0.007652 |  -0.04% | $      0 | $    352 | $    -352 |  39.6 🟢 | NORMAL  |  57.7
+    23:00 | 0.007654 |  +0.03% | $    372 | $    494 | $    -122 |  39.4 🟢 | NORMAL  |  56.0
+    23:01 | 0.007653 |  -0.01% | $      7 | $     66 | $     -59 |  38.3 🟢 | NORMAL  |  55.7
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     38.3 | 🟢 NORMAL    ||      13.6 | 🔴 BEAR    | BOS DN    | SQZ        | 95.5 | F✓ S✓ R✓
+     3m | 499 |     25.9 | 🔵 DINLENMIS ||      57.3 | 🟢 BULL    | BOS UP    | TR UP      | 68.2 | F✓ S✓ R✓
+     5m | 499 |     21.0 | 🔵 DINLENMIS ||      28.4 | 🟢 BULL    | BOS UP    | TR UP      | 79.9 | F✓ S✓ R✓
+    15m |  35 |     42.1 | 🟢 NORMAL    ||      89.3 | 🟢 BULL    | BOS UP    | TR UP      | 90.9 | F✗ S✓ R✗
+     1h | 499 |     70.7 | 🟢 NORMAL    ||      72.6 | 🔴 BEAR    | BOS DN    | TR DN      | 82.7 | F✓ S✓ R✓
+     4h | 499 |     60.1 | 🟢 NORMAL    ||      17.3 | 🔴 TR-DN   | CHOCH DN  | TR-DN      | 90.3 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 55.7 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 58.1 | Memory: 56.0 | Momentum: 52.6 | Activity: 50.3
+    • UNPRICED FLOW   : RemainingUnpricedFlow: -0.00236 log units
+    • FAST IMPULSE    : FastPrice: -0.22 | FastFlow: -0.24
+    • REGRESYON MODEL : Beta: 0.00160 | Beta R²: 0.487
+    • HACİM & AKIŞ    : Dollar RVOL: 0.07x | Volume Percentile: %5.7 | Persistence: %60.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: -21.1%)
+    • BİLEŞEN UYUMU   : Spread: 5.5 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.007635 (-0.23%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [22:57:21] SELL 🔴 $779 @ 0.007657 (ZORAUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 57.9 → 60.3 → 63.0 → 57.7 → 56.0 → 55.7 | Δ1 -0.3 · Δ3 -7.3 · Δ5 -2.2
+    • FATIGUE   : 55.4 → 46.9 → 44.4 → 39.6 → 39.4 → 38.3 | Δ1 -1.1 · Δ3 -6.1 · Δ5 -17.0 | abs 36.8 · rank 33.3
+    • UNPRICED  : -0.0028 → -0.0030 → -0.0034 → -0.0034 → -0.0024 → -0.0024 | Δ1 +0.00005 · Δ3 +0.00101 · Δ5 +0.00040
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $+384 · 5m $+833 · 15m $-360 | Alıcı% Δ 1m -21.8 · 5m +6.5
+    • CVD EĞİM  : 3dk $-215/dk (norm -0.486) · 5dk $-191/dk (norm -0.354) · önceki 3dk norm -0.698 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |      7 |    2.7 | $           73 |   60s %100 |   0 / $           0 |   0 / $            0 | 🔴   0.0
+         5m | TAM    |     96 |    8.0 | $        2,697 |  300s %100 |   0 / $           0 |   1 / $          779 | 🟡  33.2
+        15m | TAM    |    372 |   31.7 | $       16,138 |  900s %100 |   2 / $       1,056 |   8 / $        7,381 | 🟡  57.2
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | LH/LL    | HH/MIX   | BOS DN (18b/80)      | HIGH 0.007676 (+4.20)   | — (0 bölge)          | 0.007610 (7.77/2×)   | EQL_SWEEP (51b)
+     3m | MIX/HL   | LH/LL    | BOS UP (81b/43)      | LOW 0.007562 (+5.96)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (41b)
+     5m | LH/LL    | LH/LL    | BOS UP (45b/82)      | LOW 0.007562 (+3.86)    | 0.007767 (4.83/2×)   | — (0 bölge)          | EQH_SWEEP (25b)
+    15m | HH/HL    | MIX/HL   | BOS UP (7b/61)       | LOW 0.007562 (+1.69)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (9b)
+     1h | HH/HL    | HH/HL    | BOS DN (59b/60)      | HIGH 0.007987 (+2.92)   | 0.009008 (11.86/2×)  | 0.007187 (4.08/2×)   | LOW_SWEEP (116b)
+     4h | LH/LL    | LH/LL    | CHOCH DN (14b/66)    | HIGH 0.008968 (+5.14)   | — (0 bölge)          | 0.005876 (6.95/2×)   | HIGH_SWEEP (27b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:01:27.660 · yaş 0.9 sn): Spread 1.31 bps | Dengesizlik top5 +0.47 · top20 +0.15 | Microprice +0.48 bps | Derinlik ±26.8 bps | Alış $19,238 · Satış $14,090
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR: Piyasa sakin, nötr akış.
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: TNSRUSDT.P (Binance) | 2026-09-17 23:01:39 | [OUTSIDE100] #738
+  SNAPSHOT: TNSR_20260917_230139_770 | sıra #830 | Bar 23:01 CANLI (34. sn)
+  FİYAT: 0.034650  |  1m DEĞİŞİM: +0.03%  |  RVOL: 0.01x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / TNSRUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: TNSRUSDT
+    • İZOLE HAVUZ       : 93 trade | Son fiyat: 0.034650 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 39.3 sn önce | ağırlık 236/2400
+    • 1 Dakikalık Akış  : Alış: $6.6 | Satış: $0.0 (2 İşlem)
+      Net CVD           : $+6.6 (UP 🟢) | Alıcı Oranı: %100.0
+      Project Z Skoru   : 95.0 / 100
+    • 5 Dakikalık Akış  : Net CVD: $+888.8 | Alıcı: %75.5 | CVD: UP 🟢
+    • 15 Dakikalık Akış : Net CVD: $-424.4 | Alıcı: %46.8
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:56 | 0.034640 |  -0.06% | $     11 | $  1,732 | $  -1,721 |  44.7 🟢 | NORMAL  |  36.3
+    22:57 | 0.034630 |  -0.03% | $     21 | $    286 | $    -265 |  36.0 🟢 | NORMAL  |  38.0
+    22:58 | 0.034640 |  +0.03% | $    602 | $     68 | $    +534 |  31.9 🟢 | NORMAL  |  34.6
+    22:59 | 0.034630 |  -0.03% | $      0 | $     12 | $     -12 |  27.6 🟢 | DINLENMIS |  34.1
+    23:00 | 0.034640 |  +0.03% | $    674 | $     60 | $    +614 |  27.5 🟢 | DINLENMIS |  37.4
+    23:01 | 0.034650 |  +0.03% | $      7 | $      0 | $      +7 |  30.6 🟢 | NORMAL  |  42.2
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     30.6 | 🟢 NORMAL    ||      57.6 | 🟢 BULL    | BOS UP    | SQZ        | 67.1 | F✓ S✓ R✓
+     3m | 499 |     49.4 | 🟢 NORMAL    ||      74.8 | 🟢 BULL    | BOS UP    | RANGE      | 92.0 | F✓ S✓ R✓
+     5m | 499 |     60.0 | 🟢 NORMAL    ||      52.2 | 🔴 TR-DN   | CHOCH DN  | TR-DN      | 72.1 | F✓ S✓ R✓
+    15m | 499 |     66.0 | 🟢 NORMAL    ||      85.8 | 🟢 BULL    | BOS UP    | SQZ        | 89.9 | F✓ S✓ R✓
+     1h | 499 |     65.9 | 🟢 NORMAL    ||      78.0 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 83.9 | F✓ S✓ R✓
+     4h | 499 |     69.3 | 🟢 NORMAL    ||      62.2 | 🟢 BULL    | BOS UP    | RANGE      | 69.1 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 42.2 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 40.1 | Memory: 39.2 | Momentum: 47.1 | Activity: 49.9
+    • UNPRICED FLOW   : RemainingUnpricedFlow: +0.00413 log units
+    • FAST IMPULSE    : FastPrice: +0.17 | FastFlow: +0.20
+    • REGRESYON MODEL : Beta: 0.00079 | Beta R²: 0.314
+    • HACİM & AKIŞ    : Dollar RVOL: 0.01x | Volume Percentile: %3.3 | Persistence: %35.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: +0.3%)
+    • BİLEŞEN UYUMU   : Spread: 8.0 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.034793 (+0.41%) | Kaynak: CLV_PROXY_1M · kalite 98/100
+    • SON BÜYÜK EMİR  : [23:00:24] BUY 🟢 $586 @ 0.034630 (TNSRUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 36.3 → 38.0 → 34.6 → 34.1 → 37.4 → 42.2 | Δ1 +4.8 · Δ3 +7.6 · Δ5 +5.9
+    • FATIGUE   : 44.7 → 36.0 → 31.9 → 27.6 → 27.5 → 30.6 | Δ1 +3.1 · Δ3 -1.3 · Δ5 -14.2 | abs 38.9 · rank 35.0
+    • UNPRICED  : +0.0052 → +0.0048 → +0.0053 → +0.0054 → +0.0046 → +0.0041 | Δ1 -0.00043 · Δ3 -0.00114 · Δ5 -0.00111
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $-608 · 5m $+1,739 · 15m $+309 | Alıcı% Δ 1m +8.1 · 5m +37.8
+    • CVD EĞİM  : 3dk $+239/dk (norm +0.933) · 5dk $+199/dk (norm +0.572) · önceki 3dk norm -0.474 → DÖNÜŞ: UP
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |      2 |    1.0 | $            7 |   60s %100 |   0 / $           0 |   0 / $            0 | 🔴   0.0
+         5m | TAM    |     34 |    4.6 | $        1,741 |  300s %100 |   2 / $       1,112 |   0 / $            0 | 🔴  25.7
+        15m | TAM    |    192 |   16.9 | $        6,567 |  900s %100 |   5 / $       2,531 |   2 / $        2,060 | 🟡  45.3
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/MIX   | HH/MIX   | BOS UP (42b/78)      | LOW 0.034500 (+6.53)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (7b)
+     3m | HH/HL    | HH/MIX   | BOS UP (36b/100)     | LOW 0.034370 (+4.89)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (34b)
+     5m | HH/MIX   | HH/MIX   | CHOCH DN (17b/40)    | HIGH 0.034730 (+1.00)   | 0.034725 (0.94/2×)   | 0.034375 (3.43/2×)   | EQH_SWEEP (8b)
+    15m | HH/HL    | HH/MIX   | BOS UP (13b/57)      | LOW 0.034050 (+3.96)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (3b)
+     1h | HH/HL    | HH/HL    | CHOCH UP (21b/66)    | LOW 0.032580 (+5.65)    | — (0 bölge)          | — (0 bölge)          | LOW_SWEEP (26b)
+     4h | HH/MIX   | HH/MIX   | BOS UP (29b/28)      | LOW 0.033000 (+2.18)    | 0.037065 (3.20/2×)   | 0.029225 (7.18/2×)   | EQH_SWEEP (57b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:01:30.725 · 🚨 BAYAT (9.0 sn) — karar verisi değil): Spread 2.89 bps | Dengesizlik top5 -0.33 · top20 +0.00 | Microprice +0.02 bps | Derinlik ±56.3 bps | Alış $16,647 · Satış $16,599
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR: Piyasa sakin, nötr akış.
+==============================================================================
+
+
+==============================================================================
+  🔴 CANLI TAKİP: VELVETUSDT.P (Binance) | 2026-09-17 23:01:43 | [OUTSIDE100] #761
+  SNAPSHOT: VELVET_20260917_230143_289 | sıra #831 | Bar 23:01 CANLI (43. sn)
+  FİYAT: 0.058020  |  1m DEĞİŞİM: -0.14%  |  RVOL: 0.93x
+==============================================================================
+  [1] GERÇEK ALIM-SATIM & CVD AKIŞI (Taker Order-Flow):
+    • DOĞRULAMA         : FLOW SOURCE: BINANCE / VELVETUSDT / FUTURES
+    • PENCERE & EŞLEŞME : FLOW WINDOW: 1m | LAST TRADE SYMBOL: VELVETUSDT
+    • İZOLE HAVUZ       : 753 trade | Son fiyat: 0.058000 | Hata: 0
+    • SENKRON & KAPSAMA : 1 sayfa (continuous) | kapsama 1m %100 · 5m %100 · 15m %100 | son işlem 0.3 sn önce | ağırlık 270/2400
+    • 1 Dakikalık Akış  : Alış: $3,076.5 | Satış: $1,233.4 (117 İşlem)
+      Net CVD           : $+1,843.1 (UP 🟢) | Alıcı Oranı: %71.4
+      Project Z Skoru   : 93.2 / 100
+    • 5 Dakikalık Akış  : Net CVD: $-3,135.6 | Alıcı: %40.2 | CVD: DOWN 🔴
+    • 15 Dakikalık Akış : Net CVD: $+4,531.9 | Alıcı: %53.0
+    • VERİ KONTROLÜ     : son kapanmış bar havuz/kline → hacim 1.000 · işlem 1.000 · alış 1.000
+------------------------------------------------------------------------------
+  [2] DAKİKALIK BİRİKİM & İNDİKATÖR GEÇMİŞİ (Son 6 Mum):
+    SAAT  | FİYAT    | 1m BAR% | ALICI $  | SATICI $ | NET CVD $ | FATIGUE | DURUM   | REALF
+    22:56 | 0.058140 |  -0.12% | $    471 | $    405 | $     +65 |  81.9 🟠 | YORGUN  |  42.6
+    22:57 | 0.058190 |  +0.09% | $  1,922 | $  1,392 | $    +530 |  78.2 🟠 | YORGUN  |  40.4
+    22:58 | 0.058170 |  -0.03% | $     86 | $     57 | $     +29 |  74.6 🟠 | YORGUN  |  37.7
+    22:59 | 0.058150 |  -0.03% | $    745 | $  5,985 | $  -5,240 |  70.9 🟢 | NORMAL  |  44.2
+    23:00 | 0.058100 |  -0.09% | $    651 | $    832 | $    -181 |  65.7 🟢 | NORMAL  |  43.8
+    23:01 | 0.058020 |  -0.14% | $  2,817 | $  1,097 | $  +1,720 |  57.7 🟢 | NORMAL  |  45.5
+------------------------------------------------------------------------------
+  [3] ZPTDIFAT (Yorgunluk) & STRUCTURE v1.2 (MTF Matrisi) — mum: native:
+    TF  | BAR | FATIGUE  | DURUM       || STR SCORE | STR DURUM | STR EVENT | REGIME     | CONF | HAZIR
+     1m | 500 |     57.7 | 🟢 NORMAL    ||      80.5 | 🟢 TR-UP   | CHOCH UP  | TR-UP      | 82.6 | F✓ S✓ R✓
+     3m | 499 |     62.0 | 🟢 NORMAL    ||      27.1 | 🟢 BULL    | BOS UP    | SQZ        | 83.7 | F✓ S✓ R✓
+     5m | 499 |     42.3 | 🟢 NORMAL    ||      29.5 | 🟢 BULL    | BOS UP    | RANGE      | 76.6 | F✓ S✓ R✓
+    15m | 499 |     46.9 | 🟢 NORMAL    ||      85.5 | 🟢 BULL    | BOS UP    | TR UP      | 93.1 | F✓ S✓ R✓
+     1h | 499 |     72.9 | 🟠 YORGUN    ||      73.2 | 🟢 BULL    | BOS UP    | TR UP      | 70.9 | F✓ S✓ R✓
+     4h | 499 |     87.0 | 🔴 ASIRI     ||      47.3 | 🔴 BEAR    | BOS DN    | TR DN      | 65.7 | F✓ S✓ R✓
+------------------------------------------------------------------------------
+  [4] REALF (REALF_PY_V4_2_DERIVED) — Fiyat & Akış Değerleme Dengesi & 12 Tanı Metriği:
+    • GENEL SKOR      : 45.5 / 100 (⚖️ FAIR (DENGE))
+    • 4 BİLEŞEN       : Impact: 43.6 | Memory: 48.2 | Momentum: 45.3 | Activity: 48.1
+    • UNPRICED FLOW   : RemainingUnpricedFlow: +0.00125 log units
+    • FAST IMPULSE    : FastPrice: -0.53 | FastFlow: -0.19
+    • REGRESYON MODEL : Beta: 0.00247 | Beta R²: 0.520
+    • HACİM & AKIŞ    : Dollar RVOL: 0.93x | Volume Percentile: %35.0 | Persistence: %50.0
+    • WHALE DURUMU    : YOK (Son 20 Bar İmzalı Hacim Net: +31.5%)
+    • BİLEŞEN UYUMU   : Spread: 4.6 | Agreement: 1.00 | Hazır: EVET (500 bar)
+    • FLOW-İMA FİYAT  : 0.058092 (+0.12%) | Kaynak: CLV_PROXY_1M · kalite 100/100
+    • SON BÜYÜK EMİR  : [23:01:35] SELL 🔴 $223 @ 0.058002 (VELVETUSDT)
+------------------------------------------------------------------------------
+  [5] DELTA TRACKER (1m bara hizalı: 5 kapanmış bar → canlı bar):
+    • REALF     : 42.6 → 40.4 → 37.7 → 44.2 → 43.8 → 45.5 | Δ1 +1.7 · Δ3 +7.8 · Δ5 +2.9
+    • FATIGUE   : 81.9 → 78.2 → 74.6 → 70.9 → 65.7 → 57.7 | Δ1 -8.0 · Δ3 -16.9 · Δ5 -24.2 | abs 41.7 · rank 32.7
+    • UNPRICED  : -0.0001 → +0.0002 → +0.0006 → -0.0001 → +0.0011 → +0.0013 | Δ1 +0.00010 · Δ3 +0.00060 · Δ5 +0.00137
+    • CVD Δ     : (canlı pencere − 1 dk önceki aynı pencere) 1m $+2,181 · 5m $+3,632 · 15m $+2,017 | Alıcı% Δ 1m +31.2 · 5m +14.1
+    • CVD EĞİM  : 3dk $-1,185/dk (norm -0.290) · 5dk $-1,044/dk (norm -0.327) · önceki 3dk norm -0.147 → DÖNÜŞ: NONE
+------------------------------------------------------------------------------
+  [6] FLOW CONFIDENCE (shadow — hiçbir skora girmez) · TAM/KISMİ = karar-alarm uygunluğu:
+    PENCERE | TAMLIK |  İŞLEM |  n_eff |        HACİM $ | KAPSAMA   | BÜYÜK ALIŞ (adet/$) | BÜYÜK SATIŞ (adet/$) | GÜVEN
+         1m | TAM    |    117 |   12.7 | $        4,310 |   60s %100 |   2 / $       2,679 |   2 / $          446 | 🟡  40.3
+         5m | TAM    |    399 |    9.3 | $       15,987 |  300s %100 |   4 / $       4,317 |   5 / $        7,173 | 🟡  39.9
+        15m | TAM    |   1683 |   95.5 | $       76,897 |  900s %100 |  31 / $      30,897 |  24 / $       29,198 | 🟢  76.6
+------------------------------------------------------------------------------
+  [7] STRUCTURE v1.2 DETAY (dizilim · son olay · korunan seviye · EQH/EQL bölgeleri · likidite; mesafeler ATR):
+    TF  | EXT      | INT      | OLAY (yaş bar/güç)   | KORUNAN (mesafe)        | EQH ↑ (mesafe/temas) | EQL ↓ (mesafe/temas) | LİKİDİTE (yaş)
+     1m | HH/HL    | HH/MIX   | CHOCH UP (12b/60)    | LOW 0.057560 (+3.68)    | 0.059495 (11.81/2×)  | — (0 bölge)          | LOW_SWEEP (31b)
+     3m | LH/LL    | HH/MIX   | BOS UP (44b/48)      | LOW 0.057020 (+3.93)    | — (0 bölge)          | 0.055880 (8.45/2×)   | HIGH_SWEEP (38b)
+     5m | LH/LL    | LH/LL    | BOS UP (46b/47)      | LOW 0.056660 (+3.50)    | — (0 bölge)          | 0.051500 (16.88/2×)  | HIGH_SWEEP (45b)
+    15m | HH/HL    | MIX/HL   | BOS UP (14b/42)      | LOW 0.054330 (+4.30)    | — (0 bölge)          | 0.051500 (7.60/3×)   | HIGH_SWEEP (12b)
+     1h | HH/MIX   | HH/HL    | BOS UP (4b/41)       | LOW 0.049400 (+5.39)    | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (3b)
+     4h | MIX/HL   | MIX/HL   | BOS DN (14b/35)      | HIGH 0.063300 (+2.00)   | — (0 bölge)          | — (0 bölge)          | HIGH_SWEEP (4b)
+------------------------------------------------------------------------------
+  [8] ORDERBOOK (ilk 20 kademe, 23:01:42.576 · yaş 0.7 sn): Spread 5.17 bps | Dengesizlik top5 +0.26 · top20 +0.48 | Microprice +1.05 bps | Derinlik ±35.3 bps | Alış $33,110 · Satış $11,750
+------------------------------------------------------------------------------
+  [9] ANLIK KRİTİK ALARMLAR:
+    🟢 [AGRESİF ALICI]: 1 dakikalık işlemlerde %70+ ezici Taker Alıcı baskısı!
+==============================================================================
+
