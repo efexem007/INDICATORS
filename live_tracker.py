@@ -9,6 +9,7 @@ import time
 from datetime import datetime
 
 import tracker_v2 as tv2
+import shadow_research as research
 
 # Windows konsol UTF-8 ayarı
 if hasattr(sys.stdout, 'reconfigure'):
@@ -22,10 +23,10 @@ SYMBOL_BYBIT = 'LONGXIAUSDT'
 # ═══════════════════════════════════════════════════════════════════════
 # MOTOR DAMGALARI (her snapshot'ta zorunlu alan) — bir formül değişirse damga
 # değişir ki farklı sürümlerin verisi analizde karışmasın.
-# Pine kaynakları ve farklar: LOGGER_V2_ALANLAR.md §9
+# Pine kaynakları ve farklar: BELGELER/LOGGER_V2_ALANLAR.md §9
 # ═══════════════════════════════════════════════════════════════════════
 STRUCTURE_VERSION = "v1.2"                    # STRUCTURE v1.2 Audited (plan/STRUCTURE_v1.1.pine çekirdeği + v1.2 multi-zone/WARM)
-REALF_ENGINE = "REALF_PY_V4_2_DERIVED"        # Pine REALF v4.2'den TÜRETİLMİŞ Python motoru — birebir değil (farklar: LOGGER_V2_ALANLAR.md §9.1)
+REALF_ENGINE = "REALF_PY_V4_2_DERIVED"        # Pine REALF v4.2'den TÜRETİLMİŞ Python motoru — birebir değil (farklar: BELGELER/LOGGER_V2_ALANLAR.md §9.1)
 FATIGUE_VERSION = "ZPTDIFAT_PY_V1_4_DERIVED"  # ZP TDIALT + FATIGUE MTF v1.4 yorgunluk motorundan türetilmiş (farklar: §9.2)
 
 # ═══════════════════════════════════════════════════════════════════════
@@ -999,7 +1000,7 @@ def kline_quality(candles, window=300):
     }
 
 # ═══════════════════════════════════════════════════════════════════════
-# 4. SNAPSHOT KAYDI (JSONL / CSV) — alan sözlüğü: LOGGER_V2_ALANLAR.md
+# 4. SNAPSHOT KAYDI (JSONL / CSV) — alan sözlüğü: BELGELER/LOGGER_V2_ALANLAR.md
 # ═══════════════════════════════════════════════════════════════════════
 
 class TrackerSession:
@@ -1013,6 +1014,22 @@ class TrackerSession:
         self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=8)
         self.cycle_errors = 0
         self.snapshots = 0
+        self.shadow = research.ShadowTracker()
+        self.outages = {}
+        self.recovered_outages = 0
+
+    def note_health(self, symbol, error=None):
+        now = tv2.CLOCK.now_ms()
+        if error is not None:
+            if symbol not in self.outages:
+                self.outages[symbol] = {'start_ms': now, 'last_success_ms': self.last_capture_ms.get(symbol), 'errors': 0}
+            self.outages[symbol]['errors'] += 1
+            return
+        outage = self.outages.pop(symbol, None)
+        if outage and self.run:
+            outage.update(symbol=symbol, recovered_at_ms=now, excluded_from_research=True)
+            tv2._append_text(os.path.join(self.run.run_dir, 'health_events.jsonl'), tv2._json_line(outage))
+            self.recovered_outages += 1
 
 def _alerts(chg_1m, flow, realf, mtf_fat):
     """Alarm kuralları. KISMİ (eksik kapsamalı) akış penceresi ve BAYAT orderbook karar verisi DEĞİLDİR:
@@ -1067,8 +1084,9 @@ def build_snapshot(session, ctx):
     s['flow_confidence_version'] = tv2.FLOW_CONFIDENCE_VERSION
     s['mtf_source'] = session.settings['mtf']
     s['git_commit'] = run.git_commit if run else None
+    s['git_dirty'] = run.git_dirty if run else None
     s['code_fingerprint'] = run.code_fingerprint if run else tv2.code_fingerprint(
-        [os.path.join(SCRIPT_DIR, 'live_tracker.py'), os.path.join(SCRIPT_DIR, 'tracker_v2.py')])
+        [os.path.join(SCRIPT_DIR, p) for p in ('live_tracker.py', 'tracker_v2.py', 'shadow_research.py')])
     s['run_id'] = run.run_id if run else 'no-files'
     s['seq'] = ctx['seq']
     s['snapshot_id'] = ctx['snapshot_id']
@@ -1362,7 +1380,12 @@ def run_single_tracking_cycle(target_sym, session):
             for label, _m, interval in MTF_TFS[1:]:
                 fut_htf[label] = ex.submit(fetch_candles_binance, clean, interval, HTF_KLINE_LIMIT)
         fut_depth = ex.submit(fetch_orderbook_binance, clean) if settings['depth'] else None
-        candles, kline_asof_ms = fut_1m.result()
+        try:
+            candles, kline_asof_ms = fut_1m.result()
+        except Exception:
+            for future in list(fut_htf.values()) + ([fut_depth] if fut_depth else []):
+                future.cancel()
+            raise
         for label, fut in fut_htf.items():
             try:
                 htf[label] = fut.result()
@@ -1434,6 +1457,8 @@ def run_single_tracking_cycle(target_sym, session):
         'alerts': alerts, 'alert_codes': alert_codes, 'div_text': div_text, 'alerts_skipped': alerts_skipped,
     }
     snap, snap_series = build_snapshot(session, ctx)
+    snap.update(research.extension_features(candles, htf.get('1h'), curr_c, kline_asof_ms, snap.get('str_1m_atr_pct')))
+    snap.update(session.shadow.update(snap))
     print_live_dashboard(snap, snap_series, ctx, display_sym)
 
     session.last_capture_ms[sym_key] = captured_at_ms
@@ -1674,7 +1699,7 @@ def parse_args(argv):
     ap.add_argument('--no-depth', action='store_true', help='Orderbook çekme')
     ap.add_argument('--max-pages', type=int, default=5, help='Coin başına tur içinde en fazla aggTrades sayfası (1000 işlem/sayfa)')
     ap.add_argument('--outcomes', nargs='?', const='latest', default=None, metavar='RUN',
-                    help='Takip yerine sonuç değerlendirmesi yap (run klasörü adı ya da latest)')
+                    help='Takip yerine sonuç değerlendirmesi yap (run klasörü adı, latest veya all)')
     ap.add_argument('--selftest', action='store_true', help='Ağsız kendi kendine test')
     ap.add_argument('--allow-sleep', action='store_true',
                     help='Takip açıkken bilgisayarın boşta uyumasına izin ver (varsayılan: uyku engellenir)')
@@ -1690,14 +1715,25 @@ if __name__ == '__main__':
         sys.exit(0 if (ok_infra and ok_engines) else 1)
 
     if args.outcomes is not None:
-        target = tv2.resolve_run_dir(args.log_dir, args.outcomes)
-        if not target or not os.path.isdir(target):
+        targets = ([os.path.join(args.log_dir, name) for name in sorted(os.listdir(args.log_dir))
+                    if name.startswith('run_') and os.path.isdir(os.path.join(args.log_dir, name))]
+                   if args.outcomes == 'all' and os.path.isdir(args.log_dir)
+                   else [tv2.resolve_run_dir(args.log_dir, args.outcomes)])
+        if not targets or any(not target or not os.path.isdir(target) for target in targets):
             print(f"  ⚠️ Değerlendirilecek çalışma bulunamadı ({args.outcomes}) — klasör: {args.log_dir}")
             sys.exit(1)
         tv2.CLOCK.refresh(force=True)
-        print(f"  ⚡ SONUÇ DEĞERLENDİRME: {target}")
-        tv2.offline_evaluate(target)
-        sys.exit(0)
+        incomplete = False
+        for target in targets:
+            print(f"  ⚡ SONUÇ DEĞERLENDİRME: {target}")
+            try:
+                result = tv2.offline_evaluate(target)
+            except (OSError, ValueError) as e:
+                print(f'  ⚠️ Bu çalışma tamamlanamadı: {e}')
+                incomplete = True
+                continue
+            incomplete = incomplete or result['skipped'] > 0 or result['missing_bars'] > 0
+        sys.exit(1 if incomplete else 0)
 
     GROUP_MEVCUT = ['BTCUSDT', 'SOLUSDT', 'SYNUSDT', 'IOSTUSDT', 'SAGAUSDT', 'LONGXIA']
     GROUP_TOP100 = ['ETHUSDT', 'BNBUSDT', 'XRPUSDT', 'DOGEUSDT', 'LINKUSDT',
@@ -1783,7 +1819,7 @@ if __name__ == '__main__':
             print(f"  👉 {hint}")
     if run is not None:
         print(f"  • KAYIT KLASÖRÜ : {run.run_dir}")
-        print("      SAATLİK parçalar: console_YYYYMMDD_HH.txt (bu ekranın TAMAMI) · snapshots_YYYYMMDD_HH.jsonl / .csv (analiz)")
+        print("      SAATLİK parçalar: console_YYYYMMDD_HH.txt (bu ekranın TAMAMI) · snapshots_YYYYMMDD_HH.jsonl (analiz; CSV gerekirse snapshots_csv_uret.py)")
         print("      outcomes.jsonl: 60 dk dolan snapshot'ların sonuçları takip sürerken yazılır (uzun çalışmada durdurmaya gerek yok)")
         print(f"      Kod parmak izi: {run.code_fingerprint} · git: {run.git_commit or 'yok (klasör git deposu değil)'}")
         print("      GPT için günlük tablo: SONUCLARI_HESAPLA.bat (takip SÜRERKEN de çalıştırılabilir) → snapshots_with_outcomes_YYYYMMDD.csv")
@@ -1818,6 +1854,7 @@ if __name__ == '__main__':
     inter_coin_delay = settings['inter_coin_delay']
     cycle_delay = settings['cycle_delay']
     cycle_no = 0
+    failed_rounds = 0
 
     try:
         while True:
@@ -1829,9 +1866,11 @@ if __name__ == '__main__':
                 for sym in track_list:
                     try:
                         run_single_tracking_cycle(sym, session)
+                        session.note_health(sym.upper().replace('.P', '').replace('_', ''))
                     except Exception as e:
                         errors += 1
                         session.cycle_errors += 1
+                        session.note_health(sym.upper().replace('.P', '').replace('_', ''), e)
                         print(f"  ⚠️ [{sym}] Döngü hatası: {type(e).__name__}: {e}")
                         hint = tv2.network_hint(e)
                         if hint and not hint_shown:
@@ -1851,9 +1890,13 @@ if __name__ == '__main__':
                     run.write_meta(last_cycle=cycle_no, snapshots=session.snapshots, outcomes=writer.outcomes,
                                    cycle_errors=session.cycle_errors, gap_events=gaps, write_failures=writer.write_failures,
                                    dropped_bytes=dropped, max_used_weight_1m=tv2.RATE.max_used_weight_1m,
+                                   active_outages=session.outages, recovered_outages=session.recovered_outages,
+                                   outcomes_pending=sum(len(q) for q in outcomes.pending.values()),
+                                   outcomes_deferred_offline=outcomes.deferred_offline,
                                    updated_at_ms=int(time.time() * 1000))
                 _flush_console()
-                time.sleep(cycle_delay)
+                failed_rounds = failed_rounds + 1 if errors == len(track_list) else 0
+                time.sleep(max(cycle_delay, min(60, 5 * 2 ** min(failed_rounds, 4))) if failed_rounds else cycle_delay)
             except KeyboardInterrupt:
                 raise
             except Exception as e:
@@ -1865,8 +1908,12 @@ if __name__ == '__main__':
         if writer is not None:
             writer.flush()
             run.write_meta(stopped_at_ms=int(time.time() * 1000), snapshots=session.snapshots, outcomes=writer.outcomes,
-                           cycle_errors=session.cycle_errors, write_failures=writer.write_failures)
+                           cycle_errors=session.cycle_errors, write_failures=writer.write_failures,
+                           active_outages=session.outages, recovered_outages=session.recovered_outages,
+                           outcomes_pending=sum(len(q) for q in outcomes.pending.values()),
+                           outcomes_deferred_offline=outcomes.deferred_offline)
             print(f"  💾 Kayıt: {run.run_dir} · {writer.snapshots} snapshot · {writer.outcomes} sonuç")
+            print('  Son 60 dakika ve eksik sonuçlar için SONUCLARI_HESAPLA.bat dosyasını daha sonra çalıştırın.')
             if writer.write_failures:
                 print(f"  ⚠️ {writer.write_failures} yazma denemesi başarısız oldu (OneDrive kilidi?) — veriler tamponda kaldıysa kaybolmuş olabilir.")
         if sink is not None:

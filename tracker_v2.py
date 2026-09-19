@@ -14,7 +14,7 @@ Structure motorları live_tracker.py'dedir); yalnızca ölçer ve kaydeder:
     snapshots.csv + outcomes.jsonl olarak yazar.
   • Sonuç değerlendirici: forward return + MFE/MAE (canlı ve sonradan).
 
-Alan sözlüğü ve tanımlar: LOGGER_V2_ALANLAR.md
+Alan sözlüğü ve tanımlar: BELGELER/LOGGER_V2_ALANLAR.md
 Kendi kendine test:      python tracker_v2.py selftest
 """
 import bisect
@@ -34,7 +34,7 @@ import urllib.request
 from collections import deque
 from datetime import datetime
 
-TRACKER_VERSION = "v2"
+TRACKER_VERSION = "v2.1-shadow"
 DATASET_SCHEMA = 2
 
 # Her snapshot'ta bulunması ZORUNLU alanlar (eksik/None ise kayıt hatalı sayılır).
@@ -975,14 +975,24 @@ class RunContext:
         self.run_dir = os.path.join(base_dir, f"run_{self.run_id}")
         os.makedirs(self.run_dir, exist_ok=True)
         self.seq = 0
-        self.code_fingerprint = code_fingerprint([os.path.join(script_dir, 'live_tracker.py'), os.path.join(script_dir, 'tracker_v2.py')])
+        self.code_fingerprint = code_fingerprint([os.path.join(script_dir, p) for p in ('live_tracker.py', 'tracker_v2.py', 'shadow_research.py')])
         self.git_commit = git_commit(script_dir)
+        try:
+            status = subprocess.run(['git', '-C', script_dir, 'status', '--porcelain', '--',
+                                     'live_tracker.py', 'tracker_v2.py', 'shadow_research.py'],
+                                    capture_output=True, text=True, timeout=3)
+            self.git_dirty = bool(status.stdout.strip()) if status.returncode == 0 else None
+        except (OSError, subprocess.SubprocessError):
+            self.git_dirty = None
         self.meta = {
             'run_id': self.run_id, 'started_at_ms': self.started_ms, 'argv': argv,
             'python': sys.version.split()[0], 'tracker_version': TRACKER_VERSION, 'dataset_schema': DATASET_SCHEMA,
             'code_fingerprint': self.code_fingerprint, 'git_commit': self.git_commit, 'settings': settings,
+            'git_dirty': self.git_dirty, 'shadow_version': 'shadow-v1', 'hourly_csv': WRITE_HOURLY_CSV,
             'files': {'console': 'console_YYYYMMDD_HH.txt (saatlik)', 'snapshots_jsonl': 'snapshots_YYYYMMDD_HH.jsonl (saatlik)',
-                      'snapshots_csv': 'snapshots_YYYYMMDD_HH.csv (saatlik, her parçada başlık)', 'outcomes_jsonl': 'outcomes.jsonl',
+                      'snapshots_csv': ('snapshots_YYYYMMDD_HH.csv (saatlik, her parçada başlık)' if WRITE_HOURLY_CSV
+                                        else 'kapalı — JSONL asıl kaynak; gerekirse snapshots_csv_uret.py üretir'),
+                      'outcomes_jsonl': 'outcomes.jsonl',
                       'merged_csv': 'snapshots_with_outcomes_YYYYMMDD.csv (günlük, SONUCLARI_HESAPLA.bat üretir)'},
         }
         self.write_meta()
@@ -1021,10 +1031,16 @@ def _csv_cell(v):
     return '' if v is None else v
 
 
+# Saatlik CSV, JSONL'in skaler alt kümesidir: aynı satırlar ikinci kez diske yazılır.
+# Varsayılan kapalı; gerekirse `python snapshots_csv_uret.py <run>` ile JSONL'den
+# birebir üretilir. Böylece kayıt eksilmeden dosya sayısı 3'ten 2'ye iner.
+WRITE_HOURLY_CSV = False
+
+
 class SnapshotWriter:
     """Saatlik parçalar (snapshot'ın yakalandığı yerel saate göre):
-         snapshots_YYYYMMDD_HH.jsonl  tam kayıt: skalerler + seriler
-         snapshots_YYYYMMDD_HH.csv    yalnız skalerler; sütunlar çalışma boyunca sabit, her parçada başlık var
+         snapshots_YYYYMMDD_HH.jsonl  tam kayıt: skalerler + seriler (asıl kaynak)
+         snapshots_YYYYMMDD_HH.csv    yalnız skalerler; WRITE_HOURLY_CSV açıksa yazılır
        Tek dosya: outcomes.jsonl (küçük; ~0,5 KB / snapshot)."""
 
     def __init__(self, run_dir):
@@ -1060,6 +1076,9 @@ class SnapshotWriter:
         full = dict(flat)
         full.update(series)
         self._jsonl.add(key, _json_line(full))
+        if not WRITE_HOURLY_CSV:
+            self.snapshots += 1
+            return
         if self.csv_fields is None:
             self.csv_fields = list(flat.keys())
             self._csv_field_set = set(self.csv_fields)
@@ -1114,7 +1133,7 @@ def bars_from_candles(candles, now_ms):
 
 
 def evaluate_outcome(entry_price, t0_ms, bars, now_ms):
-    """Tanımlar (LOGGER_V2_ALANLAR.md):
+    """Tanımlar (BELGELER/LOGGER_V2_ALANLAR.md):
       fwd_ret_Hm : t0+H dakikaya EN YAKIN 1m bar kapanışının entry'ye göre % getirisi (±30 sn çözünürlük).
       mfe_Hm/mae_Hm : t0 → o çıkış kapanışı arasındaki en yüksek/en düşük fiyatın % sapması.
                       Yol = entry + yakalama barının KAPANIŞI + sonraki barların high/low'u
@@ -1170,6 +1189,7 @@ class LiveOutcomeTracker:
         self.writer = writer
         self.run_id = run_id
         self.pending = {}
+        self.deferred_offline = 0
 
     def register(self, symbol, snapshot_id, t0_ms, entry_price):
         self.pending.setdefault(symbol, deque()).append((snapshot_id, t0_ms, entry_price))
@@ -1180,15 +1200,20 @@ class LiveOutcomeTracker:
             return 0
         written = 0
         bars = None
-        while q:
-            sid, t0, entry = q[0]
+        # A missing bar must neither produce a partial outcome nor block later entries.
+        for _ in range(len(q)):
+            sid, t0, entry = q.popleft()
             if ((t0 + max(HORIZONS_MIN) * 60_000 + 30_000) // 60_000) * 60_000 > now_ms:
-                break
+                q.append((sid, t0, entry))
+                continue
             if bars is None:
                 bars = bars_from_candles(candles_1m, now_ms)
             res = evaluate_outcome(entry, t0, bars, now_ms)
-            q.popleft()
-            if res is None:
+            if res is None or not res['outcome_complete']:
+                if bars and t0 < bars[0][0]:
+                    self.deferred_offline += 1  # durable snapshot remains available to offline repair
+                else:
+                    q.append((sid, t0, entry))
                 continue
             rec = {'snapshot_id': sid, 'symbol': symbol, 'run_id': self.run_id, 't0_ms': t0, 'entry_price': entry,
                    'OUTCOME_VERSION': OUTCOME_VERSION, 'evaluated_at_ms': now_ms, 'source': 'live'}
@@ -1279,6 +1304,40 @@ def _read_snapshot_index(parts):
     return snaps
 
 
+def snapshot_json_parts(run_dir):
+    parts = [(name[10:18], os.path.join(run_dir, name)) for name in sorted(os.listdir(run_dir))
+             if re.fullmatch(r'snapshots_\d{8}_\d{2}\.jsonl', name)]
+    legacy = os.path.join(run_dir, 'snapshots.jsonl')
+    return parts or ([('', legacy)] if os.path.exists(legacy) else [])
+
+
+def iter_snapshot_json(parts, allow_partial=False):
+    for _day, path in parts:
+        with open(path, encoding='utf-8') as f:
+            for line_no, line in enumerate(f, 1):
+                try:
+                    row = json.loads(line)
+                except ValueError as e:
+                    if allow_partial and not line.endswith('\n'):
+                        continue
+                    raise ValueError(f'Bozuk snapshot: {path}:{line_no}') from e
+                if not isinstance(row, dict) or not row.get('snapshot_id'):
+                    raise ValueError(f'Geçersiz snapshot: {path}:{line_no}')
+                yield row
+
+
+def validate_snapshot_inventory(run_dir, count):
+    """Fail before writing if a historical run lost source partitions."""
+    meta_path = os.path.join(run_dir, 'run_meta.json')
+    if os.path.exists(meta_path):
+        with open(meta_path, encoding='utf-8') as f:
+            meta = json.load(f)
+        expected = meta.get('snapshots', 0)
+        if expected > count:
+            raise ValueError(f'Kaynak snapshot eksik: run_meta={expected}, okunan={count}. '
+                             'Eksik/değişen log parçalarını kontrol edin; mevcut raporların üzerine yazılmadı.')
+
+
 def offline_evaluate(run_dir, now_ms=None, fetch_bars=None, verbose=True):
     """Çalışma bittikten sonra (veya SÜRERKEN) eksik sonuçları Binance 1m mumlarıyla hesaplar,
     outcomes.jsonl'e ekler ve günlük snapshots_with_outcomes_YYYYMMDD.csv dosyalarını yeniden üretir.
@@ -1287,11 +1346,20 @@ def offline_evaluate(run_dir, now_ms=None, fetch_bars=None, verbose=True):
     now_ms = now_ms or CLOCK.now_ms()
     out_path = os.path.join(run_dir, 'outcomes.jsonl')
     parts = snapshot_csv_parts(run_dir)
-    if not parts:
+    json_parts = snapshot_json_parts(run_dir)
+    if not parts and not json_parts:
         raise FileNotFoundError(os.path.join(run_dir, 'snapshots_YYYYMMDD_HH.csv'))
-    snaps = _read_snapshot_index(parts)
     # Takip hâlâ çalışıyorsa son sonuçları canlı değerlendirici yazacak; çift kayıt olmasın diye 6 dk pay bırakılır.
     live_run = run_is_live(run_dir)
+    if json_parts:
+        snaps = [{'snapshot_id': s['snapshot_id'], 'symbol': s['symbol'], 'provider': s.get('provider'),
+                  'run_id': s.get('run_id'), 't0': s.get('kline_asof_ms') or s['captured_at_ms'], 'price': s['price']}
+                 for s in iter_snapshot_json(json_parts, live_run)]
+    else:
+        snaps = _read_snapshot_index(parts)
+    snaps = list({s['snapshot_id']: s for s in snaps}.values())
+    validate_snapshot_inventory(run_dir, len(snaps))
+    snapshot_ids = {s['snapshot_id'] for s in snaps}
     extra_ms = 6 * 60_000 if live_run else 0
 
     done = {}
@@ -1302,7 +1370,7 @@ def offline_evaluate(run_dir, now_ms=None, fetch_bars=None, verbose=True):
                     r = json.loads(line)
                 except json.JSONDecodeError:
                     continue
-                if r.get('outcome_complete'):
+                if r.get('outcome_complete') and r.get('snapshot_id') in snapshot_ids:
                     done[r['snapshot_id']] = r
 
     todo = {}
@@ -1356,8 +1424,12 @@ def offline_evaluate(run_dir, now_ms=None, fetch_bars=None, verbose=True):
               f"henüz olgunlaşmamış {immature} | eksik mum {missing_bars} | atlanan {skipped}")
         for path in merged:
             print(f"     Birleşik tablo: {path}")
-    return {'snapshots': len(snaps), 'complete': len(done), 'written': len(new_records), 'immature': immature,
-            'missing_bars': missing_bars, 'skipped': skipped, 'merged_files': merged}
+    summary = {'snapshots': len(snaps), 'complete': len(done), 'written': len(new_records), 'immature': immature,
+               'missing_bars': missing_bars, 'skipped': skipped, 'merged_files': merged,
+               'evaluated_at_ms': now_ms, 'remaining': len(snaps) - len(done)}
+    with open(os.path.join(run_dir, 'outcome_audit.json'), 'w', encoding='utf-8') as f:
+        json.dump(summary, f, ensure_ascii=False, indent=2)
+    return summary
 
 
 OUTCOME_COLUMNS = ([f'fwd_ret_{h}m' for h in HORIZONS_MIN] +
@@ -1367,6 +1439,33 @@ OUTCOME_COLUMNS = ([f'fwd_ret_{h}m' for h in HORIZONS_MIN] +
 def write_merged_csv(run_dir, outcomes_by_id, parts=None):
     """Gün başına tek birleşik tablo: saatlik CSV parçaları + sonuç sütunları → snapshots_with_outcomes_YYYYMMDD.csv
     (eski tek dosya düzeninde snapshots_with_outcomes.csv). Dosya Excel'de açıksa .tmp olarak bırakılır."""
+    json_parts = snapshot_json_parts(run_dir)
+    if json_parts:
+        outputs = []
+        allow_partial = run_is_live(run_dir)
+        for day in sorted({d for d, _ in json_parts}):
+            selected = [(d, p) for d, p in json_parts if d == day]
+            header = list(dict.fromkeys(k for s in iter_snapshot_json(selected, allow_partial)
+                                       for k, v in s.items() if not isinstance(v, (list, dict)) and k not in OUTCOME_COLUMNS))
+            dst = os.path.join(run_dir, f'snapshots_with_outcomes_{day}.csv' if day else 'snapshots_with_outcomes.csv')
+            tmp = dst + '.tmp'
+            seen = set()
+            with open(tmp, 'w', encoding='utf-8', newline='') as f:
+                writer = csv.writer(f, lineterminator='\n')
+                writer.writerow(header + OUTCOME_COLUMNS)
+                for s in iter_snapshot_json(selected, allow_partial):
+                    if s['snapshot_id'] in seen:
+                        continue
+                    seen.add(s['snapshot_id'])
+                    outcome = outcomes_by_id.get(s['snapshot_id'], {})
+                    writer.writerow([_csv_cell(s.get(k)) for k in header] + [_csv_cell(outcome.get(k)) for k in OUTCOME_COLUMNS])
+            try:
+                os.replace(tmp, dst)
+                outputs.append(dst)
+            except OSError:
+                print(f'  Tablo açık/kilitli; yeni tablo: {tmp}')
+                outputs.append(tmp)
+        return outputs
     parts = parts if parts is not None else snapshot_csv_parts(run_dir)
     by_day = {}
     for day, path in parts:
@@ -1545,6 +1644,10 @@ def selftest():
     check('fwd_ret_1m (50. sn) sonraki bar', res1 and res1['fwd_ret_1m'] == round((100.1 - 100) / 100 * 100, 4), str(res1 and res1['fwd_ret_1m']))
 
     # 7) yazıcı (saatlik parçalar) + çevrimdışı günlük birleşik tablo
+    # Saatlik CSV üretimde kapalı; yeteneği çürümesin diye öz-testte açık ölçülür ve
+    # ayrıca kapalıyken yazılmadığı doğrulanır.
+    global WRITE_HOURLY_CSV
+    csv_default, WRITE_HOURLY_CSV = WRITE_HOURLY_CSV, True
     with tempfile.TemporaryDirectory() as tmp:
         w = SnapshotWriter(tmp)
         times = [t0, t0 + 60_000, t0 + 120_000, t0 + 2 * 3_600_000, t0 + 24 * 3_600_000]   # aynı saat ×3, +2 saat, +1 gün
@@ -1574,6 +1677,18 @@ def selftest():
         with open(os.path.join(tmp, f'snapshots_with_outcomes_{k0[:8]}.csv'), encoding='utf-8') as f:
             merged = list(csv.DictReader(f))
         check('birleşik tabloda fwd_ret_5m dolu', len(merged) == (4 if k1[:8] == k0[:8] else 3) and merged[0]['fwd_ret_5m'] != '')
+    WRITE_HOURLY_CSV = csv_default
+    with tempfile.TemporaryDirectory() as tmp:          # varsayılan: CSV yazılmaz, JSONL tam kalır
+        w2 = SnapshotWriter(tmp)
+        flat = {'snapshot_id': 'TST_OFF', 'symbol': 'TESTUSDT', 'provider': 'BINANCE', 'run_id': 'x',
+                'kline_asof_ms': t0, 'captured_at_ms': t0, 'price': 100.0, **req}
+        w2.add_snapshot(flat, {'realf_series': [1, 2, 3]})
+        w2.flush()
+        key = hour_key(t0)
+        check('saatlik CSV kapalıyken yazılmaz', not os.path.exists(os.path.join(tmp, f'snapshots_{key}.csv'))
+              if not WRITE_HOURLY_CSV else True)
+        check('CSV kapalıyken JSONL tam', len(open(os.path.join(tmp, f'snapshots_{key}.jsonl'), encoding='utf-8').read().splitlines()) == 1
+              and w2.snapshots == 1)
 
         sink_now = [times[0]]
         sink = ConsoleSink(tmp, now=lambda: sink_now[0])
